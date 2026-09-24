@@ -1,1 +1,37 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#0b0614"><title>Content manager — Irisha Concierge</title><link rel="cms-config-url" type="text/yaml" href="/admin/config.yml"><link rel="stylesheet" href="/styles.css"></head><body><main class="admin-setup" id="admin-status"><a class="eyebrow" href="/">IRISHA CONCIERGE</a><h1>Your content.<br><em>In your hands.</em></h1><p id="admin-message" role="status">Opening your content manager…</p><section id="setup-instructions" hidden><p>Your editor is ready for a one-time connection to your website’s GitHub repository.</p><ol><li>Set your repository in <code>admin/config.yml</code>.</li><li>Connect that repository to Cloudflare Pages with <code>npm run build:pages</code> and output directory <code>dist</code>.</li><li>Configure the GitHub OAuth app and the four environment settings listed in the project’s <code>README.md</code>.</li></ol><p>Then return here to edit offers, prices, sacred circuits, fleet and contact details.</p><a class="button button-outline" href="/">Return to the website</a></section><noscript><p>Please enable JavaScript to use the content manager.</p></noscript></main><script src="/admin/admin.js" defer></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#0b0614">
+  <title>Content manager — Irisha Concierge</title>
+  <link rel="cms-config-url" type="text/yaml" href="/admin/config.yml">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="admin-setup" id="admin-status">
+    <a class="eyebrow" href="/">IRISHA CONCIERGE</a>
+    <h1>Content<br><em>manager.</em></h1>
+    <p id="admin-message" role="status">Checking your editor setup…</p>
+    <section id="setup-instructions" aria-label="CMS sign-in setup" hidden>
+      <p>The sign-in button is not available because this editor has not been connected to your business’s GitHub repository and authentication service.</p>
+      <p><strong>Next step:</strong> choose the GitHub repository that will store your website content. Its URL is needed to complete the connection.</p>
+      <details>
+        <summary>What needs to be connected?</summary>
+        <ol>
+          <li><strong>Website content:</strong> replace the placeholder repository in <code>admin/config.yml</code> with your actual GitHub owner and repository name.</li>
+          <li><strong>Publishing:</strong> connect that repository to Cloudflare Pages using build command <code>npm run build:pages</code> and output directory <code>dist</code>.</li>
+          <li><strong>GitHub sign-in:</strong> configure the OAuth application and the hosting settings <code>SITE_URL</code>, <code>GITHUB_REPO</code>, <code>GITHUB_CLIENT_ID</code> and <code>GITHUB_CLIENT_SECRET</code>. Store the client secret in the hosting provider’s secret settings.</li>
+          <li><strong>CMS address:</strong> align the production domain, CMS configuration and OAuth callback. Open the connected production website’s <code>/admin/</code> page to sign in.</li>
+        </ol>
+        <p>This Sites review deployment does not automatically connect the business domain, GitHub sign-in or Cloudflare publishing.</p>
+      </details>
+      <p>Once the connection is complete, sign in with an authorised GitHub account to edit offers, prices, sacred circuits, fleet and homepage content.</p>
+      <a class="button button-outline" href="/">Return to the website</a>
+    </section>
+    <noscript><p>Please enable JavaScript to use the content manager.</p></noscript>
+  </main>
+  <script src="/admin/admin.js" defer></script>
+</body>
+</html>

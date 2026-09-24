@@ -5,7 +5,7 @@
     if(!response.ok)throw Error('The editor configuration could not be loaded.');
     const config=await response.text();
     if(config.includes('REPLACE_WITH_GITHUB_OWNER')){
-      message.textContent='One-time setup required';
+      message.textContent='CMS sign-in is not configured yet.';
       document.getElementById('setup-instructions').hidden=false;
       return;
     }
