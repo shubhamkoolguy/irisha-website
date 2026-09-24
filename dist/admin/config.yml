@@ -28,19 +28,20 @@ collections:
     - label: Tagline
       name: tagline
       widget: string
+    - label: Search Result Title
+      name: seo_title
+      widget: string
+      required: false
     - label: Description
       name: description
       widget: text
     - label: Website URL
       name: site_url
       widget: string
-    - label: Hero Eyebrow
-      name: hero_eyebrow
-      widget: string
     - label: Hero Heading
       name: hero_heading
       widget: string
-    - label: Hero Heading Second
+    - label: Hero Heading Second Line
       name: hero_heading_second
       widget: string
     - label: Hero Description
@@ -49,8 +50,8 @@ collections:
     - label: Hero Button Label
       name: hero_cta
       widget: string
-    - label: Hero Pricing Note
-      name: hero_quote_note
+    - label: Hero Trip Specifications
+      name: hero_spec
       widget: string
     - label: Hero Image
       name: hero_image

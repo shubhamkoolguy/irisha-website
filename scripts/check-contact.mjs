@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
-import {getCaptchaConfig,verifyContact} from '../server/contact-worker.mjs';
+import {getCaptchaConfig,verifyContact,contentSecurityPolicy} from '../server/contact-worker.mjs';
+import {onRequest as adminHeaders} from '../functions/admin/_middleware.js';
 const site='https://irisha.example';
 const env={RECAPTCHA_SITE_KEY:'configured-key',RECAPTCHA_SECRET_KEY:'configured-secret',RECAPTCHA_ALLOWED_HOSTNAMES:'irisha.example',CONTACT_WHATSAPP:'919876543210'};
 const make=(body={token:'valid-token',company_website:''},options={})=>new Request(site+'/api/contact',{method:'POST',headers:{'Content-Type':'application/json',Origin:site,...options.headers},body:typeof body==='string'?body:JSON.stringify(body),...options.init});
@@ -53,6 +54,19 @@ assert.equal(unconfiguredHomepage.status,200,'Missing CAPTCHA keys must not prev
 const admin=await worker.default.fetch(new Request(site+'/admin/'),env);
 assert.equal(admin.headers.get('x-frame-options'),'SAMEORIGIN');
 assert.equal(admin.headers.get('content-security-policy').split('frame-ancestors ')[1],"'self'",'Keep CMS embedding restricted');
+assert(!homepage.headers.get('content-security-policy').includes("'unsafe-eval'"),'Public pages must reject string evaluation');
+assert(admin.headers.get('content-security-policy').includes("'unsafe-eval'"),'Decap configuration validation requires string evaluation');
+const pagesRoutes=JSON.parse(await readFile('dist/_routes.json','utf8'));
+for(const route of ['/admin/','/admin/index.html']) {
+ assert(pagesRoutes.include.includes(route),'Route editor HTML through its Pages middleware');
+ const response=await adminHeaders({request:new Request(site+route),next:async()=>new Response('CMS',{headers:{'Content-Security-Policy':contentSecurityPolicy(),'Content-Type':'text/html'}})});
+ assert.equal(await response.text(),'CMS');
+ assert.equal(response.headers.get('content-security-policy'),contentSecurityPolicy({admin:true}),'Replace the inherited policy rather than appending a second policy');
+ assert.equal(response.headers.get('x-frame-options'),'SAMEORIGIN');
+ assert.equal(response.headers.get('x-robots-tag'),'noindex, nofollow');
+}
+const publicResponse=await adminHeaders({request:new Request(site+'/'),next:async()=>new Response('Public',{headers:{'Content-Security-Policy':contentSecurityPolicy()}})});
+assert(!publicResponse.headers.get('content-security-policy').includes("'unsafe-eval'"),'Never relax public policy if middleware routing changes');
 const asset=await worker.default.fetch(new Request(site+'/assets/varanasi-hero.webp'),env);
 assert.equal(asset.headers.get('content-type'),'image/webp');assert((await asset.arrayBuffer()).byteLength>10000);
 assert.equal((await worker.default.fetch(new Request(site+'/does-not-exist'),env)).status,404);

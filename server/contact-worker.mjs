@@ -57,6 +57,12 @@ export async function verifyContact(request,env) {
   }catch{return reply({error:unavailable},503);}
 }
 const contentTypes={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.json':'application/json; charset=utf-8','.yml':'text/yaml; charset=utf-8','.xml':'application/xml; charset=utf-8','.txt':'text/plain; charset=utf-8','.webp':'image/webp','.svg':'image/svg+xml','.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.woff2':'font/woff2'};
+// Decap's configuration validator generates JavaScript at runtime. Scope that
+// exception to the editor; public pages must continue to reject string eval.
+export function contentSecurityPolicy({admin=false,allowChatGPT=false}={}) {
+  const frameAncestors=!admin && allowChatGPT ? "'self' https://chatgpt.com" : "'self'";
+  return "default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ 'unsafe-inline'"+(admin?" 'unsafe-eval'":"")+"; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https:; connect-src 'self' https://api.github.com https://github.com https://cdn.jsdelivr.net https://www.google.com/recaptcha/; frame-src 'self' blob: https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors "+frameAncestors;
+}
 export default {
   async fetch(request,env) {
     const url=new URL(request.url);
@@ -64,6 +70,7 @@ export default {
     if(url.pathname==='/api/contact')return verifyContact(request,env);
     if(request.method!=='GET' && request.method!=='HEAD')return reply({error:'Method not allowed.'},405);
     if(url.pathname==='/admin')return new Response(null,{status:301,headers:{Location:'/admin/'}});
+    if(url.pathname==='/index.html')return new Response(null,{status:301,headers:{Location:'/'+url.search}});
     const key=url.pathname==='/'?'/index.html':url.pathname==='/admin/'?'/admin/index.html':url.pathname;
     const found=EMBEDDED_ASSETS && Object.hasOwn(EMBEDDED_ASSETS,key);
     const item=EMBEDDED_ASSETS?.[found?key:'/404.html'];
@@ -71,13 +78,12 @@ export default {
     const isAdmin=key.startsWith('/admin/');
     // Sites is shown inside ChatGPT. Permit that exact parent for public pages,
     // while keeping the CMS restricted to its own origin.
-    const frameAncestors=isAdmin?"'self'":"'self' https://chatgpt.com";
     const headers={
       'Content-Type':contentTypes[(found?key:'/404.html').match(/\.[^.]+$/)?.[0]]||'application/octet-stream',
       'X-Content-Type-Options':'nosniff','Referrer-Policy':'strict-origin-when-cross-origin',
       'Permissions-Policy':'camera=(), microphone=(), geolocation=()',
       'Cache-Control':key.startsWith('/assets/')?'public, max-age=86400':'no-cache',
-      'Content-Security-Policy':"default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https:; connect-src 'self' https://api.github.com https://github.com https://cdn.jsdelivr.net https://www.google.com/recaptcha/; frame-src 'self' blob: https://www.google.com/recaptcha/ https://recaptcha.google.com/recaptcha/; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors "+frameAncestors
+      'Content-Security-Policy':contentSecurityPolicy({admin:isAdmin,allowChatGPT:true})
     };
     if(isAdmin){headers['X-Robots-Tag']='noindex, nofollow';headers['X-Frame-Options']='SAMEORIGIN';}
     return new Response(request.method==='HEAD'?null:Uint8Array.from(atob(item),c=>c.charCodeAt(0)),{status:found?200:404,headers});

@@ -12,3 +12,11 @@ Direct Pexels downloads:
 
 - https://images.pexels.com/photos/8112552/pexels-photo-8112552.jpeg?cs=srgb&dl=pexels-rachel-claire-8112552.jpg&fm=jpg
 - https://images.pexels.com/photos/30673215/pexels-photo-30673215.jpeg?cs=srgb&dl=pexels-krishclicknature-30673215.jpg&fm=jpg
+
+## Brand identity
+- `dist/assets/irisha-full-logo.png`: original FullLogo (2).png supplied by the owner on 2026-09-24; used in navigation, footer and CMS.
+- `dist/assets/irisha-favicon.svg`: square SVG viewport containing the same supplied artwork, focused on its central symbol.
+
+## Transparent brand replacement
+- `dist/assets/irisha-transparent-logo.png`: unmodified owner-supplied FullLogo_Transparent_NoBuffer (1)(3).png (1280 × 1391 RGBA), replaces the background-bearing logo in header, footer and CMS. Native PNG transparency is used without blend modes.
+- `dist/assets/irisha-transparent-favicon.svg`: symbol-only SVG viewport of that same transparent PNG.
