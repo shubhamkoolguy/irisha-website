@@ -1,0 +1,9 @@
+node_modules/
+.env
+.env.*
+!.env.example
+.sites-runtime/
+*.tar.gz
+
+dist/server/
+dist/.openai/

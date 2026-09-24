@@ -1,0 +1,9 @@
+{
+  "title":"Innova Hycross", "slug":"hycross", "active":true, "featured":false, "order":3,
+  "category":"A NEW LEVEL OF REFINEMENT", "seats":"Premium family travel", "audience":"A quieter kind of luxury.",
+  "description":"Contemporary refinement for family escapes and executive transfers. Settle in and enjoy your own space.",
+  "image":"", "image_alt":"", "image_note":"",
+  "features":["Refined cabin", "Private chauffeur", "Premium family comfort", "Door-to-door transfers"],
+  "starting_price":0, "price_unit":"per day", "price_label":"Tailored to your route",
+  "details":"An elevated option for private family and executive journeys. Tell us your dates and passenger count so we can confirm the right vehicle configuration, luggage space and an all-inclusive quote."
+}

@@ -1,0 +1,9 @@
+{
+  "title":"Innova Crysta", "slug":"crysta", "active":true, "featured":false, "order":2,
+  "category":"TIMELESS COMFORT", "seats":"Family & executive travel", "audience":"Familiar comfort. Effortless journeys.",
+  "description":"A refined choice for private family journeys, airport pickups and unhurried intercity travel.",
+  "image":"", "image_alt":"", "image_note":"",
+  "features":["Private chauffeur", "Comfortable family seating", "Air-conditioned cabin", "Flexible pickup & route"],
+  "starting_price":0, "price_unit":"per day", "price_label":"Tailored to your route",
+  "details":"Plan airport transfers, an intercity itinerary or a full day at your own pace. Your concierge confirms seating, luggage needs, inclusions and the complete fare before you book."
+}

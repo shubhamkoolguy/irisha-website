@@ -1,0 +1,156 @@
+{
+  "title": "The Sacred Triangle",
+  "slug": "sacred-triangle",
+  "active": true,
+  "featured": true,
+  "order": 1,
+  "eyebrow": "THE IRISHA SIGNATURE",
+  "headline": "Three sacred cities.\nOne seamless journey.",
+  "destinations": [
+    "Varanasi",
+    "Ayodhya",
+    "Prayagraj"
+  ],
+  "description": "Three sacred cities, with flights, luxury stays, private travel and meaningful rituals coordinated by your dedicated concierge. Every day is shaped around your pace and preferences.",
+  "image": "/assets/ganga-aarti.webp",
+  "image_alt": "Evening Ganga Aarti ceremony in Varanasi",
+  "image_caption": "VARANASI · THE ETERNAL CITY",
+  "duration": "5 Days / 4 Nights",
+  "price_label": "Your journey. Your personalised quote.",
+  "starting_price": 0,
+  "price_unit": "per person",
+  "inclusions": [
+    {
+      "icon": "plane",
+      "title": "Flights, personally coordinated",
+      "description": "End-to-end domestic flight bookings and seat allocations coordinated directly by your concierge."
+    },
+    {
+      "icon": "stay",
+      "title": "Sanctuary & transit",
+      "description": "Luxury boutique hotel stays and private, chauffeur-driven intercity transfers, with Force Urbania or Innova Hycross options."
+    },
+    {
+      "icon": "temple",
+      "title": "Assisted VIP Darshan",
+      "description": "Assistance with authorised VIP or priority Darshan passes to bypass ordinary queues where the temple offers this service."
+    },
+    {
+      "icon": "boat",
+      "title": "Your private Ganga",
+      "description": "An exclusively reserved private boat for Ganga Aarti and an intimate viewing of all 84 ghats."
+    },
+    {
+      "icon": "sparkle",
+      "title": "Sacred rites, thoughtfully managed",
+      "description": "Rudrabhishek, Pind Daan and other chosen Vedic rituals, respectfully coordinated with senior temple priests."
+    }
+  ],
+  "notes": "Darshan passes and priority access are subject to temple rules and availability. Boat routes, the full 84-ghat viewing and Aarti arrangements depend on river conditions and local permissions.",
+  "itinerary": [
+    {
+      "place": "Varanasi",
+      "title": "Arrive and settle into Kashi",
+      "description": "A gentle beginning, with time to rest after your flight.",
+      "overnight": "Varanasi · night 1 of 4",
+      "schedule": [
+        {
+          "period": "Arrival",
+          "description": "Meet your chauffeur for a private airport transfer to your luxury boutique hotel."
+        },
+        {
+          "period": "Afternoon",
+          "description": "Check in and unwind, with your arrival arrangements coordinated by your concierge."
+        },
+        {
+          "period": "Evening",
+          "description": "Review your Darshan plans, ritual preferences and the days ahead with your concierge."
+        }
+      ]
+    },
+    {
+      "place": "Varanasi",
+      "title": "Darshan, sacred rites and the Ganga",
+      "description": "A day of devotion, with time to pause between experiences.",
+      "overnight": "Varanasi · night 2 of 4",
+      "schedule": [
+        {
+          "period": "Morning",
+          "description": "Visit Kashi Vishwanath with assisted Darshan arrangements and your selected Rudrabhishek or other agreed puja."
+        },
+        {
+          "period": "Afternoon",
+          "description": "Rest at your hotel before your private boat journey along the 84 ghats, subject to permitted river routes."
+        },
+        {
+          "period": "Evening",
+          "description": "Experience Ganga Aarti from your exclusively reserved boat, followed by your return transfer."
+        }
+      ]
+    },
+    {
+      "place": "Varanasi → Prayagraj",
+      "title": "The sacred confluence",
+      "description": "Travel privately to Prayagraj for time at Triveni Sangam.",
+      "overnight": "Prayagraj · night 3 of 4",
+      "schedule": [
+        {
+          "period": "Morning",
+          "description": "Your chauffeur takes you to Prayagraj, with breaks arranged around your comfort."
+        },
+        {
+          "period": "Afternoon",
+          "description": "Visit Triveni Sangam, with Pind Daan or other agreed Vedic rites coordinated with senior priests."
+        },
+        {
+          "period": "Evening",
+          "description": "Settle into your luxury boutique stay and enjoy an unhurried evening."
+        }
+      ]
+    },
+    {
+      "place": "Prayagraj → Ayodhya",
+      "title": "A day in the city of devotion",
+      "description": "Continue to Ayodhya, with your temple visit arranged around the available timings.",
+      "overnight": "Ayodhya · night 4 of 4",
+      "schedule": [
+        {
+          "period": "Morning",
+          "description": "Travel to Ayodhya in your private, chauffeur-driven vehicle and check in as hotel timings allow."
+        },
+        {
+          "period": "Afternoon",
+          "description": "Visit Ram Mandir with concierge assistance, following the temple’s approved access arrangements."
+        },
+        {
+          "period": "Evening",
+          "description": "Spend time by the Sarayu before returning to your hotel."
+        }
+      ]
+    },
+    {
+      "place": "Ayodhya · onward travel",
+      "title": "An effortless onward journey",
+      "description": "A flexible final day, planned around your departure.",
+      "overnight": "",
+      "schedule": [
+        {
+          "period": "Morning",
+          "description": "Enjoy time at leisure before check-out, depending on your flight schedule."
+        },
+        {
+          "period": "Departure",
+          "description": "Your chauffeur provides the agreed airport transfer, with onward domestic flight bookings and seat allocations coordinated by your concierge."
+        }
+      ]
+    }
+  ],
+  "duration_note": "Fully customisable to your calendar.",
+  "price_guidance": "Pricing is tailored to your dates, group size, departure city, preferred stays and vehicle. Your written quote itemises airfares, accommodation, transfers and selected temple or ritual charges before you book.",
+  "exclusions": [
+    "Personal shopping.",
+    "Bespoke customised add-ons outside the agreed itinerary.",
+    "Personal gratuities outside the programme."
+  ],
+  "itinerary_note": "A suggested route through Varanasi, Prayagraj and Ayodhya, with two nights in Varanasi, one in Prayagraj and one in Ayodhya. Your concierge adjusts the daily order around your flights, temple slots and preferences."
+}

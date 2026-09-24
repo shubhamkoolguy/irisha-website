@@ -1,0 +1,1 @@
+{"version": 1, "include": ["/api/auth", "/api/callback", "/api/captcha-config", "/api/contact"], "exclude": []}

@@ -1,0 +1,14 @@
+{
+  "name": "irisha-concierge",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs && node scripts/build-worker.mjs",
+    "check": "node scripts/check.mjs",
+    "build:pages": "node scripts/build.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

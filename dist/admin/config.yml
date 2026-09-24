@@ -1,0 +1,370 @@
+# One-time setup: configure the repository and OAuth. Contact details belong in runtime secrets.
+backend:
+  name: github
+  repo: shubhamkoolguy/irisha-website
+  branch: main
+  base_url: https://irisha.co.in
+  auth_endpoint: api/auth
+site_url: https://irisha.co.in
+display_url: https://irisha.co.in
+publish_mode: simple
+media_folder: dist/assets/uploads
+public_folder: /assets/uploads
+slug:
+  encoding: ascii
+  clean_accents: true
+collections:
+- name: settings
+  label: Website settings
+  files:
+  - name: settings
+    label: Brand & homepage
+    file: content/settings.json
+    format: json
+    fields:
+    - label: Brand
+      name: brand
+      widget: string
+    - label: Tagline
+      name: tagline
+      widget: string
+    - label: Description
+      name: description
+      widget: text
+    - label: Website URL
+      name: site_url
+      widget: string
+    - label: Hero Eyebrow
+      name: hero_eyebrow
+      widget: string
+    - label: Hero Heading
+      name: hero_heading
+      widget: string
+    - label: Hero Heading Second
+      name: hero_heading_second
+      widget: string
+    - label: Hero Description
+      name: hero_description
+      widget: string
+    - label: Hero Button Label
+      name: hero_cta
+      widget: string
+    - label: Hero Pricing Note
+      name: hero_quote_note
+      widget: string
+    - label: Hero Image
+      name: hero_image
+      widget: image
+    - label: Hero Image Alt
+      name: hero_image_alt
+      widget: string
+    - label: Fleet Heading
+      name: fleet_heading
+      widget: string
+    - label: Contact Heading
+      name: contact_heading
+      widget: string
+    - label: Contact Description
+      name: contact_description
+      widget: string
+- name: offers
+  label: Banner offers
+  label_singular: Offer
+  folder: content/offers
+  create: true
+  format: json
+  extension: json
+  slug: '{{slug}}'
+  summary: '{{title}} — {{active}}'
+  fields:
+  - label: Title
+    name: title
+    widget: string
+  - label: Active
+    name: active
+    widget: boolean
+    default: false
+  - label: Order
+    name: order
+    widget: number
+    value_type: int
+    min: 0
+    default: 1
+  - label: Label
+    name: label
+    widget: string
+  - label: Text
+    name: text
+    widget: string
+  - label: Link text
+    name: cta
+    widget: string
+  - label: Destination link
+    name: href
+    widget: string
+    hint: 'Use a section such as #sacred-circuits or a full https:// URL.'
+    pattern:
+    - ^(#[a-zA-Z][\w-]*|https://.+)$
+    - Use an internal anchor or HTTPS URL.
+  - label: Coupon code
+    name: code
+    widget: string
+    required: false
+  - label: Start time (optional)
+    name: starts_at
+    widget: datetime
+    required: false
+    format: YYYY-MM-DDTHH:mm:ssZ
+    default: ''
+  - label: End time (optional)
+    name: ends_at
+    widget: datetime
+    required: false
+    format: YYYY-MM-DDTHH:mm:ssZ
+    default: ''
+- name: packages
+  label: Sacred circuits
+  label_singular: Circuit
+  folder: content/packages
+  create: true
+  format: json
+  extension: json
+  identifier_field: slug
+  slug: '{{slug}}'
+  fields:
+  - &id001
+    label: Title
+    name: title
+    widget: string
+  - &id002
+    label: Slug
+    name: slug
+    widget: string
+    hint: 'Stable URL-safe identifier: lowercase letters, digits and hyphens.'
+  - &id003
+    label: Active
+    name: active
+    widget: boolean
+    default: true
+  - &id004
+    label: Featured
+    name: featured
+    widget: boolean
+    default: false
+    hint: Choose one featured item in this collection.
+  - &id005
+    label: Order
+    name: order
+    widget: number
+    value_type: int
+    min: 0
+    default: 1
+  - label: Signature label
+    name: eyebrow
+    widget: string
+  - label: Headline
+    name: headline
+    widget: text
+  - label: Destinations
+    name: destinations
+    widget: list
+    min: 1
+    field:
+      label: Destination
+      name: destination
+      widget: string
+  - label: Description
+    name: description
+    widget: text
+  - label: Image
+    name: image
+    widget: image
+  - label: Image Alt
+    name: image_alt
+    widget: string
+  - label: Image Caption
+    name: image_caption
+    widget: string
+  - label: Duration
+    name: duration
+    widget: string
+  - label: Duration flexibility note
+    name: duration_note
+    widget: string
+    required: false
+  - &id006
+    label: Starting price in INR (0 = quote only)
+    name: starting_price
+    widget: number
+    value_type: float
+    min: 0
+    default: 0
+    hint: Only enter a current, approved starting rate. Zero hides numeric pricing.
+  - &id007
+    label: Price unit
+    name: price_unit
+    widget: string
+    default: per person
+  - &id008
+    label: Text when no price is shown
+    name: price_label
+    widget: string
+  - label: Pricing guidance
+    name: price_guidance
+    widget: text
+    required: false
+  - label: Inclusions
+    name: inclusions
+    widget: list
+    fields:
+    - label: Icon
+      name: icon
+      widget: select
+      options:
+      - stay
+      - temple
+      - boat
+      - sparkle
+      - users
+      - plane
+      - check
+    - label: Title
+      name: title
+      widget: string
+    - label: Description
+      name: description
+      widget: text
+  - label: Exclusions
+    name: exclusions
+    widget: list
+    required: false
+    field:
+      label: Exclusion
+      name: exclusion
+      widget: string
+  - label: Conditions and availability note
+    name: notes
+    widget: text
+  - label: Itinerary introduction
+    name: itinerary_note
+    widget: text
+    required: false
+  - label: Daily itinerary
+    name: itinerary
+    widget: list
+    hint: Keep days in travel order; day numbers follow this list.
+    fields:
+    - label: Place
+      name: place
+      widget: string
+    - label: Title
+      name: title
+      widget: string
+    - label: Description
+      name: description
+      widget: text
+    - label: Overnight stay
+      name: overnight
+      widget: string
+      required: false
+    - label: Daily schedule
+      name: schedule
+      widget: list
+      required: false
+      fields:
+      - label: Time of day
+        name: period
+        widget: string
+      - label: Plan
+        name: description
+        widget: text
+- name: fleet
+  label: Elite fleet
+  label_singular: Vehicle
+  folder: content/fleet
+  create: true
+  format: json
+  extension: json
+  identifier_field: slug
+  slug: '{{slug}}'
+  fields:
+  - *id001
+  - *id002
+  - *id003
+  - *id004
+  - *id005
+  - label: Category
+    name: category
+    widget: string
+  - label: Seating / audience
+    name: seats
+    widget: string
+  - label: Short supporting line
+    name: audience
+    widget: string
+  - label: Description
+    name: description
+    widget: text
+  - label: Image
+    name: image
+    widget: image
+    required: false
+  - label: Image description
+    name: image_alt
+    widget: string
+    required: false
+  - label: Photo note
+    name: image_note
+    widget: string
+    required: false
+  - label: Features
+    name: features
+    widget: list
+    field:
+      label: Feature
+      name: feature
+      widget: string
+  - *id006
+  - *id007
+  - *id008
+  - label: Details
+    name: details
+    widget: text
+- name: services
+  label: Concierge services
+  files:
+  - name: services
+    label: Services
+    file: content/services.json
+    format: json
+    fields:
+    - label: Service cards
+      name: items
+      widget: list
+      fields:
+      - label: Title
+        name: title
+        widget: string
+      - label: Eyebrow
+        name: eyebrow
+        widget: string
+      - label: Description
+        name: description
+        widget: text
+      - label: Icon
+        name: icon
+        widget: select
+        options:
+        - globe
+        - passport
+        - stay
+        - plane
+        - music
+        - sparkle
+      - label: Feature this card
+        name: large
+        widget: boolean
+        default: false
+      - label: Details
+        name: details
+        widget: text
