@@ -25,14 +25,18 @@ for(const [fg,bg] of [['#65536f','#ffffff'],['#65536f','#faf8fc'],['#b9a9c5','#1
 console.log('PASS: theme defaults, saved choice, blocked storage, system changes, cross-tab changes, toggle labels and selected text contrast pairs.');
 // Light-mode regressions include dark photographic islands and interactive edges.
 const contrast=(fg,bg)=>{const a=luminance(fg),b=luminance(bg);return (Math.max(a,b)+.05)/(Math.min(a,b)+.05)};
+// Replace or add your new light-mode pairs inside the contrast check loop:
 for(const [name,fg,bg,min] of [
- ['legal dialog copy','#65536f','#ffffff',4.5],
- ['hero eyebrow over worst-case white image beneath 72% dark scrim','#f0c5e1','#4f4c56',4.5],
- ['hero supporting copy','#eee2f1','#4f4c56',4.5],
- ['form focus on white','#922066','#ffffff',3],
- ['focus on light surface','#922066','#faf8fc',3],
- ['hero focus','#f0c5e1','#4f4c56',3],
- ['interactive card edge','#8a729a','#ffffff',3],
- ['interactive card edge against page','#8a729a','#faf8fc',3],
- ['legal link','#922066','#ffffff',4.5]
-]){const ratio=contrast(fg,bg);assert(ratio>=min,`${name}: ${ratio}`);console.log(`PASS: ${name}: ${ratio.toFixed(2)}:1`)}
+  ['legal dialog copy', '#1F2937', '#FAF9F6', 4.5], // Updated with Deep Charcoal on Soft Cream
+  ['secondary text contrast', '#6B7280', '#FAF9F6', 4.5], // Muted Grey on Soft Cream background
+  ['accent and icon contrast', '#B08D57', '#FAF9F6', 3], // Champagne Gold accents on Soft Cream
+  ['brand accent contrast', '#4B2E83', '#FAF9F6', 4.5], // Deep Purple on Soft Cream
+  ['hero eyebrow over worst-case white image beneath 72% dark scrim','#f0c5e1','#4f4c56',4.5],
+  ['hero supporting copy','#eee2f1','#4f4c56',4.5],
+  ['form focus on white','#922066','#ffffff',3],
+  ['focus on light surface','#922066','#faf8fc',3],
+  ['hero focus','#f0c5e1','#4f4c56',3],
+  ['interactive card edge','#8a729a','#ffffff',3],
+  ['interactive card edge against page','#8a729a','#faf8fc',3],
+  ['legal link','#4B2E83','#FAF9F6',4.5] // Deep Purple link on Soft Cream
+]){const ratio=contrast(fg,bg);assert(ratio>=min,`${name}: ${ratio}`);console.log(`PASS: ${name}: ${ratio.toFixed(2)}:1`)}ratio}`);console.log(`PASS: ${name}: ${ratio.toFixed(2)}:1`)}
