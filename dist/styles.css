@@ -1,3 +1,4 @@
+/* Apply custom IRISHA palette exclusively for light theme */
 @media (prefers-color-scheme: light) {
   :root, [data-theme="light"] {
     --color-bg: #FAF9F6;              /* Soft Cream */
@@ -7,6 +8,7 @@
     --color-accent-purple: #4B2E83;   /* Deep Purple */
   }
 }
+
 [data-theme="light"] {
   background-color: #FAF9F6;
   color: #1F2937;
