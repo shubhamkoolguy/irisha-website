@@ -17,7 +17,7 @@ npm run build
 npm run check
 ```
 
-`npm run build` reads JSON in `content/`, writes the static website and creates a self-contained Sites Worker in `dist/server/index.js`. `npm run build:pages` produces just the Cloudflare Pages static output; its Pages Functions supply the verification endpoints. CSS, JavaScript and media are tracked directly in `dist/`; **do not delete `dist/` as a clean step**. The repository is intentionally deployable without a framework build tool.
+`npm run build` reads JSON in `content/`, copies `public/` and `assets/`, writes the static website into `dist/`, and creates a self-contained Sites Worker in `dist/server/index.js`. `npm run build:pages` produces just the Cloudflare Pages static output; its Pages Functions supply the verification endpoints. `dist/` is generated and gitignored — run `npm run build` before serving or deploying.
 
 For a local static review, serve `dist/` with a static web server. Direct `file://` opening will not support root-relative assets or CMS requests.
 
@@ -29,9 +29,9 @@ For a local static review, serve `dist/` with a static web server. Direct `file:
 | `content/offers/*.json` | Active offers, coupon codes, order, destination links, optional start/end times |
 | `content/packages/*.json` | Circuits, price, itinerary, imagery, inclusions and availability notes |
 | `content/fleet/*.json` | Vehicles, seats, images, features, prices and details |
-| `content/services.json` | Holiday, visa, hotel, flight and event service cards |
+| `content/services.json` | Holiday, visa, hotel, flight and event service cards and their dedicated pages |
 | `admin/config.yml` | Decap collection schemas and GitHub connection |
-| `dist/assets/uploads/` | Owner-uploaded photos |
+| `assets/uploads/` | Owner-uploaded photos |
 
 Keep one active featured package and one active featured vehicle. Additional active circuits and vehicles appear as secondary cards. Ordering is controlled by `order` (lowest first). Changes to content take effect after the Git-connected Cloudflare Pages build finishes.
 
@@ -57,7 +57,7 @@ Offer dates use ISO 8601 with an explicit time zone, e.g. `2026-11-01T00:00:00+0
 
 7. Open `https://irisha.co.in/admin/`, sign in with a GitHub editor account, change one draft offer to inactive or make a small text edit, save, and confirm the automatic Pages rebuild publishes it. End-to-end GitHub login requires your accounts and has not been performed in the private Sites deployment.
 
-Pages Functions in `functions/api/` handle GitHub OAuth and contact verification. Public content is served statically. `dist/_routes.json` limits invocation to `/api/auth`, `/api/callback`, `/api/captcha-config`, `/api/contact`, `/admin/` and `/admin/index.html`. The admin HTML middleware sets a single editor-specific Content Security Policy, allowing the runtime evaluation needed by Decap configuration validation. Public pages retain their stricter policy without `unsafe-eval`. The Sites deployment uses the same contact verification code inside a dependency-free Worker that embeds public assets. Functions use standard Web APIs, require an exact configured origin, validate an HttpOnly Secure SameSite state cookie and PKCE verifier, check repository write permissions, restrict popup messages to the configured origin, and return no-store responses. Secrets never appear in the public configuration. Do not upload `.env` files to `dist/`.
+Pages Functions in `functions/api/` handle GitHub OAuth and contact verification. Public content is served statically. `public/_routes.json` limits invocation to `/api/auth`, `/api/callback`, `/api/captcha-config`, `/api/contact`, `/admin/` and `/admin/index.html`. The admin HTML middleware sets a single editor-specific Content Security Policy, allowing the runtime evaluation needed by Decap configuration validation. Public pages retain their stricter policy without `unsafe-eval`. The Sites deployment uses the same contact verification code inside a dependency-free Worker that embeds public assets. Functions use standard Web APIs, require an exact configured origin, validate an HttpOnly Secure SameSite state cookie and PKCE verifier, check repository write permissions, restrict popup messages to the configured origin, and return no-store responses. Secrets never appear in the public configuration. Do not upload `.env` files to `dist/`.
 
 If you use the `*.pages.dev` origin initially, align `content/settings.json`, the CMS `base_url`/`site_url`, `SITE_URL`, and the OAuth callback to that exact origin. Configure your final domain and change them together before launch. CMS login from unrelated preview domains is deliberately rejected.
 
@@ -83,7 +83,7 @@ The current business contact was moved from the page/CMS data into `CONTACT_WHAT
 
 All WhatsApp buttons open the protected flow. Direct contact buttons request verification immediately; trip-planning forms prepare the message locally and then open verification. Google's challenge is rendered outside native dialogs so its iframe remains accessible. The contact endpoint checks the request origin, request size, honeypot and Google response, rejects wrong hostnames and failures, and releases the WhatsApp destination only on success. Google enforces token expiry and single use. Responses are not cached; contact details and keys are not logged. Travel names, dates and notes stay on the device until the visitor chooses to send them in WhatsApp.
 
-The Sites Worker permits public pages to be embedded by `https://chatgpt.com` so the in-app Site view can load. CMS pages retain same-origin-only embedding. Cloudflare Pages uses its own same-origin policy in `dist/_headers`. Missing reCAPTCHA keys disable contact verification, not the public page. There is currently no inquiry database or Google Sheets integration: a request reaches the business only when the visitor sends the prepared WhatsApp message.
+The Sites Worker permits public pages to be embedded by `https://chatgpt.com` so the in-app Site view can load. CMS pages retain same-origin-only embedding. Cloudflare Pages uses its own same-origin policy in `public/_headers`. Missing reCAPTCHA keys disable contact verification, not the public page. There is currently no inquiry database or Google Sheets integration: a request reaches the business only when the visitor sends the prepared WhatsApp message.
 
 This reduces automated harvesting from this site. It is **not** a guarantee against scrapers, CAPTCHA-solving services, robocalls or numbers obtained from older pages, social media or directories. Public marketing pages remain readable. Additional site-wide anti-scraping controls would require configuration in the business's Cloudflare account; none have been enabled by this change.
 
@@ -102,11 +102,11 @@ Static content and local-asset checks, anchor validation, JavaScript syntax chec
 ## Editing and maintenance
 
 - Run `npm run build` after changing content or admin sources; run `npm run check` before committing.
-- `dist/app.js` owns navigation, native dialogs, offer rotation, WhatsApp message composition and the reCAPTCHA UI. `server/contact-worker.mjs` supplies server verification and Sites asset serving. The secret and phone number are read only from runtime variables.
-- `dist/styles.css` defines the responsive layouts. Obsidian `#0b0614`, dark violet surfaces and orchid/magenta accents are central CSS variables.
+- `public/app.js` owns navigation, native dialogs, offer rotation, WhatsApp message composition and the reCAPTCHA UI. `server/contact-worker.mjs` supplies server verification and Sites asset serving. The secret and phone number are read only from runtime variables.
+- `public/styles.css` defines the responsive layouts. Obsidian `#0b0614`, dark violet surfaces and orchid/magenta accents are central CSS variables.
 - Google Fonts serves Plus Jakarta Sans, Cormorant Garamond and Noto Sans Devanagari, each with system fallbacks. Fonts use `display=swap`.
 - Decap CMS is pinned to `3.16.3` and loads only on the admin route, after the real repository is configured. Update deliberately after checking upstream release notes.
-- Keep `dist/_headers`, `_redirects` and `_routes.json` in the published output. The custom 404 avoids accidental fallback to the homepage for unknown paths.
+- Keep `public/_headers`, `_redirects` and `_routes.json` in source; the build copies them into `dist/`. The custom 404 avoids accidental fallback to the homepage for unknown paths.
 
 ## Official setup references
 

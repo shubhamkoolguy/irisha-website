@@ -8,7 +8,7 @@ backend:
 site_url: https://irisha.co.in
 display_url: https://irisha.co.in
 publish_mode: simple
-media_folder: dist/assets/uploads
+media_folder: assets/uploads
 public_folder: /assets/uploads
 slug:
   encoding: ascii
@@ -346,6 +346,10 @@ collections:
       - label: Title
         name: title
         widget: string
+      - label: Slug
+        name: slug
+        widget: string
+        hint: 'Stable URL-safe identifier: lowercase letters, digits and hyphens.'
       - label: Eyebrow
         name: eyebrow
         widget: string
@@ -369,3 +373,34 @@ collections:
       - label: Details
         name: details
         widget: text
+      - label: Page highlights
+        name: highlights
+        widget: list
+        required: false
+        fields:
+        - label: Title
+          name: title
+          widget: string
+        - label: Description
+          name: description
+          widget: text
+      - label: How it works
+        name: process
+        widget: list
+        required: false
+        field:
+          label: Step
+          name: step
+          widget: string
+      - label: What to share
+        name: needed
+        widget: list
+        required: false
+        field:
+          label: Item
+          name: item
+          widget: string
+      - label: Conditions note
+        name: notes
+        widget: text
+        required: false

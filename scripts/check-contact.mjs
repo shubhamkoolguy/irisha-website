@@ -39,7 +39,7 @@ try{
  globalThis.fetch=async()=>{throw Error('provider timeout');};
  assert.equal((await verifyContact(make(),env)).status,503);
 }finally{globalThis.fetch=savedFetch;}
-const app=await readFile('dist/app.js','utf8');
+const app=await readFile('public/app.js','utf8');
 assert(!app.includes('settings.whatsapp')&&!app.includes('phone_display'),'Client contact bypass');
 const html=await readFile('dist/index.html','utf8');
 const dialogs=[...html.matchAll(/<dialog\b[\s\S]*?<\/dialog>/g)].map(m=>m[0]);

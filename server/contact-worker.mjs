@@ -71,7 +71,7 @@ export default {
     if(request.method!=='GET' && request.method!=='HEAD')return reply({error:'Method not allowed.'},405);
     if(url.pathname==='/admin')return new Response(null,{status:301,headers:{Location:'/admin/'}});
     if(url.pathname==='/index.html')return new Response(null,{status:301,headers:{Location:'/'+url.search}});
-    const key=url.pathname==='/'?'/index.html':url.pathname==='/admin/'?'/admin/index.html':url.pathname;
+    const key=url.pathname==='/'?'/index.html':url.pathname.endsWith('/')?url.pathname+'index.html':url.pathname;
     const found=EMBEDDED_ASSETS && Object.hasOwn(EMBEDDED_ASSETS,key);
     const item=EMBEDDED_ASSETS?.[found?key:'/404.html'];
     if(!item)return new Response('Not found',{status:404});

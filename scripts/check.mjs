@@ -22,7 +22,7 @@ for(const collection of ['packages','fleet']){
   assert(/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(record.slug),'Invalid slug: '+record.slug);
   assert(!ids.has(record.slug),'Duplicate slug: '+record.slug);ids.add(record.slug);
   assert(Number.isFinite(record.starting_price)&&record.starting_price>=0,'Prices must be nonnegative numbers.');
-  if(record.image)await access(path.join('dist',record.image));
+  if(record.image)await access(path.join(record.image.replace(/^\//,'')));
   assert(record.title && record.description,'Content records need a title and description.');
  }
 }
@@ -36,12 +36,24 @@ for(const name of await readdir('content/offers')){
 const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(x=>x[1]);
 assert.equal(ids.length,new Set(ids).size,'Duplicate HTML IDs');
 for(const [,target] of html.matchAll(/href="#([^"]+)"/g))assert(ids.includes(target),'Missing anchor: '+target);
-for(const [,target] of html.matchAll(/(?:src|href)="(\/[^"?#]+)"/g))await access(path.join('dist',target));
-assert.equal((html.match(/<h1\b/g)||[]).length,1,'Homepage needs one h1.');
-for(const id of ['sacred-circuits','elite-fleet','holidays','contact','detail-dialog','inquiry-dialog'])assert(ids.includes(id));
+  for(const [,target] of html.matchAll(/(?:src|href)="(\/[^"?#]+)"/g))await access(path.join('dist',target.slice(1)));
+  assert.equal((html.match(/<h1\b/g)||[]).length,1,'Homepage needs one h1.');
+  for(const id of ['sacred-circuits','elite-fleet','holidays','contact','detail-dialog','inquiry-dialog'])assert(ids.includes(id));
+  const serviceSlugs=new Set();
+  for(const service of data.services){
+    assert(/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(service.slug),'Invalid service slug: '+service.slug);
+    assert(!serviceSlugs.has(service.slug),'Duplicate service slug: '+service.slug);
+    serviceSlugs.add(service.slug);
+    const page=`dist/services/${service.slug}/index.html`;
+    await access(page);
+    const pageHtml=await readFile(page,'utf8');
+    assert(pageHtml.includes(`<h1 id="hero-title">${service.title.replace(/&/g,'&amp;')}</h1>`),'Service page missing title: '+service.slug);
+    assert.equal((pageHtml.match(/<h1\b/g)||[]).length,1,'Service page needs one h1: '+service.slug);
+    assert(html.includes(`/services/${service.slug}/`),'Homepage must link to '+service.slug);
+  }
 assert(!html.includes('REPLACE_WITH'),'Public homepage contains setup placeholders.');
 assert.equal(await readFile('admin/config.yml','utf8'),await readFile('dist/admin/config.yml','utf8'),'CMS output is stale.');
-for(const file of ['dist/app.js','admin/admin.js','scripts/build.mjs','server/oauth.mjs','functions/api/auth.js','functions/api/callback.js','server/contact-worker.mjs','scripts/build-worker.mjs','functions/api/contact.js','functions/api/captcha-config.js'])execFileSync(process.execPath,['--check',file]);
+for(const file of ['public/app.js','admin/admin.js','scripts/build.mjs','server/oauth.mjs','functions/api/auth.js','functions/api/callback.js','server/contact-worker.mjs','scripts/build-worker.mjs','functions/api/contact.js','functions/api/captcha-config.js'])execFileSync(process.execPath,['--check',file]);
 // Critical OAuth boundaries: no real network or credentials are used here.
 const {onRequestGet:authorize}=await import('../functions/api/auth.js');
 const {onRequestGet:callback}=await import('../functions/api/callback.js');
