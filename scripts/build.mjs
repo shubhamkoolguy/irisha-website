@@ -90,9 +90,19 @@ const pageHead=({title,description,canonical,jsonLd,preload})=>`<!doctype html>
 ${jsonLd?`<script type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g,'\\u003c')}</script>`:''}
 <link rel="icon" type="image/svg+xml" href="/assets/irisha-transparent-favicon.svg">
 ${fonts}${preload?`<link rel="preload" as="image" href="${safePath(preload)}" fetchpriority="high">`:''}<link rel="stylesheet" href="/styles.css"><script src="/app.js" defer></script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WBGT5X8X');</script>
+<!-- End Google Tag Manager -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18450731089"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','AW-18450731089');</script>
-</head><body>`;
+</head><body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBGT5X8X" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 const chrome=(home=true)=>`<a class="skip-link" href="#main">Skip to content</a>
 <div class="announcement" id="announcement" ${offer?'':'hidden'}><div class="announcement-inner"><span class="announcement-label" id="offer-label">${e(offer?.label)}</span><span id="offer-text">${e(offer?.text)}</span><a id="offer-link" href="${e(home?(/^(#[a-zA-Z][\w-]*|https:\/\/)/.test(offer?.href||'')?offer.href:'#sacred-circuits'):offerHref(offer?.href))}">${e(offer?.cta)} ${icon('arrow')}</a><button class="icon-button offer-pause" id="offer-pause" aria-label="Pause offers" hidden>Ⅱ</button></div></div>
 <header class="site-header"><div class="nav-wrap"><a class="brand" href="/" aria-label="Irisha Concierge home">${wordmark}</a><nav class="desktop-nav" aria-label="Main navigation">${nav(home)}</nav><button class="button button-small nav-cta" data-contact>${icon('whatsapp')} Inquire on WhatsApp</button><button type="button" class="theme-toggle" data-theme-toggle aria-label="Appearance: System. Switch to light mode"><span aria-hidden="true" class="theme-symbol">◐</span><span class="theme-label">System</span></button><button class="menu-toggle icon-button" aria-controls="mobile-nav" aria-expanded="false" aria-label="Open navigation">${icon('menu')}</button></div><nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" hidden>${nav(home)}<button class="mobile-inquire" data-contact>Inquire on WhatsApp ${icon('whatsapp')}</button></nav></header>`;
