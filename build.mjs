@@ -83,6 +83,9 @@ const nav=(home=true)=>{
 };
 const pageHead=({title,description,canonical,jsonLd,preload})=>`<!doctype html>
 <html lang="en"><head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18450731089"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','AW-18450731089');</script>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-WBGT5X8X');</script>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#0b0614">
 <title>${e(title)}</title><meta name="description" content="${e(description)}">
 <link rel="canonical" href="${e(canonical)}"><meta property="og:type" content="website"><meta property="og:title" content="${e(title)}"><meta property="og:description" content="${e(description)}"><meta property="og:url" content="${e(canonical)}">
@@ -90,9 +93,6 @@ const pageHead=({title,description,canonical,jsonLd,preload})=>`<!doctype html>
 ${jsonLd?`<script type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g,'\\u003c')}</script>`:''}
 <link rel="icon" type="image/svg+xml" href="/assets/irisha-transparent-favicon.svg">
 ${fonts}${preload?`<link rel="preload" as="image" href="${safePath(preload)}" fetchpriority="high">`:''}<link rel="stylesheet" href="/styles.css"><script src="/app.js" defer></script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18450731089"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','AW-18450731089');</script>
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-WBGT5X8X');</script>
 </head><body>`;
 const chrome=(home=true)=>`<a class="skip-link" href="#main">Skip to content</a>
 <div class="announcement" id="announcement" ${offer?'':'hidden'}><div class="announcement-inner"><span class="announcement-label" id="offer-label">${e(offer?.label)}</span><span id="offer-text">${e(offer?.text)}</span><a id="offer-link" href="${e(home?(/^(#[a-zA-Z][\w-]*|https:\/\/)/.test(offer?.href||'')?offer.href:'#sacred-circuits'):offerHref(offer?.href))}">${e(offer?.cta)} ${icon('arrow')}</a><button class="icon-button offer-pause" id="offer-pause" aria-label="Pause offers" hidden>Ⅱ</button></div></div>
