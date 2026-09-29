@@ -1,0 +1,138 @@
+{
+  "title": "Vietnam Family Voyage",
+  "slug": "vietnam-family-voyage",
+  "active": true,
+  "featured": false,
+  "order": 4,
+  "audience": "family",
+  "eyebrow": "FAMILY GETAWAY",
+  "headline": "Hanoi, Halong Bay, Da Nang and a night in Hoi An.",
+  "description": "A seven-day family circuit: capital streets, an overnight bay cruise, then Central Vietnam’s beaches and lantern town.",
+  "image": "/assets/holidays/phu-quoc.webp",
+  "image_alt": "Tropical beach and clear water along the Vietnamese coast",
+  "destinations": ["Hanoi", "Halong Bay", "Da Nang", "Hoi An"],
+  "nights": [
+    {"place": "Hanoi", "nights": 2},
+    {"place": "Halong Bay", "nights": 1},
+    {"place": "Da Nang", "nights": 2},
+    {"place": "Hoi An", "nights": 1}
+  ],
+  "duration": "7 Days / 6 Nights",
+  "hotels": 4,
+  "support": "24×7 concierge",
+  "customizable": true,
+  "starting_price": 52899,
+  "price_unit": "per person",
+  "price_label": "Your personalised quote",
+  "price_guidance": "Indicative from twin sharing with children as quoted. International flights and visa fees sit outside this figure unless you ask us to ticket them.",
+  "overview": "A north-to-centre family holiday with a night on Halong Bay. Two nights in Hanoi ease everyone in, the cruise breaks the cities, then Da Nang and Hoi An close the week with beach time and a lantern evening children remember.",
+  "highlights": [
+    "Overnight Halong Bay cruise included in the suggested circuit.",
+    "Hanoi with space for a water-puppet show or a lake walk.",
+    "Da Nang beaches and a day that can include Ba Na Hills.",
+    "A night in Hoi An for the lantern streets after dark."
+  ],
+  "why": [
+    "Cities, a night at sea and a beach town without a two-week itinerary.",
+    "Hotel rooms and transfers planned for families, not only couples.",
+    "Daily load can be lightened for younger children."
+  ],
+  "inclusions": [
+    "Private airport and hotel transfers",
+    "Breakfast on hotel mornings",
+    "Visa assistance",
+    "Accommodation on twin or family-room sharing as quoted",
+    "Overnight Halong Bay cruise with selected meals",
+    "Domestic flight Hanoi–Da Nang, once ticketed"
+  ],
+  "exclusions": [
+    "International flights",
+    "Vietnam e-visa fees",
+    "Travel insurance",
+    "Meals other than specified",
+    "Optional Ba Na Hills or Golden Bridge tickets unless added",
+    "Personal expenses, GST and tourism fees"
+  ],
+  "stay": {
+    "name": "Selected family-friendly hotels and a Halong Bay cabin",
+    "nights": 6,
+    "room": "Twin, double or interconnecting rooms as available",
+    "amenities": ["Breakfast at hotels", "Air conditioning", "Wi-Fi", "Cruise meals as specified"]
+  },
+  "notes": "Cabin type, hotel category and optional hill or park tickets are confirmed in writing. Cruise operations depend on weather. An inquiry is not a booking.",
+  "itinerary_note": "Suggested family order through Hanoi, Halong, Da Nang and Hoi An. A day can be swapped for more beach time if you prefer.",
+  "itinerary": [
+    {
+      "place": "Hanoi",
+      "title": "Arrive in Hanoi",
+      "description": "Transfer in and keep the first evening light.",
+      "overnight": "Hanoi · night 1 of 2",
+      "schedule": [
+        {"period": "Arrival", "description": "Private transfer from Noi Bai to your hotel."},
+        {"period": "Evening", "description": "Lake walk or an early dinner near the hotel."}
+      ]
+    },
+    {
+      "place": "Hanoi",
+      "title": "Capital day",
+      "description": "A short city circuit with time to rest.",
+      "overnight": "Hanoi · night 2 of 2",
+      "schedule": [
+        {"period": "Morning", "description": "Hoan Kiem Lake and a gentle Old Quarter walk."},
+        {"period": "Afternoon", "description": "Optional water-puppet show or hotel time."},
+        {"period": "Evening", "description": "Family dinner."}
+      ]
+    },
+    {
+      "place": "Halong Bay",
+      "title": "Overnight on the bay",
+      "description": "Road transfer and embarkation for the cruise.",
+      "overnight": "Halong Bay · night 1 of 1",
+      "schedule": [
+        {"period": "Day", "description": "Transfer from Hanoi, board, caves and kayak as scheduled."},
+        {"period": "Evening", "description": "Dinner onboard."}
+      ]
+    },
+    {
+      "place": "Halong Bay → Da Nang",
+      "title": "Fly to the centre",
+      "description": "Disembark, return to Hanoi and fly to Da Nang.",
+      "overnight": "Da Nang · night 1 of 2",
+      "schedule": [
+        {"period": "Morning", "description": "Cruise disembarkation and return to Hanoi."},
+        {"period": "Afternoon", "description": "Flight to Da Nang and hotel transfer."},
+        {"period": "Evening", "description": "Beach time if the flight allows."}
+      ]
+    },
+    {
+      "place": "Da Nang",
+      "title": "Sea or the hills",
+      "description": "A free beach day, or Ba Na Hills if you added it.",
+      "overnight": "Da Nang · night 2 of 2",
+      "schedule": [
+        {"period": "Day", "description": "My Khe Beach, or Ba Na Hills and Fantasy Park when included."},
+        {"period": "Evening", "description": "Dinner in Da Nang."}
+      ]
+    },
+    {
+      "place": "Hoi An",
+      "title": "Lantern night",
+      "description": "Move south for ancient streets after dark.",
+      "overnight": "Hoi An · night 1 of 1",
+      "schedule": [
+        {"period": "Morning", "description": "Short transfer to Hoi An and check-in."},
+        {"period": "Afternoon", "description": "Ancient Town walk at an easy pace."},
+        {"period": "Evening", "description": "Lantern streets and the river."}
+      ]
+    },
+    {
+      "place": "Da Nang",
+      "title": "Departure",
+      "description": "Return to Da Nang airport for your onward flight.",
+      "overnight": "",
+      "schedule": [
+        {"period": "Departure", "description": "Private transfer to Da Nang International Airport."}
+      ]
+    }
+  ]
+}

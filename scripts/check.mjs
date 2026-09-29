@@ -12,7 +12,7 @@ const data=JSON.parse(parseData[1]);
 assert(!('whatsapp' in data.settings) && !('phone_display' in data.settings),'Contact data leaked into public JSON');
 assert(!/href="(?:tel:|https:\/\/wa\.me\/)/.test(html),'Public contact bypass found');
 assert(!/99663[\s+]*20256|919966320256/.test(html),'Contact number leaked into page source');
-for(const collection of ['packages','fleet']){
+for(const collection of ['packages','fleet','holidays']){
  const records=await Promise.all((await readdir('content/'+collection)).filter(f=>f.endsWith('.json')).map(f=>json('content/'+collection+'/'+f)));
  const active=records.filter(x=>x.active);
  assert(active.length,`At least one ${collection} item must be active.`);
@@ -24,6 +24,7 @@ for(const collection of ['packages','fleet']){
   assert(Number.isFinite(record.starting_price)&&record.starting_price>=0,'Prices must be nonnegative numbers.');
   if(record.image)await access(path.join(record.image.replace(/^\//,'')));
   assert(record.title && record.description,'Content records need a title and description.');
+  if(collection==='holidays')assert(['couple','family'].includes(record.audience),'Holiday audience must be couple or family: '+record.slug);
  }
 }
 for(const name of await readdir('content/offers')){
@@ -51,6 +52,19 @@ for(const [,target] of html.matchAll(/href="#([^"]+)"/g))assert(ids.includes(tar
     assert.equal((pageHtml.match(/<h1\b/g)||[]).length,1,'Service page needs one h1: '+service.slug);
     assert(html.includes(`/services/${service.slug}/`),'Homepage must link to '+service.slug);
   }
+  const holidaySlugs=new Set();
+  for(const holiday of data.holidays||[]){
+    assert(/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(holiday.slug),'Invalid holiday slug: '+holiday.slug);
+    assert(!holidaySlugs.has(holiday.slug),'Duplicate holiday slug: '+holiday.slug);
+    holidaySlugs.add(holiday.slug);
+    const page=`dist/holidays/${holiday.slug}/index.html`;
+    await access(page);
+    const pageHtml=await readFile(page,'utf8');
+    assert(pageHtml.includes(`<h1 id="hero-title">${holiday.title.replace(/&/g,'&amp;')}</h1>`),'Holiday page missing title: '+holiday.slug);
+    assert.equal((pageHtml.match(/<h1\b/g)||[]).length,1,'Holiday page needs one h1: '+holiday.slug);
+  }
+  const holidaysPage=await readFile('dist/services/holidays-tours/index.html','utf8');
+  for(const holiday of data.holidays||[])assert(holidaysPage.includes(`/holidays/${holiday.slug}/`),'Holidays page must link to '+holiday.slug);
 assert(!html.includes('REPLACE_WITH'),'Public homepage contains setup placeholders.');
 assert.equal(await readFile('admin/config.yml','utf8'),await readFile('dist/admin/config.yml','utf8'),'CMS output is stale.');
 for(const file of ['public/app.js','admin/admin.js','scripts/build.mjs','server/oauth.mjs','functions/api/auth.js','functions/api/callback.js','server/contact-worker.mjs','scripts/build-worker.mjs','functions/api/contact.js','functions/api/captcha-config.js'])execFileSync(process.execPath,['--check',file]);

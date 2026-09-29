@@ -1,0 +1,88 @@
+{
+  "title": "Maldives Couple Escape",
+  "slug": "maldives-couple-escape",
+  "active": true,
+  "featured": false,
+  "order": 3,
+  "audience": "couple",
+  "eyebrow": "COUPLE RETREAT",
+  "headline": "An island stay, unhurried, just the two of you.",
+  "description": "Five nights in the Maldives: lagoon, house reef and meals arranged around how you like to spend a day at sea.",
+  "image": "/assets/holidays/maldives.webp",
+  "image_alt": "Turquoise lagoon and overwater villas in the Maldives",
+  "destinations": ["Malé", "Selected atoll resort"],
+  "nights": [
+    {"place": "Resort island", "nights": 5}
+  ],
+  "duration": "6 Days / 5 Nights",
+  "hotels": 1,
+  "support": "24×7 concierge",
+  "customizable": true,
+  "starting_price": 0,
+  "price_unit": "per couple",
+  "price_label": "Quoted for your island and dates",
+  "price_guidance": "Maldives pricing depends on the atoll, villa type, meal plan and seaplane or speedboat transfer. We confirm a written total before you reserve.",
+  "overview": "A couple’s island holiday with one resort stay. We shortlist properties for lagoon, privacy and dining — overwater or beach villa — then coordinate flights into Malé, the resort transfer and any spa or sunset-cruise add-ons you want.",
+  "highlights": [
+    "One resort, five nights — no island-hopping unless you ask.",
+    "Villa category and meal plan chosen with you before booking.",
+    "Seaplane or speedboat transfers timed to your international flights.",
+    "Optional snorkel, spa and sunset cruise arranged on request."
+  ],
+  "why": [
+    "Built for two: quiet beaches, house-reef mornings, unhurried evenings.",
+    "Dietary needs, including Jain or vegetarian, flagged to the resort in advance.",
+    "Visa-on-arrival guidance for Indian passports, coordinated with your tickets."
+  ],
+  "inclusions": [
+    "Resort stay on the agreed meal plan",
+    "Return transfer from Velana International Airport as the resort operates it",
+    "Visa guidance for Indian passport holders",
+    "Concierge coordination of spa or excursion add-ons you approve"
+  ],
+  "exclusions": [
+    "International flights, unless added to your quote",
+    "Seaplane or speedboat supplements beyond the agreed transfer",
+    "Alcohol, spa treatments and paid water sports unless itemised",
+    "Travel insurance, GST and personal expenses"
+  ],
+  "stay": {
+    "name": "Selected resort, villa category confirmed in writing",
+    "nights": 5,
+    "room": "Beach or overwater villa for two",
+    "amenities": ["Meal plan as quoted", "House reef access where the island offers it", "Wi-Fi", "Airport–resort transfer"]
+  },
+  "notes": "Resort, villa type, meal plan and transfer mode are confirmed only after you approve the written quote. Seaplane seats follow the resort’s timetable. An inquiry is not a booking.",
+  "itinerary_note": "A single-island stay. Arrival and departure days flex around your Malé flights and the resort transfer.",
+  "itinerary": [
+    {
+      "place": "Malé → Resort",
+      "title": "Arrive in the atoll",
+      "description": "Land in Malé and continue by speedboat or seaplane.",
+      "overnight": "Resort · night 1 of 5",
+      "schedule": [
+        {"period": "Arrival", "description": "Meet the resort desk at Velana and board the included transfer."},
+        {"period": "Evening", "description": "Check in, first swim and dinner on the agreed meal plan."}
+      ]
+    },
+    {
+      "place": "Resort island",
+      "title": "Lagoon days",
+      "description": "Unstructured time: reef, pool, spa or a book on the deck.",
+      "overnight": "Resort · nights 2–4 of 5",
+      "schedule": [
+        {"period": "Days at leisure", "description": "House reef, optional excursions and spa treatments as you request."},
+        {"period": "Evenings", "description": "Resort dining; a sunset cruise can be added if you wish."}
+      ]
+    },
+    {
+      "place": "Resort → Malé",
+      "title": "Departure",
+      "description": "Transfer back to Malé for your international flight.",
+      "overnight": "",
+      "schedule": [
+        {"period": "Departure", "description": "Check-out timed to the resort transfer and your onward flight."}
+      ]
+    }
+  ]
+}

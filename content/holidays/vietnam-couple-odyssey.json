@@ -1,0 +1,138 @@
+{
+  "title": "Romantic Vietnam Odyssey",
+  "slug": "romantic-vietnam-odyssey",
+  "active": true,
+  "featured": false,
+  "order": 2,
+  "audience": "couple",
+  "eyebrow": "COUPLE RETREAT",
+  "headline": "Hanoi, a night on Halong Bay, then Saigon together.",
+  "description": "Seven days for two: Old Quarter evenings in Hanoi, an overnight cruise among Halong’s limestone karsts, and three nights in Ho Chi Minh City.",
+  "image": "/assets/holidays/halong-bay.webp",
+  "image_alt": "Limestone karsts rising from Halong Bay at dusk",
+  "destinations": ["Hanoi", "Halong Bay", "Ho Chi Minh City"],
+  "nights": [
+    {"place": "Hanoi", "nights": 2},
+    {"place": "Halong Bay", "nights": 1},
+    {"place": "Ho Chi Minh City", "nights": 3}
+  ],
+  "duration": "7 Days / 6 Nights",
+  "hotels": 3,
+  "support": "24×7 concierge",
+  "customizable": true,
+  "starting_price": 53999,
+  "price_unit": "per person",
+  "price_label": "Your personalised quote",
+  "price_guidance": "Indicative from twin sharing, excluding international flights and visa fees. Cabin category on Halong Bay and city hotel style are confirmed in your written quote.",
+  "overview": "A honeymoon-paced journey through north and south. Begin in Hanoi’s lakes and Old Quarter, sail overnight through Halong Bay, then fly south for Saigon’s energy, river evenings and a day on the Mekong if you wish. Designed for couples who want iconic Vietnam without a group timetable.",
+  "highlights": [
+    "Two nights in Hanoi with time for Hoan Kiem Lake and Old Quarter walks.",
+    "Overnight Halong Bay cruise with cabin, meals and kayak time as included.",
+    "Three nights in Ho Chi Minh City for dining, museums and riverside evenings.",
+    "Private airport and hotel transfers in each city."
+  ],
+  "why": [
+    "North and south in one week, without rushing every landmark.",
+    "A night on the water between two city stays.",
+    "Pace and dining can be shaped around the two of you."
+  ],
+  "inclusions": [
+    "Airport and hotel transfers in a private vehicle",
+    "Breakfast on hotel mornings",
+    "Visa assistance",
+    "Accommodation on twin sharing",
+    "Overnight Halong Bay cruise with selected meals onboard",
+    "Domestic flight Hanoi–Ho Chi Minh City, once ticketed"
+  ],
+  "exclusions": [
+    "International flights",
+    "Vietnam e-visa fees",
+    "Travel insurance",
+    "Meals other than specified",
+    "Optional Cu Chi or Mekong day tours unless added to your quote",
+    "Personal expenses, GST and tourism fees"
+  ],
+  "stay": {
+    "name": "Selected 4-star hotels and a Halong Bay cabin",
+    "nights": 6,
+    "room": "Double occupancy throughout",
+    "amenities": ["Breakfast at hotels", "Air conditioning", "Wi-Fi", "Cruise meals as specified"]
+  },
+  "notes": "Cruise operator, cabin type and city hotels are confirmed only after you approve the written inclusions. Bay itineraries depend on weather and maritime permissions. An inquiry is not a booking.",
+  "itinerary_note": "Suggested order: Hanoi, Halong Bay, then Ho Chi Minh City. Flight times and cruise embarkation can shift a day either way.",
+  "itinerary": [
+    {
+      "place": "Hanoi",
+      "title": "Arrive in the capital",
+      "description": "Settle in and take a first evening around the lake.",
+      "overnight": "Hanoi · night 1 of 2",
+      "schedule": [
+        {"period": "Arrival", "description": "Private transfer from Noi Bai to your hotel."},
+        {"period": "Evening", "description": "Walk Hoan Kiem Lake or share a first dinner in the Old Quarter."}
+      ]
+    },
+    {
+      "place": "Hanoi",
+      "title": "Old Quarter at your pace",
+      "description": "Temples, coffee and streets that reward unhurried walking.",
+      "overnight": "Hanoi · night 2 of 2",
+      "schedule": [
+        {"period": "Morning", "description": "Temple of Literature or a cyclo through the 36 streets, as you prefer."},
+        {"period": "Afternoon", "description": "Time at leisure — egg coffee, tailors or a rest at the hotel."},
+        {"period": "Evening", "description": "Optional water-puppet performance."}
+      ]
+    },
+    {
+      "place": "Halong Bay",
+      "title": "Sail among the karsts",
+      "description": "Transfer to the harbour and board your overnight cruise.",
+      "overnight": "Halong Bay · night 1 of 1",
+      "schedule": [
+        {"period": "Morning", "description": "Road transfer from Hanoi to Halong and embarkation."},
+        {"period": "Afternoon", "description": "Cruise, caves and kayak time as the operator schedules."},
+        {"period": "Evening", "description": "Dinner onboard and a night on the bay."}
+      ]
+    },
+    {
+      "place": "Halong Bay → Ho Chi Minh City",
+      "title": "South to Saigon",
+      "description": "Disembark, return to Hanoi and fly south.",
+      "overnight": "Ho Chi Minh City · night 1 of 3",
+      "schedule": [
+        {"period": "Morning", "description": "Sunrise on deck, brunch and return transfer to Hanoi."},
+        {"period": "Afternoon", "description": "Domestic flight to Ho Chi Minh City and hotel transfer."},
+        {"period": "Evening", "description": "Settle in; dinner nearby if you wish."}
+      ]
+    },
+    {
+      "place": "Ho Chi Minh City",
+      "title": "The southern city",
+      "description": "History, markets and a slower afternoon together.",
+      "overnight": "Ho Chi Minh City · night 2 of 3",
+      "schedule": [
+        {"period": "Morning", "description": "War Remnants Museum or Notre-Dame and the colonial quarter."},
+        {"period": "Afternoon", "description": "Ben Thanh Market or time at leisure."},
+        {"period": "Evening", "description": "Riverfront dinner."}
+      ]
+    },
+    {
+      "place": "Ho Chi Minh City",
+      "title": "A day of your choosing",
+      "description": "Keep the city, or add Cu Chi or the Mekong if you asked for it.",
+      "overnight": "Ho Chi Minh City · night 3 of 3",
+      "schedule": [
+        {"period": "Day", "description": "Optional day tour, spa time or cafés in District 1 — confirmed in your quote."},
+        {"period": "Evening", "description": "A last dinner in Saigon."}
+      ]
+    },
+    {
+      "place": "Ho Chi Minh City",
+      "title": "Departure",
+      "description": "Transfer out according to your international flight.",
+      "overnight": "",
+      "schedule": [
+        {"period": "Departure", "description": "Private transfer to Tan Son Nhat."}
+      ]
+    }
+  ]
+}

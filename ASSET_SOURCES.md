@@ -20,3 +20,13 @@ Direct Pexels downloads:
 ## Transparent brand replacement
 - `assets/irisha-transparent-logo.png`: unmodified owner-supplied FullLogo_Transparent_NoBuffer (1)(3).png (1280 × 1391 RGBA), replaces the background-bearing logo in header, footer and CMS. Native PNG transparency is used without blend modes.
 - `assets/irisha-transparent-favicon.svg`: symbol-only SVG viewport of that same transparent PNG.
+
+## Holiday package photography
+Downloaded 27 September 2026 from Pexels (license allows website use; attribution optional). Encoded as WebP at 1400px wide.
+
+| Website asset | Author / source |
+| --- | --- |
+| `assets/holidays/halong-bay.webp` | Pixabay, Pexels — https://www.pexels.com/photo/body-of-water-surrounded-by-mountains-1659438/ |
+| `assets/holidays/hoi-an.webp` | Quynh Le, Pexels — https://www.pexels.com/photo/people-walking-on-street-near-buildings-2166553/ |
+| `assets/holidays/maldives.webp` | Asad Photo Maldives, Pexels — https://www.pexels.com/photo/brown-hut-in-island-753626/ |
+| `assets/holidays/phu-quoc.webp` | Asad Photo Maldives, Pexels — https://www.pexels.com/photo/landscape-photography-of-trees-on-shoreline-1450353/ |

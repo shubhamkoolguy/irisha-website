@@ -1,0 +1,106 @@
+{
+  "title": "Discover Central Vietnam",
+  "slug": "discover-central-vietnam",
+  "active": true,
+  "featured": true,
+  "order": 1,
+  "audience": "family",
+  "eyebrow": "FAMILY GETAWAY",
+  "headline": "Da Nang, the Golden Bridge and lantern-lit Hoi An.",
+  "description": "A four-day family holiday through Central Vietnam: beaches and cable cars in Da Nang, Ba Na Hills and the Golden Bridge, then a day in Hoi An’s ancient town.",
+  "image": "/assets/holidays/hoi-an.webp",
+  "image_alt": "Lantern-lined street in Hoi An Ancient Town at dusk",
+  "destinations": ["Da Nang", "Ba Na Hills", "Hoi An"],
+  "nights": [
+    {"place": "Da Nang", "nights": 3}
+  ],
+  "duration": "4 Days / 3 Nights",
+  "hotels": 1,
+  "support": "24×7 concierge",
+  "customizable": true,
+  "starting_price": 26599,
+  "price_unit": "per person",
+  "price_label": "Your personalised quote",
+  "price_guidance": "Indicative from twin sharing, excluding international flights and visa fees. Your written quote itemises stays, transfers and selected tours for your dates.",
+  "overview": "A compact family holiday through Central Vietnam. Arrive in Da Nang for seafronts and a modern city rhythm, ride to Ba Na Hills and the Golden Bridge, then spend a day among Hoi An’s lanterns, temples and riverside streets. The pace leaves room for beaches, Fantasy Park and evenings together.",
+  "highlights": [
+    "Walk Hoi An Ancient Town among centuries-old Vietnamese, Chinese and Japanese architecture.",
+    "See Da Nang from the Golden Bridge, 1,400 metres above the plains.",
+    "Ride Asia’s modern cable car for a view of the port city and coastline.",
+    "Share Fantasy Park rides and attractions as a family."
+  ],
+  "why": [
+    "Culture, viewpoints and family entertainment in one short itinerary.",
+    "A single stay in Da Nang keeps packing light for children.",
+    "Evenings free for the beach or a quiet dinner."
+  ],
+  "inclusions": [
+    "Airport transfers in a private vehicle",
+    "Breakfast on three mornings",
+    "Visa assistance",
+    "Accommodation on twin sharing",
+    "Hoi An day tour from Da Nang, including the Thu Bon River, on a shared basis",
+    "Ba Na Hills and Golden Bridge day tour on a shared basis"
+  ],
+  "exclusions": [
+    "Travel insurance",
+    "Meals other than specified breakfasts",
+    "Personal expenses",
+    "Vietnam e-visa fees",
+    "International flight tickets",
+    "Applicable GST and tourism fees"
+  ],
+  "stay": {
+    "name": "Selected 4-star hotel in Da Nang",
+    "nights": 3,
+    "room": "Superior double or twin, family rooms on request",
+    "amenities": ["Air conditioning", "Breakfast", "Non-smoking rooms", "Wi-Fi"]
+  },
+  "notes": "Tours, hotel category and pricing are confirmed in writing for your travel dates. Shared sightseeing seats and attraction tickets depend on operator availability. An inquiry is not a booking.",
+  "itinerary_note": "A suggested family route with three nights in Da Nang. Daily order can shift around your flight times.",
+  "itinerary": [
+    {
+      "place": "Da Nang",
+      "title": "Arrival in Da Nang",
+      "description": "Land, settle and take the evening at your own pace.",
+      "overnight": "Da Nang · night 1 of 3",
+      "schedule": [
+        {"period": "Arrival", "description": "Meet your driver for a private transfer to your hotel."},
+        {"period": "Afternoon", "description": "Check in and rest after the journey."},
+        {"period": "Evening", "description": "Optional walk along My Khe Beach or a family dinner nearby."}
+      ]
+    },
+    {
+      "place": "Ba Na Hills",
+      "title": "Excursion to Ba Na Hills",
+      "description": "Cable car, Golden Bridge and Fantasy Park in the hills above Da Nang.",
+      "overnight": "Da Nang · night 2 of 3",
+      "schedule": [
+        {"period": "Morning", "description": "Shared transfer to Ba Na Hills and the cable-car ascent."},
+        {"period": "Afternoon", "description": "Golden Bridge viewpoints and time at Fantasy Park."},
+        {"period": "Evening", "description": "Return to Da Nang for dinner and rest."}
+      ]
+    },
+    {
+      "place": "Hoi An",
+      "title": "Day trip to Hoi An",
+      "description": "Ancient streets, riverside lanterns and a gentler afternoon.",
+      "overnight": "Da Nang · night 3 of 3",
+      "schedule": [
+        {"period": "Morning", "description": "Travel to Hoi An Ancient Town for a guided walk."},
+        {"period": "Afternoon", "description": "Temples, tailor streets and time by the Thu Bon River."},
+        {"period": "Evening", "description": "Return to Da Nang."}
+      ]
+    },
+    {
+      "place": "Da Nang",
+      "title": "Departure",
+      "description": "A flexible last morning before your flight.",
+      "overnight": "",
+      "schedule": [
+        {"period": "Morning", "description": "Breakfast and check-out according to your departure time."},
+        {"period": "Departure", "description": "Private airport transfer."}
+      ]
+    }
+  ]
+}

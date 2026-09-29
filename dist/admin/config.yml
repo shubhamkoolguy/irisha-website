@@ -359,13 +359,14 @@ collections:
       - label: Icon
         name: icon
         widget: select
-        options:
-        - globe
-        - passport
-        - stay
-        - plane
-        - music
-        - sparkle
+          options:
+          - globe
+          - passport
+          - stay
+          - plane
+          - music
+          - ship
+          - sparkle
       - label: Feature this card
         name: large
         widget: boolean
