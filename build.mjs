@@ -1,5 +1,6 @@
 import {readFile, writeFile, mkdir, readdir, copyFile, rm, cp} from 'node:fs/promises';
 import path from 'node:path';
+import {contentSecurityPolicy} from '../server/contact-worker.mjs';
 const root = new URL('../', import.meta.url).pathname;
 process.chdir(root);
 const read = async p => JSON.parse(await readFile(p, 'utf8'));
@@ -83,6 +84,13 @@ const nav=(home=true)=>{
 };
 const pageHead=({title,description,canonical,jsonLd,preload})=>`<!doctype html>
 <html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#0b0614">
+<title>${e(title)}</title><meta name="description" content="${e(description)}">
+<link rel="canonical" href="${e(canonical)}"><meta property="og:type" content="website"><meta property="og:title" content="${e(title)}"><meta property="og:description" content="${e(description)}"><meta property="og:url" content="${e(canonical)}">
+<meta property="og:site_name" content="${e(settings.brand)}">
+${jsonLd?`<script type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g,'\\u003c')}</script>`:''}
+<link rel="icon" type="image/svg+xml" href="/assets/irisha-transparent-favicon.svg">
+${fonts}${preload?`<link rel="preload" as="image" href="${safePath(preload)}" fetchpriority="high">`:''}<link rel="stylesheet" href="/styles.css"><script src="/app.js" defer></script>
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -92,14 +100,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18450731089"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','AW-18450731089');</script>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#0b0614">
-<title>${e(title)}</title><meta name="description" content="${e(description)}">
-<link rel="canonical" href="${e(canonical)}"><meta property="og:type" content="website"><meta property="og:title" content="${e(title)}"><meta property="og:description" content="${e(description)}"><meta property="og:url" content="${e(canonical)}">
-<meta property="og:site_name" content="${e(settings.brand)}">
-${jsonLd?`<script type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g,'\\u003c')}</script>`:''}
-<link rel="icon" type="image/svg+xml" href="/assets/irisha-transparent-favicon.svg">
-${fonts}${preload?`<link rel="preload" as="image" href="${safePath(preload)}" fetchpriority="high">`:''}<link rel="stylesheet" href="/styles.css"><script src="/app.js" defer></script>
-</head><body>`;
+</head><body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBGT5X8X" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->`;
 const chrome=(home=true)=>`<a class="skip-link" href="#main">Skip to content</a>
 <div class="announcement" id="announcement" ${offer?'':'hidden'}><div class="announcement-inner"><span class="announcement-label" id="offer-label">${e(offer?.label)}</span><span id="offer-text">${e(offer?.text)}</span><a id="offer-link" href="${e(home?(/^(#[a-zA-Z][\w-]*|https:\/\/)/.test(offer?.href||'')?offer.href:'#sacred-circuits'):offerHref(offer?.href))}">${e(offer?.cta)} ${icon('arrow')}</a><button class="icon-button offer-pause" id="offer-pause" aria-label="Pause offers" hidden>Ⅱ</button></div></div>
 <header class="site-header"><div class="nav-wrap"><a class="brand" href="/" aria-label="Irisha Concierge home">${wordmark}</a><nav class="desktop-nav" aria-label="Main navigation">${nav(home)}</nav><button class="button button-small nav-cta" data-contact>${icon('whatsapp')} Inquire on WhatsApp</button><button type="button" class="theme-toggle" data-theme-toggle aria-label="Appearance: System. Switch to light mode"><span aria-hidden="true" class="theme-symbol">◐</span><span class="theme-label">System</span></button><button class="menu-toggle icon-button" aria-controls="mobile-nav" aria-expanded="false" aria-label="Open navigation">${icon('menu')}</button></div><nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" hidden>${nav(home)}<button class="mobile-inquire" data-contact>Inquire on WhatsApp ${icon('whatsapp')}</button></nav></header>`;
@@ -237,6 +241,9 @@ ${pageClose}`;
 await rm('dist',{recursive:true,force:true});
 await mkdir('dist',{recursive:true});
 await cp('public', 'dist', {recursive:true});
+const headers=await readFile('dist/_headers','utf8');
+if(!headers.includes('Content-Security-Policy:')) throw Error('dist/_headers is missing Content-Security-Policy.');
+await writeFile('dist/_headers',headers.replace(/Content-Security-Policy: .+/,'Content-Security-Policy: '+contentSecurityPolicy()));
 await mkdir('dist/assets',{recursive:true});
 await cp('assets', 'dist/assets', {recursive:true});
 await writeFile('dist/index.html',html);
