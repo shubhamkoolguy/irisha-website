@@ -13,3 +13,12 @@
   Cache-Control: public, max-age=0, must-revalidate
 /app.js
   Cache-Control: public, max-age=0, must-revalidate
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18450731089"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-18450731089');
+</script>
