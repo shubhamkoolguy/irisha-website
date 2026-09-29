@@ -59,6 +59,7 @@ assert(admin.headers.get('content-security-policy').includes("'unsafe-eval'"),'D
 const publicCsp=homepage.headers.get('content-security-policy');
 assert(publicCsp.includes('https://www.googletagmanager.com'),'Worker CSP must allow Google Tag Manager');
 assert(publicCsp.includes("connect-src 'self'")&&publicCsp.includes('https://www.google-analytics.com'),'Worker CSP must allow analytics beacons');
+assert(publicCsp.includes('https://static.cloudflareinsights.com')&&publicCsp.includes('https://ad.doubleclick.net'),'Worker CSP must allow Cloudflare Insights and Ads beacons');
 const pagesCsp=(await readFile('dist/_headers','utf8')).match(/Content-Security-Policy: (.+)/)[1];
 assert(pagesCsp.includes('https://www.googletagmanager.com'),'Pages _headers must allow Google Tag Manager');
 assert.equal(pagesCsp,contentSecurityPolicy(),'Pages _headers CSP must match the Worker policy');
