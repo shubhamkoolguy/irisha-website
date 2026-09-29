@@ -56,6 +56,12 @@ assert.equal(admin.headers.get('x-frame-options'),'SAMEORIGIN');
 assert.equal(admin.headers.get('content-security-policy').split('frame-ancestors ')[1],"'self'",'Keep CMS embedding restricted');
 assert(!homepage.headers.get('content-security-policy').includes("'unsafe-eval'"),'Public pages must reject string evaluation');
 assert(admin.headers.get('content-security-policy').includes("'unsafe-eval'"),'Decap configuration validation requires string evaluation');
+const publicCsp=homepage.headers.get('content-security-policy');
+assert(publicCsp.includes('https://www.googletagmanager.com'),'Worker CSP must allow Google Tag Manager');
+assert(publicCsp.includes("connect-src 'self'")&&publicCsp.includes('https://www.google-analytics.com'),'Worker CSP must allow analytics beacons');
+const pagesCsp=(await readFile('dist/_headers','utf8')).match(/Content-Security-Policy: (.+)/)[1];
+assert(pagesCsp.includes('https://www.googletagmanager.com'),'Pages _headers must allow Google Tag Manager');
+assert.equal(pagesCsp,contentSecurityPolicy(),'Pages _headers CSP must match the Worker policy');
 const pagesRoutes=JSON.parse(await readFile('dist/_routes.json','utf8'));
 for(const route of ['/admin/','/admin/index.html']) {
  assert(pagesRoutes.include.includes(route),'Route editor HTML through its Pages middleware');

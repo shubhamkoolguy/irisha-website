@@ -1,5 +1,6 @@
 import {readFile, writeFile, mkdir, readdir, copyFile, rm, cp} from 'node:fs/promises';
 import path from 'node:path';
+import {contentSecurityPolicy} from '../server/contact-worker.mjs';
 const root = new URL('../', import.meta.url).pathname;
 process.chdir(root);
 const read = async p => JSON.parse(await readFile(p, 'utf8'));
@@ -102,7 +103,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </head><body>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBGT5X8X" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
+<!-- End Google Tag Manager (noscript) -->`;
 const chrome=(home=true)=>`<a class="skip-link" href="#main">Skip to content</a>
 <div class="announcement" id="announcement" ${offer?'':'hidden'}><div class="announcement-inner"><span class="announcement-label" id="offer-label">${e(offer?.label)}</span><span id="offer-text">${e(offer?.text)}</span><a id="offer-link" href="${e(home?(/^(#[a-zA-Z][\w-]*|https:\/\/)/.test(offer?.href||'')?offer.href:'#sacred-circuits'):offerHref(offer?.href))}">${e(offer?.cta)} ${icon('arrow')}</a><button class="icon-button offer-pause" id="offer-pause" aria-label="Pause offers" hidden>Ⅱ</button></div></div>
 <header class="site-header"><div class="nav-wrap"><a class="brand" href="/" aria-label="Irisha Concierge home">${wordmark}</a><nav class="desktop-nav" aria-label="Main navigation">${nav(home)}</nav><button class="button button-small nav-cta" data-contact>${icon('whatsapp')} Inquire on WhatsApp</button><button type="button" class="theme-toggle" data-theme-toggle aria-label="Appearance: System. Switch to light mode"><span aria-hidden="true" class="theme-symbol">◐</span><span class="theme-label">System</span></button><button class="menu-toggle icon-button" aria-controls="mobile-nav" aria-expanded="false" aria-label="Open navigation">${icon('menu')}</button></div><nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" hidden>${nav(home)}<button class="mobile-inquire" data-contact>Inquire on WhatsApp ${icon('whatsapp')}</button></nav></header>`;
@@ -240,6 +241,9 @@ ${pageClose}`;
 await rm('dist',{recursive:true,force:true});
 await mkdir('dist',{recursive:true});
 await cp('public', 'dist', {recursive:true});
+const headers=await readFile('dist/_headers','utf8');
+if(!headers.includes('Content-Security-Policy:')) throw Error('dist/_headers is missing Content-Security-Policy.');
+await writeFile('dist/_headers',headers.replace(/Content-Security-Policy: .+/,'Content-Security-Policy: '+contentSecurityPolicy()));
 await mkdir('dist/assets',{recursive:true});
 await cp('assets', 'dist/assets', {recursive:true});
 await writeFile('dist/index.html',html);
