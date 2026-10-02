@@ -288,4 +288,17 @@
     const step = card ? card.getBoundingClientRect().width + 18 : track.clientWidth * 0.8;
     track.scrollBy({left: Number(button.dataset.dir) * step, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'});
   });
+
+  const carouselTracks = document.querySelectorAll('[data-carousel-track]');
+  const syncCarouselNav = track => {
+    const max = track.scrollWidth - track.clientWidth;
+    document.querySelectorAll(`[data-carousel="${track.dataset.carouselTrack}"]`).forEach(button => {
+      button.disabled = Number(button.dataset.dir) < 0 ? track.scrollLeft <= 1 : track.scrollLeft >= max - 1;
+    });
+  };
+  carouselTracks.forEach(track => {
+    syncCarouselNav(track);
+    track.addEventListener('scroll', () => syncCarouselNav(track), {passive: true});
+  });
+  window.addEventListener('resize', () => carouselTracks.forEach(syncCarouselNav));
 })();
