@@ -62,10 +62,11 @@ const siteOrigin = new URL(settings.site_url);
 if(siteOrigin.protocol !== 'https:' || siteOrigin.username || siteOrigin.password || siteOrigin.pathname !== '/' || siteOrigin.search || siteOrigin.hash) throw Error('Site URL must be an HTTPS origin.');
 settings.site_url = siteOrigin.origin;
 const seoTitle = settings.seo_title || `${settings.brand} — Private Pilgrimage Tours`;
+const areaServed = [...new Set([...packages,...holidays].flatMap(p=>p.destinations||[]))];
 const structuredData = {
   '@context': 'https://schema.org',
   '@graph': [
-    {'@type':'Organization','@id':`${settings.site_url}/#organization`,name:settings.brand,url:`${settings.site_url}/`,logo:`${settings.site_url}/assets/irisha-transparent-logo.png`,description:settings.description},
+    {'@type':['Organization','TravelAgency'],'@id':`${settings.site_url}/#organization`,name:settings.brand,url:`${settings.site_url}/`,logo:`${settings.site_url}/assets/irisha-transparent-logo.png`,description:settings.description,areaServed:areaServed.map(name=>({'@type':'City',name}))},
     {'@type':'WebSite','@id':`${settings.site_url}/#website`,url:`${settings.site_url}/`,name:settings.brand,inLanguage:'en',publisher:{'@id':`${settings.site_url}/#organization`}},
     {'@type':'WebPage','@id':`${settings.site_url}/#webpage`,url:`${settings.site_url}/`,name:seoTitle,description:settings.description,inLanguage:'en',isPartOf:{'@id':`${settings.site_url}/#website`},about:{'@id':`${settings.site_url}/#organization`}}
   ]
@@ -169,7 +170,8 @@ const servicePage=s=>{
   const jsonLd={'@context':'https://schema.org','@graph':[
     {'@type':'Organization','@id':`${settings.site_url}/#organization`,name:settings.brand,url:`${settings.site_url}/`},
     {'@type':'WebPage','@id':`${url}#webpage`,url,name:title,description:s.details,inLanguage:'en',isPartOf:{'@id':`${settings.site_url}/#website`},about:{'@id':`${settings.site_url}/#organization`}},
-    {'@type':'Service',name:s.title,description:s.details,provider:{'@id':`${settings.site_url}/#organization`},url}
+    {'@type':'Service',name:s.title,description:s.details,provider:{'@id':`${settings.site_url}/#organization`},url},
+    {'@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'Home',item:`${settings.site_url}/`},{'@type':'ListItem',position:2,name:s.title,item:url}]}
   ]};
   return `${pageHead({title,description:s.details,canonical:url,jsonLd})}
 ${chrome(false)}
@@ -203,7 +205,8 @@ const holidayPage=h=>{
   const jsonLd={'@context':'https://schema.org','@graph':[
     {'@type':'Organization','@id':`${settings.site_url}/#organization`,name:settings.brand,url:`${settings.site_url}/`},
     {'@type':'WebPage','@id':`${url}#webpage`,url,name:title,description:h.overview||h.description,inLanguage:'en',isPartOf:{'@id':`${settings.site_url}/#website`},about:{'@id':`${settings.site_url}/#organization`}},
-    {'@type':'TouristTrip',name:h.title,description:h.overview||h.description,touristType:h.audience,url,provider:{'@id':`${settings.site_url}/#organization`}}
+    {'@type':'TouristTrip',name:h.title,description:h.overview||h.description,touristType:h.audience,url,provider:{'@id':`${settings.site_url}/#organization`}},
+    {'@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'Home',item:`${settings.site_url}/`},{'@type':'ListItem',position:2,name:h.title,item:url}]}
   ]};
   return `${pageHead({title,description:h.overview||h.description,canonical:url,jsonLd,preload:h.image})}
 ${chrome(false)}
@@ -267,6 +270,27 @@ for(const holiday of holidays){
 await mkdir('dist/admin',{recursive:true});
 for(const f of ['index.html','config.yml','admin.js']) await copyFile('admin/'+f,'dist/admin/'+f);
 await writeFile('dist/robots.txt',`User-agent: *\nAllow: /\nDisallow: /admin/\nSitemap: ${settings.site_url}/sitemap.xml\n`);
+const oneLine=s=>String(s??'').replace(/\s*\n+\s*/g,' ').trim();
+const llmsTxt=`# ${oneLine(settings.brand)}
+
+> ${oneLine(settings.description)}
+
+## Pilgrimage packages
+${packages.map(p=>`- ${oneLine(p.title)}: ${oneLine(p.description)}`).join('\n')}
+
+## Elite fleet
+${fleet.map(f=>`- ${oneLine(f.title)} (${oneLine(f.category)}, ${oneLine(f.seats)}): ${oneLine(f.description)}`).join('\n')}
+
+## Holidays
+${holidays.map(h=>`- [${oneLine(h.title)}](${settings.site_url}/holidays/${h.slug}/): ${oneLine(h.overview||h.description)}`).join('\n')}
+
+## Services
+${services.map(s=>`- [${oneLine(s.title)}](${settings.site_url}/services/${s.slug}/): ${oneLine(s.details||s.description)}`).join('\n')}
+
+## Contact
+Enquiries are handled through the WhatsApp concierge button on ${settings.site_url}/ — no public phone number or email is listed on this site.
+`;
+await writeFile('dist/llms.txt',llmsTxt);
 await writeFile('dist/sitemap.xml',`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${e(settings.site_url)}/</loc></url>${services.map(s=>`<url><loc>${e(settings.site_url)}/services/${e(s.slug)}/</loc></url>`).join('')}${holidays.map(h=>`<url><loc>${e(settings.site_url)}/holidays/${e(h.slug)}/</loc></url>`).join('')}</urlset>`);
 await writeFile('dist/404.html','<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Page not found — Irisha Concierge</title><script src="/theme.js"></script><link rel="stylesheet" href="/styles.css"><!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=AW-18450731089"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag(\'js\',new Date());gtag(\'config\',\'AW-18450731089\');</script></head><body><main class="error-page"><p class="eyebrow">IRISHA CONCIERGE · 404</p><h1>A different path<br>awaits.</h1><p>This page could not be found.</p><a class="button" href="/">Return to Irisha</a></main></body></html>');
 console.log(`Built Irisha Concierge: ${packages.length} packages, ${fleet.length} vehicles, ${services.length} services, ${holidays.length} holidays, ${offers.length} offers.`);
