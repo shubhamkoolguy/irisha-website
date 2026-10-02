@@ -7,11 +7,13 @@ Downloaded 23–24 September 2026. The three web photos were encoded as WebP; th
 | `assets/varanasi-hero.webp` | Rachel Claire, Pexels — https://www.pexels.com/photo/waterfront-city-at-dusk-8112552/ | Pexels license allows website use; attribution optional. https://www.pexels.com/license/ |
 | `assets/ganga-aarti.webp` | Krishnendu Biswas, Pexels — https://www.pexels.com/photo/hindu-priest-performing-ganga-aarti-in-varanasi-india-30673215/ | Pexels license allows website use; attribution optional. https://www.pexels.com/license/ |
 | `assets/urbania-long-wheelbase.webp` (also served at the previous `assets/urbania.webp` path) | Force Urbania official long-wheelbase variant — https://forceurbania.co.in/wheel_base/long-wheelbase/ — original: https://forceurbania.co.in/wp-content/uploads/2022/10/wheelbase-long.jpg | Full side profile of the long-wheelbase model, replaced 24 September 2026. Manufacturer model-reference photo, not a photograph of the allocated vehicle. No open reuse license was located. Obtain permission or replace with owned fleet photography for public commercial launch. |
+| `assets/bodhgaya-mahabodhi.webp` | Rishu Bhosale, Pexels — https://www.pexels.com/photo/on-the-land-of-enlightenment-28198206/ | Pexels license allows website use; attribution optional. Encoded as WebP at 1400px wide. |
 
 Direct Pexels downloads:
 
 - https://images.pexels.com/photos/8112552/pexels-photo-8112552.jpeg?cs=srgb&dl=pexels-rachel-claire-8112552.jpg&fm=jpg
 - https://images.pexels.com/photos/30673215/pexels-photo-30673215.jpeg?cs=srgb&dl=pexels-krishclicknature-30673215.jpg&fm=jpg
+- https://images.pexels.com/photos/28198206/pexels-photo-28198206.jpeg?cs=srgb&dl=pexels-rishu-bhosale-40372778-28198206.jpg&fm=jpg
 
 ## Brand identity
 - `assets/irisha-full-logo.png`: original FullLogo (2).png supplied by the owner on 2026-09-24; used in navigation, footer and CMS.

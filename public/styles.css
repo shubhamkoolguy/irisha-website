@@ -157,25 +157,25 @@ input,textarea,select{border-color:#96849f;font-size:16px}
 @media(forced-colors:active){.button,.theme-toggle,.floating-whatsapp{border:2px solid ButtonText}.hero-shade{background:Canvas}.hero,.signature-photo{color:CanvasText}:focus-visible{outline:3px solid Highlight}}
 
 /* Light theme: Soft Cream, Deep Charcoal, Champagne Gold, Muted Grey. */
-:root[data-theme="light"]{color-scheme:light;--bg:#FAF9F6;--surface:#fff;--surface-2:#F3EFE8;--text:#1F2937;--muted:#6B7280;--pink:#B08D57;--pink-light:#B08D57;--purple:#1F2937;--line:#B08D57;--gradient:linear-gradient(115deg,#1F2937,#374151)}
+:root[data-theme="light"]{color-scheme:light;--bg:#FAF9F6;--surface:#fff;--surface-2:#F3EFE8;--text:#1F2937;--muted:#6B7280;--pink:#7a5e38;--pink-light:#7a5e38;--purple:#1F2937;--line:#7a5e38;--gradient:linear-gradient(115deg,#1F2937,#374151)}
 [data-theme="light"] .site-header{background:rgba(250,249,246,.96);border-color:var(--line)}
 [data-theme="light"] .announcement{background:#F3EFE8;border-color:var(--line)}
-[data-theme="light"] :is(.announcement-label,.announcement a,.eyebrow,.destination-list,.detail-route>span,.stop-number,.itinerary-stop .small-eyebrow,.admin-setup code){color:#B08D57}
+[data-theme="light"] :is(.announcement-label,.announcement a,.eyebrow,.destination-list,.detail-route>span,.stop-number,.itinerary-stop .small-eyebrow,.admin-setup code){color:#7a5e38}
 [data-theme="light"] :is(.announcement-inner>span:nth-child(2),.desktop-nav a,.promise-strip,.section-heading h2 em,.fleet-subtitle,.fleet-features li,.secondary-vehicle small,.secondary-vehicle .small-eyebrow,.service-description,.service-copy .small-eyebrow,.service-extra,.contact-inner>p:not(.eyebrow),.contact-note,.footer-top .hindi,.footer-bottom,.footer-link,.back-top,.fleet-price,.card-description,.inclusion p,.quote-price,.itinerary-link,.form-note,.detail-note,.detail-price,.detail-features li,.detail-route>span,dialog .dialog-description,label>span,.itinerary-stop p,.package-duration,.package-conditions,.package-booking-details p,.package-booking-details li,.itinerary-intro,.itinerary-schedule dd,.itinerary-stop .itinerary-overnight,.package-inclusion-list span,.admin-setup p,.admin-setup ol){color:var(--muted)}
 [data-theme="light"] :is(.section-heading h2,.inclusion h4,.package-duration strong,.package-booking-details h3,.detail-subheading,.itinerary-schedule dt,.itinerary-overnight strong,.package-inclusion-list strong,.package-itinerary summary,label,dialog h2 em,.contact-inner h2 em,.admin-setup h1 em){color:var(--text)}
 [data-theme="light"] :is(.signature-card,.fleet-card,.secondary-vehicle,.service-card,.service-large,.package-itinerary,dialog,.contact-verification){background:var(--surface);border-color:var(--line);box-shadow:0 8px 32px #1F293714}
-[data-theme="light"] :is(.service-card:hover,.secondary-vehicle:hover){background:#F3EFE8;border-color:#B08D57}
+[data-theme="light"] :is(.service-card:hover,.secondary-vehicle:hover){background:#F3EFE8;border-color:#7a5e38}
 [data-theme="light"] .service-page-lead,[data-theme="light"] .service-steps p{color:var(--muted)}
-[data-theme="light"] :is(.service-top>.icon,.inclusion>.icon,.fleet-features .icon,.promise-strip .icon,.circle-arrow,.vehicle-icon){color:#B08D57}
-[data-theme="light"] .circle-arrow{border-color:#B08D57}
+[data-theme="light"] :is(.service-top>.icon,.inclusion>.icon,.fleet-features .icon,.promise-strip .icon,.circle-arrow,.vehicle-icon){color:#7a5e38}
+[data-theme="light"] .circle-arrow{border-color:#7a5e38}
 [data-theme="light"] :is(.contact-verification h3,.contact-verification #verification-cancel){color:var(--text)}
 [data-theme="light"] :is(.contact-verification .verification-description,.contact-verification .captcha-status,.contact-verification .captcha-legal){color:var(--muted)}
 [data-theme="light"] .captcha-stage{background:#F3EFE8;border-color:var(--line)}
 [data-theme="light"] .contact-verification #verified-contact:disabled{background:#F3EFE8;color:#6B7280;border-color:var(--line)}
-[data-theme="light"] :is(input,textarea,select){background:#fff;color:var(--text);border-color:#B08D57}
+[data-theme="light"] :is(input,textarea,select){background:#fff;color:var(--text);border-color:#7a5e38}
 [data-theme="light"] :is(input,textarea)::placeholder{color:#6B7280}
 [data-theme="light"] .dialog-close{color:var(--text);background:#F3EFE8}
-[data-theme="light"] .button-outline{color:#B08D57;border-color:#B08D57}
+[data-theme="light"] .button-outline{color:#7a5e38;border-color:#7a5e38}
 [data-theme="light"] .button-outline:hover{background:#F3EFE8}
 [data-theme="light"] .hero{color:#f5f1f7;background:#0b0614}
 [data-theme="light"] .hero .hero-quote-note{color:#dfd8e5}
@@ -198,22 +198,22 @@ input,textarea,select{border-color:#96849f;font-size:16px}
 [data-theme="light"] .hero-shade{background:linear-gradient(180deg,rgba(11,6,20,.72),rgba(11,6,20,.72) 65%,#0b0614);box-shadow:none}
 [data-theme="light"] .hero .hero-link:hover{color:#fff;text-decoration:underline;text-underline-offset:5px}
 [data-theme="light"] .legal-copy p{color:var(--muted)}
-[data-theme="light"] :is(.contact-phone,.contact-star,.detail-features li:before){color:#B08D57}
+[data-theme="light"] :is(.contact-phone,.contact-star,.detail-features li:before){color:#7a5e38}
 [data-theme="light"] .brand img{filter:brightness(0) saturate(100%) invert(14%) sepia(10%) saturate(1032%) hue-rotate(176deg) brightness(94%) contrast(91%)}
 [data-theme="light"] .photo-caption{color:#fff;background:rgba(11,6,20,.85);padding:14px 16px;border-radius:8px}
 [data-theme="light"] .photo-caption span{color:#eee2f1}
-[data-theme="light"] :is(.secondary-vehicle,.service-card,.package-itinerary,.theme-toggle){border-color:#B08D57}
+[data-theme="light"] :is(.secondary-vehicle,.service-card,.package-itinerary,.theme-toggle){border-color:#7a5e38}
 [data-theme="light"] :is(.service-extra,.signature-bottom,.detail-note){border-color:var(--line)}
-[data-theme="light"] .contact-verification #verification-cancel{border-color:#B08D57;background:#F3EFE8}
-[data-theme="light"] .contact-verification #verification-cancel:hover{color:#B08D57;border-color:#B08D57;background:#FAF9F6}
+[data-theme="light"] .contact-verification #verification-cancel{border-color:#7a5e38;background:#F3EFE8}
+[data-theme="light"] .contact-verification #verification-cancel:hover{color:#7a5e38;border-color:#7a5e38;background:#FAF9F6}
 [data-theme="light"] dialog{scrollbar-color:#6B7280 #F3EFE8}
-[data-theme="light"] :is(input,textarea,select):focus{border-color:#B08D57;outline:3px solid #B08D57;outline-offset:2px}
-[data-theme="light"] :focus-visible{outline:3px solid #B08D57;outline-offset:4px;box-shadow:0 0 0 2px #FAF9F6}
+[data-theme="light"] :is(input,textarea,select):focus{border-color:#7a5e38;outline:3px solid #7a5e38;outline-offset:2px}
+[data-theme="light"] :focus-visible{outline:3px solid #7a5e38;outline-offset:4px;box-shadow:0 0 0 2px #FAF9F6}
 [data-theme="light"] .hero :focus-visible{outline-color:#f0c5e1;box-shadow:0 0 0 2px #0b0614}
 [data-theme="light"] .package-itinerary summary:focus-visible{outline-offset:-5px;box-shadow:none}
 [data-theme="light"] :is(.service-card,.secondary-vehicle):focus-visible{outline-offset:-5px;box-shadow:none}
 [data-theme="light"] :is(.form-note,.captcha-legal) a{color:#1F2937;text-decoration:underline;text-underline-offset:3px}
-[data-theme="light"] :is(.form-note,.captcha-legal) a:hover{color:#B08D57;text-decoration-thickness:2px}
+[data-theme="light"] :is(.form-note,.captcha-legal) a:hover{color:#7a5e38;text-decoration-thickness:2px}
 [data-theme="light"] .button:hover{filter:none}
 [data-theme="light"] .wordmark,[data-theme="light"] .brand{color:#1F2937}
 @media(forced-colors:active){

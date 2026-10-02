@@ -1,0 +1,156 @@
+{
+  "title": "Nalanda, Gaya & Bodhgaya",
+  "slug": "nalanda-gaya-bodhgaya",
+  "active": true,
+  "featured": false,
+  "order": 2,
+  "eyebrow": "THE BIHAR CIRCUIT",
+  "headline": "Three sacred cities.\nOne unhurried pilgrimage.",
+  "destinations": [
+    "Nalanda",
+    "Gaya",
+    "Bodhgaya"
+  ],
+  "description": "Nalanda, Gaya and Bodhgaya, with flights, luxury stays, private travel and meaningful rites coordinated by your dedicated concierge. Every day is shaped around your pace and preferences.",
+  "image": "/assets/bodhgaya-mahabodhi.webp",
+  "image_alt": "Mahabodhi Temple in Bodh Gaya, Bihar",
+  "image_caption": "BODHGAYA · THE SEAT OF ENLIGHTENMENT",
+  "duration": "5 Days / 4 Nights",
+  "price_label": "Your journey. Your personalised quote.",
+  "starting_price": 0,
+  "price_unit": "per person",
+  "inclusions": [
+    {
+      "icon": "plane",
+      "title": "Flights, personally coordinated",
+      "description": "End-to-end domestic flight bookings and seat allocations coordinated directly by your concierge."
+    },
+    {
+      "icon": "stay",
+      "title": "Sanctuary & transit",
+      "description": "Luxury boutique hotel stays and private, chauffeur-driven transfers, with Force Urbania or Innova Hycross options."
+    },
+    {
+      "icon": "temple",
+      "title": "Assisted sacred visits",
+      "description": "Assistance with authorised access at Mahabodhi, Vishnupad and other agreed sites, following each shrine’s rules and available timings."
+    },
+    {
+      "icon": "sparkle",
+      "title": "Ancestral rites, thoughtfully managed",
+      "description": "Pind Daan at Gaya and other chosen rites, respectfully coordinated with senior priests."
+    },
+    {
+      "icon": "check",
+      "title": "Nalanda, at your pace",
+      "description": "A guided visit to the Nalanda ruins and museum, with time to pause rather than rush the site."
+    }
+  ],
+  "notes": "Temple access, Pind Daan slots and site timings are subject to local rules and availability. Nalanda monument hours and museum access follow Archaeological Survey of India arrangements on the day.",
+  "itinerary": [
+    {
+      "place": "Bodhgaya",
+      "title": "Arrive and settle into Bodhgaya",
+      "description": "A gentle beginning, with time to rest after your flight.",
+      "overnight": "Bodhgaya · night 1 of 4",
+      "schedule": [
+        {
+          "period": "Arrival",
+          "description": "Meet your chauffeur for a private airport transfer to your luxury boutique hotel."
+        },
+        {
+          "period": "Afternoon",
+          "description": "Check in and unwind, with your arrival arrangements coordinated by your concierge."
+        },
+        {
+          "period": "Evening",
+          "description": "Review your temple visits, Pind Daan preferences and the days ahead with your concierge."
+        }
+      ]
+    },
+    {
+      "place": "Bodhgaya",
+      "title": "Mahabodhi and the sacred precinct",
+      "description": "A day of quiet devotion around the Mahabodhi Temple.",
+      "overnight": "Bodhgaya · night 2 of 4",
+      "schedule": [
+        {
+          "period": "Morning",
+          "description": "Visit Mahabodhi Temple and the Bodhi Tree with concierge assistance, following the temple’s approved access arrangements."
+        },
+        {
+          "period": "Afternoon",
+          "description": "Rest at your hotel, or continue to nearby monasteries if you wish a fuller day."
+        },
+        {
+          "period": "Evening",
+          "description": "Return to the temple precinct for evening prayers, then transfer back to your hotel."
+        }
+      ]
+    },
+    {
+      "place": "Bodhgaya → Gaya",
+      "title": "Vishnupad and ancestral rites",
+      "description": "Travel privately to Gaya for darshan and agreed Vedic rites.",
+      "overnight": "Gaya · night 3 of 4",
+      "schedule": [
+        {
+          "period": "Morning",
+          "description": "Your chauffeur takes you to Gaya. Visit Vishnupad Temple with assisted arrangements where the shrine offers them."
+        },
+        {
+          "period": "Afternoon",
+          "description": "Pind Daan or other agreed ancestral rites, coordinated with senior priests."
+        },
+        {
+          "period": "Evening",
+          "description": "Settle into your luxury boutique stay and enjoy an unhurried evening."
+        }
+      ]
+    },
+    {
+      "place": "Gaya → Nalanda",
+      "title": "The ancient university",
+      "description": "Continue to Nalanda for the monastic ruins and museum.",
+      "overnight": "Nalanda · night 4 of 4",
+      "schedule": [
+        {
+          "period": "Morning",
+          "description": "Travel to Nalanda in your private, chauffeur-driven vehicle."
+        },
+        {
+          "period": "Afternoon",
+          "description": "Walk the excavated monasteries and temples of ancient Nalanda University, then visit the site museum as timings allow."
+        },
+        {
+          "period": "Evening",
+          "description": "Check in and rest, with dinner arranged around your preference."
+        }
+      ]
+    },
+    {
+      "place": "Nalanda · onward travel",
+      "title": "An effortless onward journey",
+      "description": "A flexible final day, planned around your departure.",
+      "overnight": "",
+      "schedule": [
+        {
+          "period": "Morning",
+          "description": "Enjoy time at leisure before check-out, depending on your flight schedule."
+        },
+        {
+          "period": "Departure",
+          "description": "Your chauffeur provides the agreed airport transfer, with onward domestic flight bookings and seat allocations coordinated by your concierge."
+        }
+      ]
+    }
+  ],
+  "duration_note": "Fully customisable to your calendar.",
+  "price_guidance": "Pricing is tailored to your dates, group size, departure city, preferred stays and vehicle. Your written quote itemises airfares, accommodation, transfers and selected temple or ritual charges before you book.",
+  "exclusions": [
+    "Personal shopping.",
+    "Bespoke customised add-ons outside the agreed itinerary.",
+    "Personal gratuities outside the programme."
+  ],
+  "itinerary_note": "A suggested route through Bodhgaya, Gaya and Nalanda, with two nights in Bodhgaya, one in Gaya and one in Nalanda. Your concierge adjusts the daily order around your flights, temple slots and preferences."
+}

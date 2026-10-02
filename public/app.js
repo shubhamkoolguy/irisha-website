@@ -62,10 +62,6 @@
       const v = data.fleet.find(x=>x.slug===key);
       if(!v)return;
       html = `<p class="eyebrow">${e(v.category)}</p><h2 id="detail-title">${e(v.title)}</h2><div class="detail-route"><span>${e(v.seats)}</span></div><p class="dialog-description">${e(v.description)}</p><ul class="detail-features">${v.features.map(x=>`<li>${e(x)}</li>`).join('')}</ul><p class="dialog-description">${e(v.details)}</p><p class="detail-price">${e(price(v))}</p>${action(v.title)}`;
-    } else if(type === 'service') {
-      const s = data.services.find(x=>x.slug===key) || data.services[Number(key)];
-      if(!s)return;
-      html = `<p class="eyebrow">${e(s.eyebrow)}</p><h2 id="detail-title">${e(s.title)}</h2><p class="dialog-description">${e(s.details)}</p>${s.highlights?.length?`<ul class="package-inclusion-list">${s.highlights.map(x=>`<li><strong>${e(x.title)}</strong><span>${e(x.description)}</span></li>`).join('')}</ul>`:''}${action(s.title)}`;
     } else if(type === 'policy') {
       const privacy = key === 'privacy';
       html = `<p class="eyebrow">IRISHA CONCIERGE</p><h2 id="detail-title">${privacy?'Your privacy.':'Before you travel.'}</h2><div class="legal-copy">${privacy?`<p>This site’s inquiry form prepares your travel message on your device. The message is not sent to our website server or stored in browser storage. You decide whether to send it in WhatsApp. Before opening WhatsApp, we verify a reCAPTCHA token on our server to help prevent automated contact harvesting.</p><h3>When you contact us</h3><p>The details you choose to share are used to discuss and arrange your travel. Avoid including passport numbers, payment details or other sensitive documents in your first inquiry.</p><h3>Third-party services</h3><p>WhatsApp applies its own privacy terms when you open or use it. Site hosting providers may process technical request information. Web fonts are delivered through Google Fonts. This site does not include advertising or analytics trackers. Your light or dark appearance preference is stored locally on this device; it contains no inquiry details. When you open contact verification, Google reCAPTCHA processes device and interaction information and may use cookies to assess automated activity under Google’s Privacy Policy and Terms of Service.</p><p>For questions about information you have shared, use the protected contact option on this website to reach Irisha Concierge.</p>`:`<p>Every journey is tailored to your dates, group and preferences. An inquiry is not a confirmed reservation or payment.</p><h3>Your quote</h3><p>Your concierge will confirm the itinerary, accommodation, vehicle configuration, inclusions, exclusions, taxes, payment schedule and cancellation terms in writing before you book.</p><h3>Sacred experiences</h3><p>We guarantee our VIP Darshan coordination and assistance. Access, queue arrangements, puja availability and timings remain subject to temple authorities. Boat journeys and Aarti viewing are subject to river conditions and local permissions.</p><h3>Changes and cancellations</h3><p>Hotel, airline, venue and transport policies vary. The policies for your specific arrangements will be included in your quotation and booking confirmation.</p>`}</div>`;
@@ -74,11 +70,11 @@
     openDialog(detail, trigger);
   }
   document.addEventListener('click',event => {
-    const button = event.target.closest('[data-contact],[data-inquire],[data-package],[data-vehicle],[data-service],[data-policy]');
+    const button = event.target.closest('[data-contact],[data-inquire],[data-package],[data-vehicle],[data-policy]');
     if(!button)return;
     if(button.hasAttribute('data-contact')){startVerification('Namaste Irisha Concierge, I would like to plan a private journey. Please help me with the next steps.',button);return;}
     if(button.hasAttribute('data-inquire'))inquire(button.dataset.inquire, button.closest('dialog') ? returnFocus : button);
-    else for(const type of ['package','vehicle','service','policy'])if(button.hasAttribute('data-'+type)){showDetail(type,button.dataset[type],button);break;}
+    else for(const type of ['package','vehicle','policy'])if(button.hasAttribute('data-'+type)){showDetail(type,button.dataset[type],button);break;}
   });
   byId('inquiry-form').addEventListener('submit',event => {
     event.preventDefault();
@@ -194,7 +190,9 @@
   // Resolve offer schedules on the visitor's clock too, so an expired offer
   // disappears without waiting for another static deployment.
   let offerIndex = 0;
-  let paused = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let userPaused = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let hovering = false;
+  let paused = userPaused;
   let currentOffers = [];
   const bar = byId('announcement');
   const pause = byId('offer-pause');
@@ -216,10 +214,12 @@
     link.href = dest.startsWith('#') && location.pathname !== '/' ? '/'+dest : dest;
     if(dest.startsWith('https://')){link.target='_blank';link.rel='noopener noreferrer';}else{link.removeAttribute('target');link.removeAttribute('rel');}
   }
-  const updatePause=()=>{pause.textContent=paused?'▶':'Ⅱ';pause.setAttribute('aria-label',paused?'Play offers':'Pause offers');pause.setAttribute('aria-pressed',String(paused));};
-  pause.addEventListener('click',()=>{paused=!paused;updatePause();});
-  bar.addEventListener('focusin',()=>{paused=true;updatePause();});
-  bar.addEventListener('pointerenter',()=>{paused=true;updatePause();});
+  const updatePause=()=>{pause.textContent=userPaused?'▶':'Ⅱ';pause.setAttribute('aria-label',userPaused?'Play offers':'Pause offers');pause.setAttribute('aria-pressed',String(userPaused));};
+  pause.addEventListener('click',()=>{userPaused=!userPaused;paused=userPaused||hovering;updatePause();});
+  bar.addEventListener('focusin',()=>{hovering=true;paused=true;});
+  bar.addEventListener('focusout',()=>{hovering=false;paused=userPaused;});
+  bar.addEventListener('pointerenter',()=>{hovering=true;paused=true;});
+  bar.addEventListener('pointerleave',()=>{hovering=false;paused=userPaused;});
   updateOffers();updatePause();
   setInterval(()=>{if(!document.hidden)updateOffers(true);},8000);
 })();
