@@ -167,11 +167,13 @@ const servicePage=s=>{
   const title=`${s.title} | ${settings.brand}`;
   const others=services.filter(x=>x!==s);
   const showHolidays=s.slug==='holidays-tours'&&holidays.length;
+  const isVisa=s.slug==='visa-services';
   const jsonLd={'@context':'https://schema.org','@graph':[
     {'@type':'Organization','@id':`${settings.site_url}/#organization`,name:settings.brand,url:`${settings.site_url}/`},
     {'@type':'WebPage','@id':`${url}#webpage`,url,name:title,description:s.details,inLanguage:'en',isPartOf:{'@id':`${settings.site_url}/#website`},about:{'@id':`${settings.site_url}/#organization`}},
     {'@type':'Service',name:s.title,description:s.details,provider:{'@id':`${settings.site_url}/#organization`},url},
-    {'@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'Home',item:`${settings.site_url}/`},{'@type':'ListItem',position:2,name:s.title,item:url}]}
+    {'@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'Home',item:`${settings.site_url}/`},{'@type':'ListItem',position:2,name:s.title,item:url}]},
+    ...(isVisa&&s.countries?.length?[{'@type':'ItemList',name:`Popular visa destinations — ${s.title}`,itemListElement:s.countries.map((c,i)=>({'@type':'ListItem',position:i+1,name:c}))}]:[])
   ]};
   return `${pageHead({title,description:s.details,canonical:url,jsonLd})}
 ${chrome(false)}
@@ -188,6 +190,8 @@ ${showHolidays?holidayGroups.map(([audience,heading,intro])=>{
   const items=holidays.filter(h=>h.audience===audience);
   return items.length?`<section class="container holiday-board" id="${audience}-holidays" aria-labelledby="${audience}-holidays-title"><div class="holiday-board-intro"><h2 id="${audience}-holidays-title">${e(heading)}</h2><p>${e(intro)}</p></div><div class="holiday-grid">${items.map(holidayCard).join('')}</div></section>`:'';
 }).join(''):''}
+${isVisa&&s.countries?.length?`<section class="container holiday-board" id="visa-countries" aria-labelledby="visa-countries-title"><div class="holiday-board-intro"><h2 id="visa-countries-title">Any destination, one visa concierge</h2><p>We coordinate visas worldwide — these are the destinations travellers ask about most. Entry rules change — we confirm the current requirement for your passport and dates before you apply.</p></div><ul class="detail-route">${s.countries.map(c=>`<li><span>${e(c)}</span></li>`).join('')}</ul><p class="holiday-card-copy">Travelling somewhere else? We handle visa coordination for any country.</p></section>`:''}
+${isVisa&&s.why_us?.length?`<section class="container holiday-board" aria-labelledby="why-us-title"><div class="holiday-board-intro"><h2 id="why-us-title">Why book your visa with Irisha</h2></div><div class="inclusion-grid service-page-grid">${s.why_us.map(x=>`<div class="inclusion">${icon('check')}<div><h2>${e(x.title)}</h2><p>${e(x.description)}</p></div></div>`).join('')}</div></section>`:''}
 <div class="container service-page-columns">
 ${s.process?.length?`<div><h2>How it works</h2><ol class="service-steps">${s.process.map((step,n)=>`<li><span class="stop-number" aria-hidden="true">${String(n+1).padStart(2,'0')}</span><p>${e(step)}</p></li>`).join('')}</ol></div>`:''}
 ${s.needed?.length?`<div><h2>What to share</h2><ul class="package-inclusion-list">${s.needed.map(x=>`<li><span>${e(x)}</span></li>`).join('')}</ul></div>`:''}
