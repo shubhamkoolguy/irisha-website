@@ -155,7 +155,7 @@ const countryHolidayBoards=holidayCountries.map(country=>{
   const couples=items.filter(h=>h.audience==='couple').length;
   const families=items.filter(h=>h.audience==='family').length;
   const intro=[couples?`${couples} couple ${couples===1?'retreat':'retreats'}`:'',families?`${families} family ${families===1?'getaway':'getaways'}`:''].filter(Boolean).join(' · ');
-  return `<section class="container holiday-board" id="${slug}-holidays" aria-labelledby="${slug}-holidays-title"><div class="holiday-board-intro"><div><h2 id="${slug}-holidays-title">${e(country)}</h2><p>${e(intro||'Curated holidays, shaped around you.')}</p></div>${carouselNav(slug,country)}</div><div class="holiday-carousel" data-carousel-track="${e(slug)}">${items.map(holidayCard).join('')}</div></section>`;
+  return `<section class="container holiday-board" id="${slug}-holidays" aria-labelledby="${slug}-holidays-title"><div class="holiday-board-intro"><div><h2 id="${slug}-holidays-title">${e(country)}</h2><p>${e(intro||'Curated holidays, shaped around you.')}</p></div></div><div class="holiday-carousel-wrap">${carouselNav(slug,country)}<div class="holiday-carousel" data-carousel-track="${e(slug)}">${items.map(holidayCard).join('')}</div></div></section>`;
 }).join('');
 const html=`${pageHead({title:seoTitle,description:settings.description,canonical:`${settings.site_url}/`,jsonLd:structuredData,preload:heroSlides[0].image})}
 ${chrome(true)}
