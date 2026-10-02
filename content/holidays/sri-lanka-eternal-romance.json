@@ -1,0 +1,135 @@
+{
+  "title": "Sri Lanka Eternal Romance",
+  "slug": "sri-lanka-eternal-romance",
+  "active": true,
+  "featured": false,
+  "order": 25,
+  "audience": "couple",
+  "country": "Sri Lanka",
+  "eyebrow": "COUPLE RETREAT",
+  "headline": "Kandy, tea country, then three nights on the coast.",
+  "description": "Seven nights for two: Kandy, a night in Nuwara Eliya, three on Bentota, then Colombo.",
+  "image": "/assets/holidays/sri-lanka.webp",
+  "image_alt": "Nine Arches Bridge and a train in the hills near Ella, Sri Lanka",
+  "destinations": ["Kandy", "Nuwara Eliya", "Bentota", "Colombo"],
+  "nights": [
+    {"place": "Kandy", "nights": 2},
+    {"place": "Nuwara Eliya", "nights": 1},
+    {"place": "Bentota", "nights": 3},
+    {"place": "Colombo", "nights": 1}
+  ],
+  "duration": "8 Days / 7 Nights",
+  "hotels": 4,
+  "support": "24×7 concierge",
+  "customizable": true,
+  "starting_price": 48999,
+  "price_unit": "per person",
+  "price_label": "Quoted for your dates and hotels",
+  "price_guidance": "This circuit depends on hotel category, whether the hill-country train is booked, and beach town. We confirm a written total before you reserve.",
+  "overview": "A longer couple’s trail: two nights in Kandy, a night among tea estates, three unhurried nights on the west coast, then Colombo. Private vehicle between stays; the train is added when seats exist.",
+  "highlights": [
+    "Temple of the Tooth and a Kandy lake evening.",
+    "A night in Nuwara Eliya with a tea-factory visit.",
+    "Three nights on Bentota for a real beach close.",
+    "Hill-country train or the highland road, as confirmed."
+  ],
+  "why": [
+    "Hills and a proper stretch of sea, not a night in each.",
+    "Pace and dining can be shaped around the two of you.",
+    "ETA guidance for Indian passports, coordinated with your tickets."
+  ],
+  "inclusions": [
+    "Airport and inter-hotel transfers in a private vehicle",
+    "Breakfast on hotel mornings",
+    "Visa assistance",
+    "Accommodation on twin sharing",
+    "Hill-country train seats when they can be confirmed in your quote"
+  ],
+  "exclusions": [
+    "International flights",
+    "Sri Lanka ETA fees",
+    "Travel insurance",
+    "Meals other than specified",
+    "Site tickets and optional boats unless added",
+    "Personal expenses, GST and tourism fees"
+  ],
+  "stay": {
+    "name": "Selected boutique hotels on a four-stop circuit",
+    "nights": 7,
+    "room": "Double occupancy throughout",
+    "amenities": ["Breakfast", "Air conditioning or fans as the property offers", "Wi-Fi", "Private vehicle between stays"]
+  },
+  "notes": "Train seats, tea visit and beach town are confirmed only after you approve the written quote. An inquiry is not a booking.",
+  "itinerary_note": "Suggested order through Kandy, Nuwara Eliya, Bentota and Colombo. A hill night can be dropped for more beach time.",
+  "itinerary": [
+    {
+      "place": "Kandy",
+      "title": "Arrive in the hills",
+      "description": "Land in Colombo and continue to Kandy.",
+      "overnight": "Kandy · night 1 of 2",
+      "schedule": [
+        {"period": "Arrival", "description": "Private transfer from CMB to Kandy."},
+        {"period": "Evening", "description": "A first lakeside walk."}
+      ]
+    },
+    {
+      "place": "Kandy",
+      "title": "The tooth relic",
+      "description": "Temple morning, then time at the hotel.",
+      "overnight": "Kandy · night 2 of 2",
+      "schedule": [
+        {"period": "Morning", "description": "Temple of the Tooth timed around prayers."},
+        {"period": "Afternoon", "description": "Hotel rest or a short city walk."}
+      ]
+    },
+    {
+      "place": "Nuwara Eliya",
+      "title": "Into tea country",
+      "description": "Train if seats exist; otherwise the highland road.",
+      "overnight": "Nuwara Eliya · night 1 of 1",
+      "schedule": [
+        {"period": "Day", "description": "Kandy to Nuwara Eliya as confirmed in your quote."},
+        {"period": "Evening", "description": "A cooler hill-station night."}
+      ]
+    },
+    {
+      "place": "Bentota",
+      "title": "Down to the coast",
+      "description": "A longer road day, then three beach nights.",
+      "overnight": "Bentota · night 1 of 3",
+      "schedule": [
+        {"period": "Day", "description": "Scenic transfer to the west coast."},
+        {"period": "Evening", "description": "Settle in by the sea."}
+      ]
+    },
+    {
+      "place": "Bentota",
+      "title": "Beach days",
+      "description": "Unstructured time; a river boat only if you asked.",
+      "overnight": "Bentota · nights 2–3 of 3",
+      "schedule": [
+        {"period": "Days at leisure", "description": "Beach, spa and optional Madu river boat as quoted."},
+        {"period": "Evenings", "description": "Quiet dinners on the coast."}
+      ]
+    },
+    {
+      "place": "Colombo",
+      "title": "A last night in the city",
+      "description": "North to Colombo before you fly.",
+      "overnight": "Colombo · night 1 of 1",
+      "schedule": [
+        {"period": "Day", "description": "Transfer and check-in."},
+        {"period": "Evening", "description": "A last dinner in Colombo."}
+      ]
+    },
+    {
+      "place": "Colombo",
+      "title": "Departure",
+      "description": "Return to the airport for your international flight.",
+      "overnight": "",
+      "schedule": [
+        {"period": "Departure", "description": "Private transfer to CMB, timed to your ticket."}
+      ]
+    }
+  ]
+}

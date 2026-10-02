@@ -1,0 +1,134 @@
+{
+  "title": "Bali Couple Retreat",
+  "slug": "bali-couple-retreat",
+  "active": true,
+  "featured": false,
+  "order": 7,
+  "audience": "couple",
+  "country": "Bali",
+  "eyebrow": "COUPLE RETREAT",
+  "headline": "Ubud rice terraces, then Seminyak evenings by the sea.",
+  "description": "Six nights in Bali for two: three in Ubud, three on the southwest coast, with one temple or sunrise add-on if you wish.",
+  "image": "/assets/holidays/bali.webp",
+  "image_alt": "Turquoise water and cliffs on the Bali coast",
+  "destinations": ["Ubud", "Seminyak"],
+  "nights": [
+    {"place": "Ubud", "nights": 3},
+    {"place": "Seminyak", "nights": 3}
+  ],
+  "duration": "7 Days / 6 Nights",
+  "hotels": 2,
+  "support": "24×7 concierge",
+  "customizable": true,
+  "starting_price": 0,
+  "price_unit": "per couple",
+  "price_label": "Quoted for your villas and dates",
+  "price_guidance": "Bali pricing depends on villa or hotel category, private driver days and whether you add a sunrise trek or Uluwatu evening. We confirm a written total before you reserve.",
+  "overview": "A couple’s Bali with two stays, not a hotel every night. Ubud for rice terraces, temples and quieter evenings; Seminyak for beach clubs, sunsets and a last stretch by the Indian Ocean. Private transfers keep the days yours.",
+  "highlights": [
+    "Three nights in Ubud with a terrace or temple morning.",
+    "Tegallalang or a nearby village walk at an easy pace.",
+    "Three nights in Seminyak or a neighbouring beach village.",
+    "Optional Uluwatu temple and kecak evening, if you add it."
+  ],
+  "why": [
+    "Inland calm and a coastal close, without island-hopping.",
+    "Dietary needs, including vegetarian, flagged to villas in advance.",
+    "Visa-on-arrival guidance for Indian passports, coordinated with your tickets."
+  ],
+  "inclusions": [
+    "Airport and inter-hotel transfers in a private vehicle",
+    "Breakfast on hotel or villa mornings",
+    "Visa assistance",
+    "Accommodation on twin sharing",
+    "One private half-day driver in Ubud as quoted"
+  ],
+  "exclusions": [
+    "International flights",
+    "Indonesia visa-on-arrival or e-VOA fees",
+    "Travel insurance",
+    "Meals other than specified",
+    "Mount Batur trek, spa rituals and paid cultural shows unless added",
+    "Personal expenses, GST and tourism fees"
+  ],
+  "stay": {
+    "name": "Selected boutique hotels or private villas",
+    "nights": 6,
+    "room": "Double occupancy; private pool villas on request",
+    "amenities": ["Breakfast", "Air conditioning", "Wi-Fi", "Private transfers as quoted"]
+  },
+  "notes": "Villa category, driver days and temple tickets are confirmed only after you approve the written quote. Ceremony days can close some sites. An inquiry is not a booking.",
+  "itinerary_note": "Suggested order: Ubud, then the southwest coast. Canggu or Uluwatu can replace Seminyak if that suits you better.",
+  "itinerary": [
+    {
+      "place": "Ubud",
+      "title": "Arrive in the hills",
+      "description": "Land in Denpasar and continue inland.",
+      "overnight": "Ubud · night 1 of 3",
+      "schedule": [
+        {"period": "Arrival", "description": "Private transfer from Ngurah Rai to your Ubud stay."},
+        {"period": "Evening", "description": "A first dinner nearby; keep the night short after the flight."}
+      ]
+    },
+    {
+      "place": "Ubud",
+      "title": "Terraces and temples",
+      "description": "A half-day with a driver, then time at the villa.",
+      "overnight": "Ubud · night 2 of 3",
+      "schedule": [
+        {"period": "Morning", "description": "Tegallalang or a nearby temple, timed before the heaviest coach traffic."},
+        {"period": "Afternoon", "description": "Pool, spa or a walk through central Ubud."},
+        {"period": "Evening", "description": "Dinner in town or at the villa."}
+      ]
+    },
+    {
+      "place": "Ubud",
+      "title": "An unhurried day",
+      "description": "Keep Ubud, or add a sunrise trek if you asked for it.",
+      "overnight": "Ubud · night 3 of 3",
+      "schedule": [
+        {"period": "Day", "description": "At leisure, or Mount Batur when included in the quote."},
+        {"period": "Evening", "description": "A last night in the hills."}
+      ]
+    },
+    {
+      "place": "Seminyak",
+      "title": "Down to the coast",
+      "description": "Transfer west and check in by the sea.",
+      "overnight": "Seminyak · night 1 of 3",
+      "schedule": [
+        {"period": "Day", "description": "Private road transfer and a late check-in if traffic asks for it."},
+        {"period": "Evening", "description": "Sunset on the beach."}
+      ]
+    },
+    {
+      "place": "Seminyak",
+      "title": "Coastal day",
+      "description": "Beach, cafés, or Uluwatu at dusk.",
+      "overnight": "Seminyak · night 2 of 3",
+      "schedule": [
+        {"period": "Day", "description": "Unstructured time on the southwest coast."},
+        {"period": "Evening", "description": "Optional Uluwatu temple and kecak, if added."}
+      ]
+    },
+    {
+      "place": "Seminyak",
+      "title": "A last morning by the water",
+      "description": "Slow breakfast and a final swim.",
+      "overnight": "Seminyak · night 3 of 3",
+      "schedule": [
+        {"period": "Day", "description": "Beach or spa time."},
+        {"period": "Evening", "description": "A last dinner together."}
+      ]
+    },
+    {
+      "place": "Seminyak",
+      "title": "Departure",
+      "description": "Transfer to Denpasar for your international flight.",
+      "overnight": "",
+      "schedule": [
+        {"period": "Departure", "description": "Private transfer to Ngurah Rai, timed to your ticket."}
+      ]
+    }
+  ]
+}

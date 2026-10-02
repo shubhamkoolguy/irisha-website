@@ -1,0 +1,143 @@
+{
+  "title": "Japan Family Holiday",
+  "slug": "japan-family-holiday",
+  "active": true,
+  "featured": false,
+  "order": 20,
+  "audience": "family",
+  "country": "Japan",
+  "eyebrow": "FAMILY GETAWAY",
+  "headline": "Tokyo for the children, Kyoto for the temples, trains in between.",
+  "description": "A seven-night family Japan: four nights in Tokyo, three in Kyoto, with rail instead of airport hops.",
+  "image": "/assets/holidays/japan.webp",
+  "image_alt": "Kiyomizu-dera Temple with cherry blossoms in Kyoto",
+  "destinations": ["Tokyo", "Kyoto"],
+  "nights": [
+    {"place": "Tokyo", "nights": 4},
+    {"place": "Kyoto", "nights": 3}
+  ],
+  "duration": "8 Days / 7 Nights",
+  "hotels": 2,
+  "support": "24×7 concierge",
+  "customizable": true,
+  "starting_price": 0,
+  "price_unit": "per person",
+  "price_label": "Quoted for your family and rail",
+  "price_guidance": "Family pricing depends on room type, season and child rail fares. Park tickets and international flights sit outside the base figure unless you ask us to include them.",
+  "overview": "Two cities, two hotels. Tokyo has the teamLab-or-Disney day if you want one; Kyoto keeps temple mornings short. Shinkansen between them. Built so younger children are not asked to do Hakone as well.",
+  "highlights": [
+    "Four nights in one Tokyo hotel.",
+    "Optional Disney, teamLab or Ghibli day as quoted.",
+    "Shinkansen to Kyoto.",
+    "Three nights in Kyoto with one early temple morning."
+  ],
+  "why": [
+    "Two stays — packing happens once.",
+    "Park days only when you add tickets.",
+    "Daily load can be cut for younger children."
+  ],
+  "inclusions": [
+    "Airport transfer in Tokyo as quoted",
+    "Breakfast where the hotel includes it",
+    "Visa assistance",
+    "Accommodation on twin or family-room sharing as quoted",
+    "Tokyo–Kyoto rail as specified"
+  ],
+  "exclusions": [
+    "International flights",
+    "Japan visa fees if they apply",
+    "Travel insurance",
+    "Meals other than specified",
+    "Disney, teamLab, Ghibli and temple tickets unless added",
+    "Personal expenses, GST and tourism fees"
+  ],
+  "stay": {
+    "name": "Selected family-friendly hotels in Tokyo and Kyoto",
+    "nights": 7,
+    "room": "Twin, double or interconnecting rooms as available",
+    "amenities": ["Breakfast as quoted", "Wi-Fi"]
+  },
+  "notes": "Park tickets are dated and sell out; they are confirmed only in the written quote. An inquiry is not a booking.",
+  "itinerary_note": "Suggested family order: Tokyo, then Kyoto. A Hakone day trip can replace a Tokyo leisure day if you ask.",
+  "itinerary": [
+    {
+      "place": "Tokyo",
+      "title": "Arrive in Tokyo",
+      "description": "Transfer in and keep the first evening quiet.",
+      "overnight": "Tokyo · night 1 of 4",
+      "schedule": [
+        {"period": "Arrival", "description": "Airport transfer as quoted."},
+        {"period": "Evening", "description": "Dinner near the hotel."}
+      ]
+    },
+    {
+      "place": "Tokyo",
+      "title": "A gentle city day",
+      "description": "One neighbourhood, a park, time to rest.",
+      "overnight": "Tokyo · night 2 of 4",
+      "schedule": [
+        {"period": "Day", "description": "Ueno Park or teamLab when included."},
+        {"period": "Evening", "description": "Early dinner."}
+      ]
+    },
+    {
+      "place": "Tokyo",
+      "title": "Park day or city day",
+      "description": "Disney only if you added tickets.",
+      "overnight": "Tokyo · night 3 of 4",
+      "schedule": [
+        {"period": "Day", "description": "Park, Ghibli Museum, or hotel time."},
+        {"period": "Evening", "description": "Quiet night in."}
+      ]
+    },
+    {
+      "place": "Tokyo",
+      "title": "A last Tokyo day",
+      "description": "Shopping, a short shrine, or rest.",
+      "overnight": "Tokyo · night 4 of 4",
+      "schedule": [
+        {"period": "Day", "description": "At leisure."},
+        {"period": "Evening", "description": "Pack for the shinkansen."}
+      ]
+    },
+    {
+      "place": "Kyoto",
+      "title": "Rail to Kyoto",
+      "description": "Reserved seats and a hotel transfer.",
+      "overnight": "Kyoto · night 1 of 3",
+      "schedule": [
+        {"period": "Day", "description": "Shinkansen and check-in."},
+        {"period": "Evening", "description": "A short Gion walk if energy remains."}
+      ]
+    },
+    {
+      "place": "Kyoto",
+      "title": "One temple morning",
+      "description": "Fushimi Inari or Kiyomizu — not both at speed.",
+      "overnight": "Kyoto · night 2 of 3",
+      "schedule": [
+        {"period": "Morning", "description": "One major site, started early."},
+        {"period": "Afternoon", "description": "Hotel rest."}
+      ]
+    },
+    {
+      "place": "Kyoto",
+      "title": "A last Kyoto day",
+      "description": "Arashiyama only if the children still want a morning out.",
+      "overnight": "Kyoto · night 3 of 3",
+      "schedule": [
+        {"period": "Day", "description": "At leisure."},
+        {"period": "Evening", "description": "A last family dinner."}
+      ]
+    },
+    {
+      "place": "Kyoto",
+      "title": "Departure",
+      "description": "Kansai or a return toward Tokyo, as ticketed.",
+      "overnight": "",
+      "schedule": [
+        {"period": "Departure", "description": "Airport transfer as quoted."}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "title": "Sri Lanka Honeymoon Circuit",
+  "slug": "sri-lanka-honeymoon-circuit",
+  "active": true,
+  "featured": false,
+  "order": 24,
+  "audience": "couple",
+  "country": "Sri Lanka",
+  "eyebrow": "COUPLE RETREAT",
+  "headline": "Kandy’s lake, then Bentota sunsets and Colombo.",
+  "description": "Five nights for two: Kandy’s temples, two nights on the west coast, then a last night in Colombo.",
+  "image": "/assets/holidays/sri-lanka.webp",
+  "image_alt": "Nine Arches Bridge and a train in the hills near Ella, Sri Lanka",
+  "destinations": ["Kandy", "Bentota", "Colombo"],
+  "nights": [
+    {"place": "Kandy", "nights": 2},
+    {"place": "Bentota", "nights": 2},
+    {"place": "Colombo", "nights": 1}
+  ],
+  "duration": "6 Days / 5 Nights",
+  "hotels": 3,
+  "support": "24×7 concierge",
+  "customizable": true,
+  "starting_price": 34999,
+  "price_unit": "per person",
+  "price_label": "Quoted for your dates and hotels",
+  "price_guidance": "Honeymoon pricing depends on hotel category and whether you add a Peradeniya morning or a river boat. We confirm a written total before you reserve.",
+  "overview": "A couple’s Sri Lanka with three stays: two nights by Kandy lake and the Temple of the Tooth, two on Bentota beach, then Colombo before you fly. Culture, then sea — without a hotel every night.",
+  "highlights": [
+    "Two nights in Kandy with the Temple of the Tooth.",
+    "Optional Peradeniya gardens on the way south.",
+    "Two nights on Bentota or a neighbouring beach.",
+    "A last Colombo evening before departure."
+  ],
+  "why": [
+    "Hills and sea in five nights, paced for two.",
+    "Dining and temple hours can be shaped around you.",
+    "ETA guidance for Indian passports, coordinated with your tickets."
+  ],
+  "inclusions": [
+    "Airport and inter-hotel transfers in a private vehicle",
+    "Breakfast on hotel mornings",
+    "Visa assistance",
+    "Accommodation on twin sharing"
+  ],
+  "exclusions": [
+    "International flights",
+    "Sri Lanka ETA fees",
+    "Travel insurance",
+    "Meals other than specified",
+    "Site tickets and optional boats unless added",
+    "Personal expenses, GST and tourism fees"
+  ],
+  "stay": {
+    "name": "Selected boutique hotels on a three-stop circuit",
+    "nights": 5,
+    "room": "Double occupancy throughout",
+    "amenities": ["Breakfast", "Air conditioning", "Wi-Fi", "Private vehicle between stays"]
+  },
+  "notes": "Temple timing, beach town and any boat are confirmed only after you approve the written quote. An inquiry is not a booking.",
+  "itinerary_note": "Suggested order: Kandy, Bentota, Colombo. A cultural night can be dropped for more beach time.",
+  "itinerary": [
+    {
+      "place": "Kandy",
+      "title": "Into the hill capital",
+      "description": "Land in Colombo and continue inland to Kandy.",
+      "overnight": "Kandy · night 1 of 2",
+      "schedule": [
+        {"period": "Arrival", "description": "Private transfer from CMB to Kandy."},
+        {"period": "Evening", "description": "Settle in by the lake."}
+      ]
+    },
+    {
+      "place": "Kandy",
+      "title": "Temple and lake",
+      "description": "The Temple of the Tooth, then a slower afternoon.",
+      "overnight": "Kandy · night 2 of 2",
+      "schedule": [
+        {"period": "Morning", "description": "Temple visit timed around prayers."},
+        {"period": "Afternoon", "description": "Lakeside walk or hotel rest."}
+      ]
+    },
+    {
+      "place": "Bentota",
+      "title": "Down to the coast",
+      "description": "Road south, with Peradeniya if you asked.",
+      "overnight": "Bentota · night 1 of 2",
+      "schedule": [
+        {"period": "Day", "description": "Scenic transfer to Bentota."},
+        {"period": "Evening", "description": "Sunset on the west coast."}
+      ]
+    },
+    {
+      "place": "Bentota",
+      "title": "A beach day",
+      "description": "Unstructured time by the water.",
+      "overnight": "Bentota · night 2 of 2",
+      "schedule": [
+        {"period": "Day", "description": "Beach, spa or an optional river boat."},
+        {"period": "Evening", "description": "A quiet dinner together."}
+      ]
+    },
+    {
+      "place": "Colombo",
+      "title": "A last night in the city",
+      "description": "North to Colombo for departure the next day.",
+      "overnight": "Colombo · night 1 of 1",
+      "schedule": [
+        {"period": "Day", "description": "Transfer and check-in."},
+        {"period": "Evening", "description": "A last dinner in the city."}
+      ]
+    },
+    {
+      "place": "Colombo",
+      "title": "Departure",
+      "description": "Return to the airport for your international flight.",
+      "overnight": "",
+      "schedule": [
+        {"period": "Departure", "description": "Private transfer to CMB, timed to your ticket."}
+      ]
+    }
+  ]
+}

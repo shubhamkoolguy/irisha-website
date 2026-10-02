@@ -1,0 +1,136 @@
+{
+  "title": "Thailand Family Circuit",
+  "slug": "thailand-family-circuit",
+  "active": true,
+  "featured": false,
+  "order": 6,
+  "audience": "family",
+  "country": "Thailand",
+  "eyebrow": "FAMILY GETAWAY",
+  "headline": "Bangkok, Pattaya and a first look at the Thai islands.",
+  "description": "A six-night family holiday: the capital, a coastal break in Pattaya, then Phuket beaches with room for children.",
+  "image": "/assets/holidays/thailand.webp",
+  "image_alt": "Thai temple rooftops at sunset",
+  "destinations": ["Bangkok", "Pattaya", "Phuket"],
+  "nights": [
+    {"place": "Bangkok", "nights": 2},
+    {"place": "Pattaya", "nights": 2},
+    {"place": "Phuket", "nights": 2}
+  ],
+  "duration": "7 Days / 6 Nights",
+  "hotels": 3,
+  "support": "24×7 concierge",
+  "customizable": true,
+  "starting_price": 0,
+  "price_unit": "per person",
+  "price_label": "Quoted for your family and dates",
+  "price_guidance": "Indicative family pricing depends on room type, child ages and whether Safari World or an island day is included. International flights sit outside the figure unless you ask us to ticket them.",
+  "overview": "A classic India-to-Thailand family circuit. Two nights in Bangkok ease everyone in, Pattaya adds a coastal pause and a park or sanctuary day, then Phuket closes the week with beaches. Hotel rooms and transfers are planned for families, not only couples.",
+  "highlights": [
+    "Bangkok temples and a river evening at an easy pace.",
+    "Two nights in Pattaya with a family-friendly day you choose.",
+    "Phuket beaches to close the week.",
+    "Private airport and hotel transfers in each city."
+  ],
+  "why": [
+    "Three places, six nights — enough variety without a two-week itinerary.",
+    "Interconnecting or family rooms requested where hotels can offer them.",
+    "Daily load can be lightened for younger children."
+  ],
+  "inclusions": [
+    "Private airport and hotel transfers",
+    "Breakfast on hotel mornings",
+    "Visa assistance",
+    "Accommodation on twin or family-room sharing as quoted",
+    "Road transfer Bangkok–Pattaya",
+    "Domestic flight to Phuket, once ticketed"
+  ],
+  "exclusions": [
+    "International flights",
+    "Thailand visa or exemption processing fees if they apply",
+    "Travel insurance",
+    "Meals other than specified",
+    "Safari World, Alcazar or island-day tickets unless added",
+    "Personal expenses, GST and tourism fees"
+  ],
+  "stay": {
+    "name": "Selected family-friendly hotels in three cities",
+    "nights": 6,
+    "room": "Twin, double or interconnecting rooms as available",
+    "amenities": ["Breakfast at hotels", "Air conditioning", "Wi-Fi"]
+  },
+  "notes": "Park tickets, shows and boat days are confirmed in writing. Sea and sanctuary days depend on operator hours. An inquiry is not a booking.",
+  "itinerary_note": "Suggested family order through Bangkok, Pattaya and Phuket. A city can be dropped for more beach time if you prefer.",
+  "itinerary": [
+    {
+      "place": "Bangkok",
+      "title": "Arrive in Bangkok",
+      "description": "Transfer in and keep the first evening light.",
+      "overnight": "Bangkok · night 1 of 2",
+      "schedule": [
+        {"period": "Arrival", "description": "Private transfer from the airport to your hotel."},
+        {"period": "Evening", "description": "An early dinner near the hotel."}
+      ]
+    },
+    {
+      "place": "Bangkok",
+      "title": "A gentle capital day",
+      "description": "One temple circuit and time to rest.",
+      "overnight": "Bangkok · night 2 of 2",
+      "schedule": [
+        {"period": "Morning", "description": "A short temple visit, started early."},
+        {"period": "Afternoon", "description": "Hotel pool or a market stop if energy remains."},
+        {"period": "Evening", "description": "Family dinner."}
+      ]
+    },
+    {
+      "place": "Pattaya",
+      "title": "Coastal transfer",
+      "description": "Road south to Pattaya and check-in.",
+      "overnight": "Pattaya · night 1 of 2",
+      "schedule": [
+        {"period": "Day", "description": "Private vehicle to Pattaya; afternoon at the hotel or beach."},
+        {"period": "Evening", "description": "Dinner near the hotel — not a late-night circuit."}
+      ]
+    },
+    {
+      "place": "Pattaya",
+      "title": "A family day out",
+      "description": "Sanctuary, park or island, as added to your quote.",
+      "overnight": "Pattaya · night 2 of 2",
+      "schedule": [
+        {"period": "Day", "description": "Nong Nooch, a sanctuary visit or Coral Island when included."},
+        {"period": "Evening", "description": "Return and rest."}
+      ]
+    },
+    {
+      "place": "Phuket",
+      "title": "Fly to the Andaman",
+      "description": "Return toward Bangkok airport and fly south.",
+      "overnight": "Phuket · night 1 of 2",
+      "schedule": [
+        {"period": "Day", "description": "Road transfer, domestic flight and hotel check-in."},
+        {"period": "Evening", "description": "Beach time if the flight allows."}
+      ]
+    },
+    {
+      "place": "Phuket",
+      "title": "Sea day",
+      "description": "Keep the beach, or add a short island boat if you asked.",
+      "overnight": "Phuket · night 2 of 2",
+      "schedule": [
+        {"period": "Day", "description": "Unstructured beach time or a half-day boat as quoted."},
+        {"period": "Evening", "description": "A last family dinner."}
+      ]
+    },
+    {
+      "place": "Phuket",
+      "title": "Departure",
+      "description": "Transfer to Phuket airport for your onward flight.",
+      "overnight": "",
+      "schedule": [
+        {"period": "Departure", "description": "Private airport transfer."}
+      ]
+    }
+  ]
+}

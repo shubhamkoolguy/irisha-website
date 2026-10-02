@@ -1,0 +1,110 @@
+{
+  "title": "Mauritius Family Holiday",
+  "slug": "mauritius-family-holiday",
+  "active": true,
+  "featured": false,
+  "order": 16,
+  "audience": "family",
+  "country": "Mauritius",
+  "eyebrow": "FAMILY GETAWAY",
+  "headline": "One resort, a lagoon and days that can stay empty.",
+  "description": "Six nights in Mauritius for families: a single resort stay with a kids’ club or a proper pool, and one island day if you want it.",
+  "image": "/assets/holidays/mauritius.webp",
+  "image_alt": "Clear lagoon water over a coral reef",
+  "destinations": ["Mauritius"],
+  "nights": [
+    {"place": "Resort coast", "nights": 6}
+  ],
+  "duration": "7 Days / 6 Nights",
+  "hotels": 1,
+  "support": "24×7 concierge",
+  "customizable": true,
+  "starting_price": 0,
+  "price_unit": "per person",
+  "price_label": "Quoted for your family and dates",
+  "price_guidance": "Family pricing depends on room configuration, child ages, meal plan and whether a park or island day is included. International flights sit outside this figure unless you ask us to ticket them.",
+  "overview": "A family island week with one check-in. We shortlist resorts that actually work for children — beach entry, pool, connecting rooms — then add at most one organised day so the rest can stay empty.",
+  "highlights": [
+    "Six nights in one family resort.",
+    "Connecting or family rooms requested where possible.",
+    "Optional Île aux Cerfs or Casela day as quoted.",
+    "Private airport transfers."
+  ],
+  "why": [
+    "No hotel-hopping with children and luggage.",
+    "Daily load can be cut to the pool and beach.",
+    "Meal plans can include children as the resort prices them."
+  ],
+  "inclusions": [
+    "Resort stay on the agreed meal plan",
+    "Private airport transfers",
+    "Visa assistance",
+    "Accommodation on family-room sharing as quoted"
+  ],
+  "exclusions": [
+    "International flights",
+    "Travel insurance",
+    "Meals other than specified",
+    "Park tickets, extra boat days and spa unless added",
+    "Personal expenses, GST and tourism fees"
+  ],
+  "stay": {
+    "name": "Selected family resort, category confirmed in writing",
+    "nights": 6,
+    "room": "Family, connecting or twin rooms as available",
+    "amenities": ["Meal plan as quoted", "Pool", "Wi-Fi", "Airport transfers"]
+  },
+  "notes": "Resort, room type and any park day are confirmed only after you approve the written quote. Boat days depend on weather. An inquiry is not a booking.",
+  "itinerary_note": "A single-island family stay. Add or drop the organised day around the children’s energy.",
+  "itinerary": [
+    {
+      "place": "Mauritius",
+      "title": "Arrive on the island",
+      "description": "Transfer in and keep the first evening quiet.",
+      "overnight": "Resort · night 1 of 6",
+      "schedule": [
+        {"period": "Arrival", "description": "Private transfer from the airport to the resort."},
+        {"period": "Evening", "description": "Early dinner on the agreed meal plan."}
+      ]
+    },
+    {
+      "place": "Mauritius",
+      "title": "Resort days",
+      "description": "Beach, pool and unstructured time.",
+      "overnight": "Resort · nights 2–4 of 6",
+      "schedule": [
+        {"period": "Days at leisure", "description": "Kids’ club if the resort offers it; otherwise the pool."},
+        {"period": "Evenings", "description": "Resort dining."}
+      ]
+    },
+    {
+      "place": "Mauritius",
+      "title": "An optional day out",
+      "description": "Island, park or another leisure day.",
+      "overnight": "Resort · night 5 of 6",
+      "schedule": [
+        {"period": "Day", "description": "Casela, Île aux Cerfs or stay put — as quoted."},
+        {"period": "Evening", "description": "Return and rest."}
+      ]
+    },
+    {
+      "place": "Mauritius",
+      "title": "A last resort day",
+      "description": "Slow morning before the flight home.",
+      "overnight": "Resort · night 6 of 6",
+      "schedule": [
+        {"period": "Day", "description": "Beach and pool."},
+        {"period": "Evening", "description": "A last family dinner."}
+      ]
+    },
+    {
+      "place": "Mauritius",
+      "title": "Departure",
+      "description": "Transfer to the airport for your onward flight.",
+      "overnight": "",
+      "schedule": [
+        {"period": "Departure", "description": "Private airport transfer."}
+      ]
+    }
+  ]
+}

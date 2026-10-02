@@ -1,0 +1,112 @@
+{
+  "title": "Singapore Couple Escape",
+  "slug": "singapore-couple-escape",
+  "active": true,
+  "featured": false,
+  "order": 11,
+  "audience": "couple",
+  "country": "Singapore",
+  "eyebrow": "COUPLE RETREAT",
+  "headline": "Gardens, the bay and a night skyline — four nights for two.",
+  "description": "A compact Singapore stay: one hotel, Gardens by the Bay, a bay evening and time for a neighbourhood you actually want to walk.",
+  "image": "/assets/holidays/singapore.webp",
+  "image_alt": "Singapore skyline and Merlion at night",
+  "destinations": ["Singapore"],
+  "nights": [
+    {"place": "Singapore", "nights": 4}
+  ],
+  "duration": "5 Days / 4 Nights",
+  "hotels": 1,
+  "support": "24×7 concierge",
+  "customizable": true,
+  "starting_price": 0,
+  "price_unit": "per couple",
+  "price_label": "Quoted for your hotel and dates",
+  "price_guidance": "Singapore pricing depends on hotel area and whether you add Gardens conservatories, a night safari or a Sentosa evening. We confirm a written total before you reserve.",
+  "overview": "A couple’s long weekend in one walkable city. Mornings for a neighbourhood — Tiong Bahru, Kampong Gelam or Chinatown — evenings for the bay. Parks and tickets only when you want them.",
+  "highlights": [
+    "Four nights in one Singapore hotel.",
+    "A Gardens by the Bay evening, tickets as quoted.",
+    "Time for a neighbourhood walk and hawker dinner.",
+    "Optional Sentosa or night safari if you add it."
+  ],
+  "why": [
+    "Short flight from many Indian cities; one hotel, no island-hop.",
+    "Vegetarian hawker and restaurant options are easy to plan.",
+    "Visa guidance for Indian passports, timed to your tickets."
+  ],
+  "inclusions": [
+    "Airport transfers in a private vehicle",
+    "Breakfast on hotel mornings",
+    "Visa assistance",
+    "Accommodation on twin sharing",
+    "Gardens by the Bay visit as specified in your quote"
+  ],
+  "exclusions": [
+    "International flights",
+    "Singapore visa fees if they apply",
+    "Travel insurance",
+    "Meals other than specified",
+    "Universal Studios, cable-car and other park tickets unless added",
+    "Personal expenses, GST and tourism fees"
+  ],
+  "stay": {
+    "name": "Selected hotel near the bay, Orchard or a neighbourhood you prefer",
+    "nights": 4,
+    "room": "Double occupancy",
+    "amenities": ["Breakfast", "Air conditioning", "Wi-Fi"]
+  },
+  "notes": "Hotel area and attraction tickets are confirmed only after you approve the written quote. Park days are dated. An inquiry is not a booking.",
+  "itinerary_note": "A single-city stay. A day can be swapped for Sentosa if you prefer.",
+  "itinerary": [
+    {
+      "place": "Singapore",
+      "title": "Arrive in Singapore",
+      "description": "Transfer in and take a first evening at the bay.",
+      "overnight": "Singapore · night 1 of 4",
+      "schedule": [
+        {"period": "Arrival", "description": "Private transfer from Changi to your hotel."},
+        {"period": "Evening", "description": "Marina Bay walk if the flight allows."}
+      ]
+    },
+    {
+      "place": "Singapore",
+      "title": "Gardens and the bay",
+      "description": "Conservatories by day or the light show after dark.",
+      "overnight": "Singapore · night 2 of 4",
+      "schedule": [
+        {"period": "Day", "description": "Gardens by the Bay as included in your quote."},
+        {"period": "Evening", "description": "Hawker dinner in a neighbourhood you choose."}
+      ]
+    },
+    {
+      "place": "Singapore",
+      "title": "A neighbourhood day",
+      "description": "Walk, cafés and time at the hotel.",
+      "overnight": "Singapore · night 3 of 4",
+      "schedule": [
+        {"period": "Day", "description": "Kampong Gelam, Chinatown or Tiong Bahru — unhurried."},
+        {"period": "Evening", "description": "Dinner out."}
+      ]
+    },
+    {
+      "place": "Singapore",
+      "title": "A day of your choosing",
+      "description": "Keep the city, or add Sentosa.",
+      "overnight": "Singapore · night 4 of 4",
+      "schedule": [
+        {"period": "Day", "description": "At leisure, or Sentosa when included."},
+        {"period": "Evening", "description": "A last dinner together."}
+      ]
+    },
+    {
+      "place": "Singapore",
+      "title": "Departure",
+      "description": "Transfer to Changi for your onward flight.",
+      "overnight": "",
+      "schedule": [
+        {"period": "Departure", "description": "Private airport transfer."}
+      ]
+    }
+  ]
+}

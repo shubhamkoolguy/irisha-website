@@ -1,0 +1,112 @@
+{
+  "title": "Singapore Family Holiday",
+  "slug": "singapore-family-holiday",
+  "active": true,
+  "featured": false,
+  "order": 12,
+  "audience": "family",
+  "country": "Singapore",
+  "eyebrow": "FAMILY GETAWAY",
+  "headline": "Gardens, the bay and a Sentosa day if the children want one.",
+  "description": "Four nights in Singapore for families: one hotel, Gardens by the Bay and park days added only when you ask.",
+  "image": "/assets/holidays/singapore.webp",
+  "image_alt": "Singapore skyline and Merlion at night",
+  "destinations": ["Singapore"],
+  "nights": [
+    {"place": "Singapore", "nights": 4}
+  ],
+  "duration": "5 Days / 4 Nights",
+  "hotels": 1,
+  "support": "24×7 concierge",
+  "customizable": true,
+  "starting_price": 0,
+  "price_unit": "per person",
+  "price_label": "Quoted for your family and dates",
+  "price_guidance": "Family pricing depends on room type, child ages and whether Universal Studios or a night safari is included. Park tickets and international flights sit outside the base figure unless you ask us to include them.",
+  "overview": "A short family city break. One hotel so you are not packing; Gardens for a shared evening; Sentosa or a wildlife park only if that is the trip you want. Daily load can be lightened for younger children.",
+  "highlights": [
+    "Four nights in one family-friendly hotel.",
+    "Gardens by the Bay as a shared evening.",
+    "Optional Sentosa or wildlife park day.",
+    "Private airport transfers."
+  ],
+  "why": [
+    "Compact and walkable — good for a first overseas city with children.",
+    "Family rooms requested where hotels can offer them.",
+    "Park tickets dated and confirmed in writing, not guessed."
+  ],
+  "inclusions": [
+    "Private airport transfers",
+    "Breakfast on hotel mornings",
+    "Visa assistance",
+    "Accommodation on twin or family-room sharing as quoted",
+    "Gardens by the Bay visit as specified in your quote"
+  ],
+  "exclusions": [
+    "International flights",
+    "Singapore visa fees if they apply",
+    "Travel insurance",
+    "Meals other than specified",
+    "Universal Studios, cable-car and other park tickets unless added",
+    "Personal expenses, GST and tourism fees"
+  ],
+  "stay": {
+    "name": "Selected family-friendly hotel in Singapore",
+    "nights": 4,
+    "room": "Twin, double or interconnecting rooms as available",
+    "amenities": ["Breakfast", "Air conditioning", "Wi-Fi"]
+  },
+  "notes": "Park tickets are dated and sell out; they are confirmed only in the written quote. An inquiry is not a booking.",
+  "itinerary_note": "A single-city family stay. Swap a leisure day for Sentosa when tickets are included.",
+  "itinerary": [
+    {
+      "place": "Singapore",
+      "title": "Arrive in Singapore",
+      "description": "Transfer in and keep the first evening light.",
+      "overnight": "Singapore · night 1 of 4",
+      "schedule": [
+        {"period": "Arrival", "description": "Private transfer from Changi to the hotel."},
+        {"period": "Evening", "description": "Hotel rest or a short bay walk."}
+      ]
+    },
+    {
+      "place": "Singapore",
+      "title": "Gardens by the Bay",
+      "description": "Conservatories and the evening light show.",
+      "overnight": "Singapore · night 2 of 4",
+      "schedule": [
+        {"period": "Day", "description": "Gardens as included; pace it for the youngest."},
+        {"period": "Evening", "description": "Hawker or hotel dinner."}
+      ]
+    },
+    {
+      "place": "Singapore",
+      "title": "Park day or city day",
+      "description": "Sentosa only if you added tickets.",
+      "overnight": "Singapore · night 3 of 4",
+      "schedule": [
+        {"period": "Day", "description": "Hotel pool, a neighbourhood walk, or Sentosa as quoted."},
+        {"period": "Evening", "description": "Quiet night in."}
+      ]
+    },
+    {
+      "place": "Singapore",
+      "title": "A last full day",
+      "description": "Another short outing, or rest before the flight.",
+      "overnight": "Singapore · night 4 of 4",
+      "schedule": [
+        {"period": "Day", "description": "At leisure."},
+        {"period": "Evening", "description": "A last family dinner."}
+      ]
+    },
+    {
+      "place": "Singapore",
+      "title": "Departure",
+      "description": "Transfer to Changi for your onward flight.",
+      "overnight": "",
+      "schedule": [
+        {"period": "Departure", "description": "Private airport transfer."}
+      ]
+    }
+  ]
+}

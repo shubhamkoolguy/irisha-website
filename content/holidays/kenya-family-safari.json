@@ -1,0 +1,113 @@
+{
+  "title": "Kenya Family Safari",
+  "slug": "kenya-family-safari",
+  "active": true,
+  "featured": false,
+  "order": 22,
+  "audience": "family",
+  "country": "Kenya",
+  "eyebrow": "FAMILY GETAWAY",
+  "headline": "A Nairobi night, then a family camp and drives that can end early.",
+  "description": "Six nights in Kenya for families: one city night, then a Mara lodge that actually takes children, with drives shortened if they need to be.",
+  "image": "/assets/holidays/kenya.webp",
+  "image_alt": "African elephants walking across open savanna",
+  "destinations": ["Nairobi", "Masai Mara"],
+  "nights": [
+    {"place": "Nairobi", "nights": 1},
+    {"place": "Masai Mara", "nights": 5}
+  ],
+  "duration": "7 Days / 6 Nights",
+  "hotels": 2,
+  "support": "24×7 concierge",
+  "customizable": true,
+  "starting_price": 0,
+  "price_unit": "per person",
+  "price_label": "Quoted for your family and season",
+  "price_guidance": "Family safari pricing depends on camp child policy, room type and season. Some camps have a minimum age. Park fees and international flights sit outside the base figure unless you ask us to include them.",
+  "overview": "A first family safari that does not pretend every child wants a 5 a.m. start. We shortlist Mara camps that take your children’s ages, keep a Nairobi night for the long flight, and let drives end when the youngest has had enough.",
+  "highlights": [
+    "A Nairobi arrival night.",
+    "A family-accepting Mara camp for five nights.",
+    "Game drives that can be shortened.",
+    "Optional balloon only if ages and the camp allow it."
+  ],
+  "why": [
+    "Camp chosen for child policy first, not brochure photos.",
+    "One safari base — no daily lodge-hop.",
+    "Dietary needs sent to camp before you land."
+  ],
+  "inclusions": [
+    "Airport and lodge transfers as quoted",
+    "Meals at the safari camp as the plan includes them",
+    "Visa assistance",
+    "Accommodation on family-room or adjoining tents as quoted",
+    "Game drives as specified"
+  ],
+  "exclusions": [
+    "International flights",
+    "Kenya eTA fees",
+    "Travel insurance",
+    "Park fees if they are not itemised in the quote",
+    "Balloon safari and extra activities unless added",
+    "Personal expenses, GST and tourism fees"
+  ],
+  "stay": {
+    "name": "Selected Nairobi hotel and family-friendly Mara camp",
+    "nights": 6,
+    "room": "Family tent, adjoining rooms or twins as the camp allows",
+    "amenities": ["Camp meals as quoted", "Game drives", "Wi-Fi where the camp offers it"]
+  },
+  "notes": "Minimum ages, camp and vehicle type are confirmed in writing. Wildlife sightings are never guaranteed. An inquiry is not a booking.",
+  "itinerary_note": "A Nairobi night plus a Mara stay. Some camps cannot take children under a set age.",
+  "itinerary": [
+    {
+      "place": "Nairobi",
+      "title": "Arrive in Nairobi",
+      "description": "Transfer in and keep the first evening quiet.",
+      "overnight": "Nairobi · night 1 of 1",
+      "schedule": [
+        {"period": "Arrival", "description": "Private transfer from JKIA."},
+        {"period": "Evening", "description": "Early dinner at the hotel."}
+      ]
+    },
+    {
+      "place": "Masai Mara",
+      "title": "Into camp",
+      "description": "Road or bush flight, then a gentle first afternoon.",
+      "overnight": "Masai Mara · night 1 of 5",
+      "schedule": [
+        {"period": "Day", "description": "Transfer as quoted."},
+        {"period": "Evening", "description": "A short drive only if everyone still has energy."}
+      ]
+    },
+    {
+      "place": "Masai Mara",
+      "title": "Safari days",
+      "description": "Drives shaped around the youngest.",
+      "overnight": "Masai Mara · nights 2–4 of 5",
+      "schedule": [
+        {"period": "Mornings", "description": "A drive that can turn back early."},
+        {"period": "Afternoons", "description": "Camp time, then a second outing if it still makes sense."}
+      ]
+    },
+    {
+      "place": "Masai Mara",
+      "title": "A last camp day",
+      "description": "One more morning, or a rest.",
+      "overnight": "Masai Mara · night 5 of 5",
+      "schedule": [
+        {"period": "Day", "description": "At leisure in camp."},
+        {"period": "Evening", "description": "A last family dinner."}
+      ]
+    },
+    {
+      "place": "Nairobi",
+      "title": "Departure",
+      "description": "Return to Nairobi for your onward flight.",
+      "overnight": "",
+      "schedule": [
+        {"period": "Departure", "description": "Road or bush flight back, then the airport."}
+      ]
+    }
+  ]
+}

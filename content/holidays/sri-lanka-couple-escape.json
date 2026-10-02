@@ -1,0 +1,102 @@
+{
+  "title": "Sri Lanka Couple Escape",
+  "slug": "sri-lanka-couple-escape",
+  "active": true,
+  "featured": false,
+  "order": 23,
+  "audience": "couple",
+  "country": "Sri Lanka",
+  "eyebrow": "COUPLE RETREAT",
+  "headline": "Bentota beaches, then a night in Colombo.",
+  "description": "Three nights for two: two on Bentota’s west-coast sand, then Colombo before the flight home.",
+  "image": "/assets/holidays/sri-lanka.webp",
+  "image_alt": "Nine Arches Bridge and a train in the hills near Ella, Sri Lanka",
+  "destinations": ["Bentota", "Colombo"],
+  "nights": [
+    {"place": "Bentota", "nights": 2},
+    {"place": "Colombo", "nights": 1}
+  ],
+  "duration": "4 Days / 3 Nights",
+  "hotels": 2,
+  "support": "24×7 concierge",
+  "customizable": true,
+  "starting_price": 27999,
+  "price_unit": "per person",
+  "price_label": "Quoted for your dates and hotels",
+  "price_guidance": "A short west-coast close. Hotel category and whether you add a river boat or city evening change the written total.",
+  "overview": "A compact couple’s Sri Lanka: two nights on Bentota beach, then Colombo for a last dinner and an easy airport morning. Built for a long weekend or a first look at the island.",
+  "highlights": [
+    "Two nights on Bentota or a neighbouring west-coast beach.",
+    "Private transfers from and to Colombo airport.",
+    "A Colombo evening — Galle Face or a neighbourhood dinner.",
+    "Pace kept short enough for a long weekend."
+  ],
+  "why": [
+    "The shortest island stay that still feels like a holiday.",
+    "Beach first; the city is only a night.",
+    "ETA guidance for Indian passports, coordinated with your tickets."
+  ],
+  "inclusions": [
+    "Airport and inter-hotel transfers in a private vehicle",
+    "Breakfast on hotel mornings",
+    "Visa assistance",
+    "Accommodation on twin sharing"
+  ],
+  "exclusions": [
+    "International flights",
+    "Sri Lanka ETA fees",
+    "Travel insurance",
+    "Meals other than specified",
+    "River boats, water sports and city tickets unless added",
+    "Personal expenses, GST and tourism fees"
+  ],
+  "stay": {
+    "name": "Selected west-coast and Colombo hotels",
+    "nights": 3,
+    "room": "Double occupancy throughout",
+    "amenities": ["Breakfast", "Air conditioning", "Wi-Fi"]
+  },
+  "notes": "Beach hotel and Colombo neighbourhood are confirmed only after you approve the written quote. An inquiry is not a booking.",
+  "itinerary_note": "Suggested order: Bentota, then Colombo. A third beach night can replace the city if you prefer.",
+  "itinerary": [
+    {
+      "place": "Bentota",
+      "title": "Arrive on the west coast",
+      "description": "Land in Colombo and continue south to the beach.",
+      "overnight": "Bentota · night 1 of 2",
+      "schedule": [
+        {"period": "Arrival", "description": "Private transfer from CMB to Bentota."},
+        {"period": "Evening", "description": "Settle in by the water."}
+      ]
+    },
+    {
+      "place": "Bentota",
+      "title": "A beach day",
+      "description": "Unstructured time; a river boat only if you asked.",
+      "overnight": "Bentota · night 2 of 2",
+      "schedule": [
+        {"period": "Day", "description": "Beach, pool or an optional Madu river boat as quoted."},
+        {"period": "Evening", "description": "A quiet dinner on the coast."}
+      ]
+    },
+    {
+      "place": "Colombo",
+      "title": "A night in the city",
+      "description": "Road north and a last evening in Colombo.",
+      "overnight": "Colombo · night 1 of 1",
+      "schedule": [
+        {"period": "Day", "description": "Transfer to Colombo; check in and rest."},
+        {"period": "Evening", "description": "Galle Face walk or a neighbourhood dinner."}
+      ]
+    },
+    {
+      "place": "Colombo",
+      "title": "Departure",
+      "description": "A short run to the airport.",
+      "overnight": "",
+      "schedule": [
+        {"period": "Departure", "description": "Private transfer to CMB, timed to your ticket."}
+      ]
+    }
+  ]
+}

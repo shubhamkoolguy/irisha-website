@@ -1,0 +1,134 @@
+{
+  "title": "Switzerland Couple Escape",
+  "slug": "switzerland-couple-escape",
+  "active": true,
+  "featured": false,
+  "order": 17,
+  "audience": "couple",
+  "country": "Switzerland",
+  "eyebrow": "COUPLE RETREAT",
+  "headline": "Lucerne, a high alpine day, then Interlaken or a lake town.",
+  "description": "Six nights for two: three by Lake Lucerne, three in the Bernese Oberland, with one mountain excursion as quoted.",
+  "image": "/assets/holidays/switzerland.webp",
+  "image_alt": "The Matterhorn above an alpine village in Switzerland",
+  "destinations": ["Lucerne", "Interlaken"],
+  "nights": [
+    {"place": "Lucerne", "nights": 3},
+    {"place": "Interlaken", "nights": 3}
+  ],
+  "duration": "7 Days / 6 Nights",
+  "hotels": 2,
+  "support": "24×7 concierge",
+  "customizable": true,
+  "starting_price": 0,
+  "price_unit": "per couple",
+  "price_label": "Quoted for your hotels and rail",
+  "price_guidance": "Switzerland pricing depends on hotel category, Swiss Travel Pass versus point-to-point tickets, and which mountain — Titlis, Jungfraujoch or Schilthorn. We confirm a written total before you reserve.",
+  "overview": "A couple’s alpine week with two stays. Lucerne for the lake and old town; Interlaken or a nearby village for high peaks. Trains, not coaches. One mountain day is included as quoted; the rest can stay empty.",
+  "highlights": [
+    "Three nights in Lucerne with a lake evening.",
+    "Rail between cities on a pass or tickets we specify.",
+    "Three nights in Interlaken or a neighbouring village.",
+    "One mountain excursion — peak confirmed in writing."
+  ],
+  "why": [
+    "Two bases, not a hotel every night.",
+    "Vegetarian dining is planned town by town.",
+    "Schengen visa guidance for Indian passports, timed to your tickets."
+  ],
+  "inclusions": [
+    "Airport transfer or rail from the arrival city as quoted",
+    "Breakfast on hotel mornings",
+    "Visa assistance",
+    "Accommodation on twin sharing",
+    "Inter-city rail as specified",
+    "One mountain excursion as specified in your quote"
+  ],
+  "exclusions": [
+    "International flights",
+    "Schengen visa fees",
+    "Travel insurance",
+    "Meals other than specified",
+    "Second mountain peaks, lake cruises and cable cars unless added",
+    "Personal expenses, GST and tourism fees"
+  ],
+  "stay": {
+    "name": "Selected 3-star or 4-star hotels in two towns",
+    "nights": 6,
+    "room": "Double occupancy throughout",
+    "amenities": ["Breakfast", "Wi-Fi", "Rail tickets or pass as quoted"]
+  },
+  "notes": "Peak choice, rail pass and hotels are confirmed only after you approve the written quote. High alpine routes depend on weather and seasonal closures. An inquiry is not a booking.",
+  "itinerary_note": "Suggested order: Lucerne, then Interlaken. Zurich or Geneva arrival can shift the first transfer.",
+  "itinerary": [
+    {
+      "place": "Lucerne",
+      "title": "Arrive by the lake",
+      "description": "Land and continue to Lucerne.",
+      "overnight": "Lucerne · night 1 of 3",
+      "schedule": [
+        {"period": "Arrival", "description": "Rail or private transfer from Zurich or Geneva as quoted."},
+        {"period": "Evening", "description": "Chapel Bridge and a first lakeside walk."}
+      ]
+    },
+    {
+      "place": "Lucerne",
+      "title": "A lake day",
+      "description": "Old town, or a short lake cruise if you added it.",
+      "overnight": "Lucerne · night 2 of 3",
+      "schedule": [
+        {"period": "Day", "description": "Unhurried Lucerne; optional boat on the lake."},
+        {"period": "Evening", "description": "Dinner in town."}
+      ]
+    },
+    {
+      "place": "Lucerne",
+      "title": "A mountain or a free day",
+      "description": "Titlis if that is your included peak; otherwise at leisure.",
+      "overnight": "Lucerne · night 3 of 3",
+      "schedule": [
+        {"period": "Day", "description": "Mount Titlis when included, or a quieter valley day."},
+        {"period": "Evening", "description": "Early night before the Oberland transfer."}
+      ]
+    },
+    {
+      "place": "Interlaken",
+      "title": "Into the Oberland",
+      "description": "Train to Interlaken or a nearby village.",
+      "overnight": "Interlaken · night 1 of 3",
+      "schedule": [
+        {"period": "Day", "description": "Rail transfer and check-in."},
+        {"period": "Evening", "description": "Village walk between the two lakes."}
+      ]
+    },
+    {
+      "place": "Interlaken",
+      "title": "A high alpine day",
+      "description": "Jungfraujoch or Schilthorn, as confirmed.",
+      "overnight": "Interlaken · night 2 of 3",
+      "schedule": [
+        {"period": "Day", "description": "The included mountain excursion, weather allowing."},
+        {"period": "Evening", "description": "Return and rest."}
+      ]
+    },
+    {
+      "place": "Interlaken",
+      "title": "A valley day",
+      "description": "Lauterbrunnen, a lake path, or hotel time.",
+      "overnight": "Interlaken · night 3 of 3",
+      "schedule": [
+        {"period": "Day", "description": "At leisure in the valley."},
+        {"period": "Evening", "description": "A last dinner in the Oberland."}
+      ]
+    },
+    {
+      "place": "Interlaken",
+      "title": "Departure",
+      "description": "Rail back to your departure airport.",
+      "overnight": "",
+      "schedule": [
+        {"period": "Departure", "description": "Train to Zurich or Geneva as ticketed."}
+      ]
+    }
+  ]
+}

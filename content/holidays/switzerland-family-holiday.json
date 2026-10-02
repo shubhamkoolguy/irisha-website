@@ -1,0 +1,134 @@
+{
+  "title": "Switzerland Family Holiday",
+  "slug": "switzerland-family-holiday",
+  "active": true,
+  "featured": false,
+  "order": 18,
+  "audience": "family",
+  "country": "Switzerland",
+  "eyebrow": "FAMILY GETAWAY",
+  "headline": "Two lake towns, trains between them, one mountain day.",
+  "description": "A six-night family alpine holiday: Lucerne and Interlaken, with rail instead of long coach days.",
+  "image": "/assets/holidays/switzerland.webp",
+  "image_alt": "The Matterhorn above an alpine village in Switzerland",
+  "destinations": ["Lucerne", "Interlaken"],
+  "nights": [
+    {"place": "Lucerne", "nights": 3},
+    {"place": "Interlaken", "nights": 3}
+  ],
+  "duration": "7 Days / 6 Nights",
+  "hotels": 2,
+  "support": "24×7 concierge",
+  "customizable": true,
+  "starting_price": 0,
+  "price_unit": "per person",
+  "price_label": "Quoted for your family and rail",
+  "price_guidance": "Family pricing depends on room type, child rail discounts and which mountain you add. Peak tickets and international flights sit outside the base figure unless you ask us to include them.",
+  "overview": "A family Switzerland that does not try to cover the whole country. Two stays, trains children can sit through, and one mountain day. The rest can be lakes and playgrounds.",
+  "highlights": [
+    "Three nights in Lucerne.",
+    "Rail between the two bases.",
+    "Three nights in Interlaken.",
+    "One mountain excursion paced for families."
+  ],
+  "why": [
+    "Two hotels, not a nightly pack.",
+    "Child rail fares applied where the pass allows.",
+    "Daily load can be cut if the mountain day is enough."
+  ],
+  "inclusions": [
+    "Arrival transfer or rail as quoted",
+    "Breakfast on hotel mornings",
+    "Visa assistance",
+    "Accommodation on twin or family-room sharing as quoted",
+    "Inter-city rail as specified",
+    "One mountain excursion as specified in your quote"
+  ],
+  "exclusions": [
+    "International flights",
+    "Schengen visa fees",
+    "Travel insurance",
+    "Meals other than specified",
+    "Second peaks and paid activities unless added",
+    "Personal expenses, GST and tourism fees"
+  ],
+  "stay": {
+    "name": "Selected family-friendly hotels in two towns",
+    "nights": 6,
+    "room": "Twin, double or interconnecting rooms as available",
+    "amenities": ["Breakfast", "Wi-Fi", "Rail tickets or pass as quoted"]
+  },
+  "notes": "Peak choice and rail pass are confirmed in writing. High alpine routes depend on weather. An inquiry is not a booking.",
+  "itinerary_note": "Suggested family order: Lucerne, then Interlaken. A mountain day can move if weather asks.",
+  "itinerary": [
+    {
+      "place": "Lucerne",
+      "title": "Arrive in Lucerne",
+      "description": "Transfer in and keep the first evening light.",
+      "overnight": "Lucerne · night 1 of 3",
+      "schedule": [
+        {"period": "Arrival", "description": "Rail or transfer from Zurich as quoted."},
+        {"period": "Evening", "description": "Short lakeside walk."}
+      ]
+    },
+    {
+      "place": "Lucerne",
+      "title": "A lake town day",
+      "description": "Swans, the old town, time at the hotel.",
+      "overnight": "Lucerne · night 2 of 3",
+      "schedule": [
+        {"period": "Day", "description": "Unhurried Lucerne."},
+        {"period": "Evening", "description": "Early dinner."}
+      ]
+    },
+    {
+      "place": "Lucerne",
+      "title": "Mountain or free day",
+      "description": "Titlis only if that is the included peak.",
+      "overnight": "Lucerne · night 3 of 3",
+      "schedule": [
+        {"period": "Day", "description": "Included mountain, or a rest day."},
+        {"period": "Evening", "description": "Pack for the Oberland."}
+      ]
+    },
+    {
+      "place": "Interlaken",
+      "title": "Train to Interlaken",
+      "description": "A scenic rail hop, then check-in.",
+      "overnight": "Interlaken · night 1 of 3",
+      "schedule": [
+        {"period": "Day", "description": "Rail transfer."},
+        {"period": "Evening", "description": "Village walk."}
+      ]
+    },
+    {
+      "place": "Interlaken",
+      "title": "The high day",
+      "description": "The included peak, weather allowing.",
+      "overnight": "Interlaken · night 2 of 3",
+      "schedule": [
+        {"period": "Day", "description": "Jungfraujoch or the agreed alternative."},
+        {"period": "Evening", "description": "Quiet night in."}
+      ]
+    },
+    {
+      "place": "Interlaken",
+      "title": "A valley day",
+      "description": "Waterfalls or hotel time.",
+      "overnight": "Interlaken · night 3 of 3",
+      "schedule": [
+        {"period": "Day", "description": "Lauterbrunnen valley or rest."},
+        {"period": "Evening", "description": "A last family dinner."}
+      ]
+    },
+    {
+      "place": "Interlaken",
+      "title": "Departure",
+      "description": "Rail back to your departure airport.",
+      "overnight": "",
+      "schedule": [
+        {"period": "Departure", "description": "Train to Zurich or Geneva as ticketed."}
+      ]
+    }
+  ]
+}

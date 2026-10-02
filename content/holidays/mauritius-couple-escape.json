@@ -1,0 +1,110 @@
+{
+  "title": "Mauritius Couple Escape",
+  "slug": "mauritius-couple-escape",
+  "active": true,
+  "featured": false,
+  "order": 15,
+  "audience": "couple",
+  "country": "Mauritius",
+  "eyebrow": "COUPLE RETREAT",
+  "headline": "One lagoon stay, unhurried, just the two of you.",
+  "description": "Six nights in Mauritius: a single resort on the west or north coast, with one island or mountain day if you want it.",
+  "image": "/assets/holidays/mauritius.webp",
+  "image_alt": "Clear lagoon water over a coral reef",
+  "destinations": ["Mauritius"],
+  "nights": [
+    {"place": "Resort coast", "nights": 6}
+  ],
+  "duration": "7 Days / 6 Nights",
+  "hotels": 1,
+  "support": "24×7 concierge",
+  "customizable": true,
+  "starting_price": 0,
+  "price_unit": "per couple",
+  "price_label": "Quoted for your resort and dates",
+  "price_guidance": "Mauritius pricing depends on resort, meal plan and whether you add Île aux Cerfs or Le Morne. We confirm a written total before you reserve.",
+  "overview": "A couple’s island week with one check-in. We shortlist west- or north-coast resorts for lagoon, privacy and dining, then coordinate the airport run and any catamaran or Chamarel day you want.",
+  "highlights": [
+    "Six nights in one resort — no hotel-hopping.",
+    "Meal plan chosen with you before booking.",
+    "Optional catamaran or Chamarel day as quoted.",
+    "Private airport transfers."
+  ],
+  "why": [
+    "Built for two: lagoon mornings, unhurried evenings.",
+    "Dietary needs, including vegetarian, flagged to the resort in advance.",
+    "Visa-exemption guidance for Indian passports, with your tickets."
+  ],
+  "inclusions": [
+    "Resort stay on the agreed meal plan",
+    "Private airport transfers",
+    "Visa assistance",
+    "One shared or private day tour as specified in your quote"
+  ],
+  "exclusions": [
+    "International flights",
+    "Travel insurance",
+    "Meals other than specified",
+    "Spa, paid water sports and extra boat days unless added",
+    "Personal expenses, GST and tourism fees"
+  ],
+  "stay": {
+    "name": "Selected resort, category confirmed in writing",
+    "nights": 6,
+    "room": "Beach or garden room for two",
+    "amenities": ["Meal plan as quoted", "Wi-Fi", "Airport transfers"]
+  },
+  "notes": "Resort, meal plan and day-tour operator are confirmed only after you approve the written quote. Boat days depend on weather. An inquiry is not a booking.",
+  "itinerary_note": "A single-island stay. Arrival and departure flex around your flights.",
+  "itinerary": [
+    {
+      "place": "Mauritius",
+      "title": "Arrive on the island",
+      "description": "Land and continue to the resort.",
+      "overnight": "Resort · night 1 of 6",
+      "schedule": [
+        {"period": "Arrival", "description": "Private transfer from Sir Seewoosagur Ramgoolam to the resort."},
+        {"period": "Evening", "description": "Check-in and dinner on the agreed meal plan."}
+      ]
+    },
+    {
+      "place": "Mauritius",
+      "title": "Lagoon days",
+      "description": "Unstructured time: reef, pool or a book on the deck.",
+      "overnight": "Resort · nights 2–4 of 6",
+      "schedule": [
+        {"period": "Days at leisure", "description": "House beach and optional water sports as the resort offers them."},
+        {"period": "Evenings", "description": "Resort dining."}
+      ]
+    },
+    {
+      "place": "Mauritius",
+      "title": "An island day out",
+      "description": "Catamaran, Chamarel or Le Morne — as quoted.",
+      "overnight": "Resort · night 5 of 6",
+      "schedule": [
+        {"period": "Day", "description": "The included day tour, or a second leisure day if you prefer."},
+        {"period": "Evening", "description": "Return to the resort."}
+      ]
+    },
+    {
+      "place": "Mauritius",
+      "title": "A last morning",
+      "description": "Slow breakfast and a final swim.",
+      "overnight": "Resort · night 6 of 6",
+      "schedule": [
+        {"period": "Day", "description": "At leisure."},
+        {"period": "Evening", "description": "A last dinner on the island."}
+      ]
+    },
+    {
+      "place": "Mauritius",
+      "title": "Departure",
+      "description": "Transfer back for your international flight.",
+      "overnight": "",
+      "schedule": [
+        {"period": "Departure", "description": "Private airport transfer."}
+      ]
+    }
+  ]
+}

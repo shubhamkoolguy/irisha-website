@@ -1,0 +1,146 @@
+{
+  "title": "Japan Couple Odyssey",
+  "slug": "japan-couple-odyssey",
+  "active": true,
+  "featured": false,
+  "order": 19,
+  "audience": "couple",
+  "country": "Japan",
+  "eyebrow": "COUPLE RETREAT",
+  "headline": "Tokyo nights, a Hakone onsen, then Kyoto’s quieter lanes.",
+  "description": "Seven nights for two: Tokyo, a Hakone pause, then Kyoto — paced for walking, not ticking lists.",
+  "image": "/assets/holidays/japan.webp",
+  "image_alt": "Kiyomizu-dera Temple with cherry blossoms in Kyoto",
+  "destinations": ["Tokyo", "Hakone", "Kyoto"],
+  "nights": [
+    {"place": "Tokyo", "nights": 3},
+    {"place": "Hakone", "nights": 1},
+    {"place": "Kyoto", "nights": 3}
+  ],
+  "duration": "8 Days / 7 Nights",
+  "hotels": 3,
+  "support": "24×7 concierge",
+  "customizable": true,
+  "starting_price": 0,
+  "price_unit": "per couple",
+  "price_label": "Quoted for your hotels and rail",
+  "price_guidance": "Japan pricing depends on hotel category, season — cherry blossom and autumn command more — and whether a JR Pass still suits your route. We confirm a written total before you reserve.",
+  "overview": "A couple’s first Japan without a tour-bus timetable. Three nights in Tokyo for neighbourhoods and evenings, one night in Hakone for onsen and a Fuji view if the weather allows, then Kyoto for temples and Gion after dark.",
+  "highlights": [
+    "Three nights in Tokyo — one neighbourhood as your base.",
+    "A Hakone night with onsen access as the ryokan offers it.",
+    "Three nights in Kyoto for Fushimi Inari or Arashiyama at a sane hour.",
+    "Shinkansen or reserved rail as quoted."
+  ],
+  "why": [
+    "Cities and one mountain pause, without covering the whole country.",
+    "Vegetarian dining can be researched restaurant by restaurant.",
+    "Visa guidance for Indian passports, timed to your tickets."
+  ],
+  "inclusions": [
+    "Airport transfer in Tokyo as quoted",
+    "Breakfast where the hotel includes it",
+    "Visa assistance",
+    "Accommodation on twin sharing",
+    "Hakone stay with selected meals if it is a ryokan plan",
+    "Inter-city rail as specified"
+  ],
+  "exclusions": [
+    "International flights",
+    "Japan visa fees if they apply",
+    "Travel insurance",
+    "Meals other than specified",
+    "IC cards, local metro, temple tickets and tea ceremony unless added",
+    "Personal expenses, GST and tourism fees"
+  ],
+  "stay": {
+    "name": "Selected hotels in Tokyo and Kyoto, and a Hakone ryokan or hotel",
+    "nights": 7,
+    "room": "Double occupancy; Japanese-style room in Hakone on request",
+    "amenities": ["Breakfast as quoted", "Wi-Fi", "Onsen access at the Hakone stay where offered"]
+  },
+  "notes": "Rail type, ryokan meal plan and hotel areas are confirmed only after you approve the written quote. Fuji views and some trails depend on weather. An inquiry is not a booking.",
+  "itinerary_note": "Suggested order: Tokyo, Hakone, Kyoto. Osaka departure can replace a return to Tokyo.",
+  "itinerary": [
+    {
+      "place": "Tokyo",
+      "title": "Arrive in Tokyo",
+      "description": "Transfer in and keep the first evening light.",
+      "overnight": "Tokyo · night 1 of 3",
+      "schedule": [
+        {"period": "Arrival", "description": "Narita or Haneda transfer as quoted."},
+        {"period": "Evening", "description": "Dinner near the hotel."}
+      ]
+    },
+    {
+      "place": "Tokyo",
+      "title": "A neighbourhood day",
+      "description": "One district, walked properly.",
+      "overnight": "Tokyo · night 2 of 3",
+      "schedule": [
+        {"period": "Day", "description": "Yanaka, Daikanyama or Asakusa — not all three."},
+        {"period": "Evening", "description": "Shibuya or a quieter izakaya street."}
+      ]
+    },
+    {
+      "place": "Tokyo",
+      "title": "A second city day",
+      "description": "Museums, teamLab, or shopping — as you prefer.",
+      "overnight": "Tokyo · night 3 of 3",
+      "schedule": [
+        {"period": "Day", "description": "At leisure, or an activity added to the quote."},
+        {"period": "Evening", "description": "A last Tokyo dinner."}
+      ]
+    },
+    {
+      "place": "Hakone",
+      "title": "Into the mountains",
+      "description": "Rail to Hakone and an onsen evening.",
+      "overnight": "Hakone · night 1 of 1",
+      "schedule": [
+        {"period": "Day", "description": "Transfer and check-in; lake or ropeway if time allows."},
+        {"period": "Evening", "description": "Onsen and ryokan dinner if that is your plan."}
+      ]
+    },
+    {
+      "place": "Kyoto",
+      "title": "West to Kyoto",
+      "description": "Morning in Hakone, then the shinkansen.",
+      "overnight": "Kyoto · night 1 of 3",
+      "schedule": [
+        {"period": "Day", "description": "Travel to Kyoto and hotel transfer."},
+        {"period": "Evening", "description": "A first walk in Gion or Pontocho."}
+      ]
+    },
+    {
+      "place": "Kyoto",
+      "title": "Temples at a human hour",
+      "description": "Fushimi Inari early, or Arashiyama if you prefer bamboo to gates.",
+      "overnight": "Kyoto · night 2 of 3",
+      "schedule": [
+        {"period": "Morning", "description": "One major site, started early."},
+        {"period": "Afternoon", "description": "A quieter lane or tea."},
+        {"period": "Evening", "description": "Kaiseki or a simpler dinner as you wish."}
+      ]
+    },
+    {
+      "place": "Kyoto",
+      "title": "A last Kyoto day",
+      "description": "Nijo, a craft street, or rest.",
+      "overnight": "Kyoto · night 3 of 3",
+      "schedule": [
+        {"period": "Day", "description": "At leisure."},
+        {"period": "Evening", "description": "A last dinner together."}
+      ]
+    },
+    {
+      "place": "Kyoto",
+      "title": "Departure",
+      "description": "Kansai or a return to Tokyo, as ticketed.",
+      "overnight": "",
+      "schedule": [
+        {"period": "Departure", "description": "Airport transfer as quoted."}
+      ]
+    }
+  ]
+}

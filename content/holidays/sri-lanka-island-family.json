@@ -1,0 +1,147 @@
+{
+  "title": "Sri Lanka Island Family",
+  "slug": "sri-lanka-island-family",
+  "active": true,
+  "featured": false,
+  "order": 28,
+  "audience": "family",
+  "country": "Sri Lanka",
+  "eyebrow": "FAMILY GETAWAY",
+  "headline": "Wildlife, hills and a last night on the coast.",
+  "description": "Eight nights for a family: the cultural triangle, Kandy, tea country, Yala and Bentota.",
+  "image": "/assets/holidays/sri-lanka.webp",
+  "image_alt": "Nine Arches Bridge and a train in the hills near Ella, Sri Lanka",
+  "destinations": ["Sigiriya", "Kandy", "Nuwara Eliya", "Yala", "Bentota"],
+  "nights": [
+    {"place": "Sigiriya", "nights": 2},
+    {"place": "Kandy", "nights": 1},
+    {"place": "Nuwara Eliya", "nights": 1},
+    {"place": "Yala", "nights": 1},
+    {"place": "Ella", "nights": 1},
+    {"place": "Bentota", "nights": 2}
+  ],
+  "duration": "9 Days / 8 Nights",
+  "hotels": 6,
+  "support": "24×7 concierge",
+  "customizable": true,
+  "starting_price": 49998,
+  "price_unit": "per person",
+  "price_label": "Quoted for your family and dates",
+  "price_guidance": "This longer circuit depends on room type, child ages, safari jeep and whether the hill-country train is booked. We confirm a written total before you reserve.",
+  "overview": "A fuller family island: fortress and Kandy first, tea country and Ella, a Yala morning, then two nights on Bentota to recover. Stays are short in the middle; the beach close is not.",
+  "highlights": [
+    "Cultural-triangle stay with one fortress morning.",
+    "Kandy lake and the Temple of the Tooth.",
+    "Tea country, Ella and a Yala safari as quoted.",
+    "Two nights on a family beach before you fly."
+  ],
+  "why": [
+    "Wildlife, hills and sea without covering the whole island.",
+    "Climbs and safari can be cut for younger children.",
+    "The same driver stays with you on the circuit."
+  ],
+  "inclusions": [
+    "Private airport and inter-hotel transfers",
+    "Breakfast on hotel mornings",
+    "Visa assistance",
+    "Accommodation on twin or family-room sharing as quoted",
+    "One shared or private Yala jeep when included in the quote"
+  ],
+  "exclusions": [
+    "International flights",
+    "Sri Lanka ETA fees",
+    "Travel insurance",
+    "Meals other than specified",
+    "Site tickets and extra safari drives unless added",
+    "Personal expenses, GST and tourism fees"
+  ],
+  "stay": {
+    "name": "Selected family-friendly hotels on a six-stop circuit",
+    "nights": 8,
+    "room": "Twin, double or interconnecting rooms as available",
+    "amenities": ["Breakfast", "Air conditioning", "Wi-Fi"]
+  },
+  "notes": "Safari, climb choice and beach town are confirmed in writing. Parks and some sites close on set days or in heavy rain. An inquiry is not a booking.",
+  "itinerary_note": "Suggested family order through the triangle, hills, Yala and the west coast. A hill night can be dropped for more beach time.",
+  "itinerary": [
+    {
+      "place": "Sigiriya",
+      "title": "Arrive inland",
+      "description": "Transfer from Colombo and keep the first evening quiet.",
+      "overnight": "Sigiriya · night 1 of 2",
+      "schedule": [
+        {"period": "Arrival", "description": "Private transfer from CMB toward Sigiriya."},
+        {"period": "Evening", "description": "Hotel rest."}
+      ]
+    },
+    {
+      "place": "Sigiriya",
+      "title": "A fortress morning",
+      "description": "Sigiriya, Pidurangala, or a viewpoint — as you prefer.",
+      "overnight": "Sigiriya · night 2 of 2",
+      "schedule": [
+        {"period": "Morning", "description": "One climb, started early."},
+        {"period": "Afternoon", "description": "Hotel pool."}
+      ]
+    },
+    {
+      "place": "Kandy",
+      "title": "To Kandy",
+      "description": "Road to the lake city and a temple visit.",
+      "overnight": "Kandy · night 1 of 1",
+      "schedule": [
+        {"period": "Day", "description": "Transfer and Temple of the Tooth at an easy hour."},
+        {"period": "Evening", "description": "Lakeside walk if energy remains."}
+      ]
+    },
+    {
+      "place": "Nuwara Eliya",
+      "title": "Into tea country",
+      "description": "The highland road or train if seats exist.",
+      "overnight": "Nuwara Eliya · night 1 of 1",
+      "schedule": [
+        {"period": "Day", "description": "Transfer through tea estates."},
+        {"period": "Evening", "description": "A cooler hill night."}
+      ]
+    },
+    {
+      "place": "Ella",
+      "title": "A day in the hills",
+      "description": "Nine Arches or a short walk, then on toward Yala.",
+      "overnight": "Ella · night 1 of 1",
+      "schedule": [
+        {"period": "Day", "description": "One viewpoint, not three."},
+        {"period": "Evening", "description": "Early night before the park."}
+      ]
+    },
+    {
+      "place": "Yala",
+      "title": "A safari morning",
+      "description": "One jeep drive as quoted, then south-west.",
+      "overnight": "Yala · night 1 of 1",
+      "schedule": [
+        {"period": "Morning", "description": "Shared or private jeep when included."},
+        {"period": "Afternoon", "description": "Continue toward the coast if the stay is a lodge night only."}
+      ]
+    },
+    {
+      "place": "Bentota",
+      "title": "Down to the beach",
+      "description": "Two nights to recover before the flight.",
+      "overnight": "Bentota · nights 1–2 of 2",
+      "schedule": [
+        {"period": "Days at leisure", "description": "Beach and pool; a river boat only if you asked."},
+        {"period": "Evenings", "description": "Early dinners."}
+      ]
+    },
+    {
+      "place": "Bentota",
+      "title": "Departure",
+      "description": "Return to Colombo for your onward flight.",
+      "overnight": "",
+      "schedule": [
+        {"period": "Departure", "description": "Private transfer to CMB."}
+      ]
+    }
+  ]
+}

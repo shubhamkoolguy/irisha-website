@@ -1,0 +1,145 @@
+{
+  "title": "Sri Lanka Couple Circuit",
+  "slug": "sri-lanka-couple-circuit",
+  "active": true,
+  "featured": false,
+  "order": 13,
+  "audience": "couple",
+  "country": "Sri Lanka",
+  "eyebrow": "COUPLE RETREAT",
+  "headline": "Cultural cities, a hill-country train, then the south coast.",
+  "description": "Seven nights for two: Sigiriya and Kandy, a stretch in the hills, then Galle or a southern beach.",
+  "image": "/assets/holidays/sri-lanka.webp",
+  "image_alt": "Nine Arches Bridge and a train in the hills near Ella, Sri Lanka",
+  "destinations": ["Sigiriya", "Kandy", "Ella", "Galle"],
+  "nights": [
+    {"place": "Sigiriya", "nights": 2},
+    {"place": "Kandy", "nights": 1},
+    {"place": "Ella", "nights": 2},
+    {"place": "Galle", "nights": 2}
+  ],
+  "duration": "8 Days / 7 Nights",
+  "hotels": 4,
+  "support": "24×7 concierge",
+  "customizable": true,
+  "starting_price": 0,
+  "price_unit": "per couple",
+  "price_label": "Quoted for your circuit and dates",
+  "price_guidance": "Sri Lanka pricing depends on hotel category, whether the hill-country train is booked, and beach town. We confirm a written total before you reserve.",
+  "overview": "A couple’s island circuit: rock fortress and cave temples in the cultural triangle, a night near Kandy, tea country around Ella, then the south coast. Private vehicle between stays; the train is added when seats exist.",
+  "highlights": [
+    "Sigiriya or Pidurangala at a sane hour.",
+    "Temple of the Tooth in Kandy.",
+    "Hill-country train or a scenic road to Ella.",
+    "Two nights on the south coast — Galle Fort or a quieter beach."
+  ],
+  "why": [
+    "Culture, hills and sea in one week, without rushing every site.",
+    "Pace and dining can be shaped around the two of you.",
+    "ETA guidance for Indian passports, coordinated with your tickets."
+  ],
+  "inclusions": [
+    "Airport and inter-hotel transfers in a private vehicle",
+    "Breakfast on hotel mornings",
+    "Visa assistance",
+    "Accommodation on twin sharing",
+    "Hill-country train seats when they can be confirmed in your quote"
+  ],
+  "exclusions": [
+    "International flights",
+    "Sri Lanka ETA fees",
+    "Travel insurance",
+    "Meals other than specified",
+    "Site tickets, safari jeeps and optional whale-watching unless added",
+    "Personal expenses, GST and tourism fees"
+  ],
+  "stay": {
+    "name": "Selected boutique hotels on a four-stop circuit",
+    "nights": 7,
+    "room": "Double occupancy throughout",
+    "amenities": ["Breakfast", "Air conditioning or fans as the property offers", "Wi-Fi", "Private vehicle between stays"]
+  },
+  "notes": "Train seats, site tickets and beach town are confirmed only after you approve the written quote. Some climbs close in heavy rain. An inquiry is not a booking.",
+  "itinerary_note": "Suggested order through the cultural triangle, Kandy, Ella and the south. A stop can be dropped for more beach time.",
+  "itinerary": [
+    {
+      "place": "Sigiriya",
+      "title": "Into the cultural triangle",
+      "description": "Land in Colombo and continue inland.",
+      "overnight": "Sigiriya · night 1 of 2",
+      "schedule": [
+        {"period": "Arrival", "description": "Private transfer from CMB toward Sigiriya or Habarana."},
+        {"period": "Evening", "description": "Settle in after the road."}
+      ]
+    },
+    {
+      "place": "Sigiriya",
+      "title": "The rock and the plain",
+      "description": "Sigiriya or Pidurangala, then a slower afternoon.",
+      "overnight": "Sigiriya · night 2 of 2",
+      "schedule": [
+        {"period": "Morning", "description": "Climb started early."},
+        {"period": "Afternoon", "description": "Hotel rest, or Dambulla if energy remains."}
+      ]
+    },
+    {
+      "place": "Kandy",
+      "title": "To the hill capital",
+      "description": "Road to Kandy and the Temple of the Tooth.",
+      "overnight": "Kandy · night 1 of 1",
+      "schedule": [
+        {"period": "Day", "description": "Transfer to Kandy; temple visit timed around prayers."},
+        {"period": "Evening", "description": "Lakeside walk."}
+      ]
+    },
+    {
+      "place": "Ella",
+      "title": "Into tea country",
+      "description": "Train if seats exist; otherwise the highland road.",
+      "overnight": "Ella · night 1 of 2",
+      "schedule": [
+        {"period": "Day", "description": "Kandy to Ella as confirmed in your quote."},
+        {"period": "Evening", "description": "A quiet hill-town dinner."}
+      ]
+    },
+    {
+      "place": "Ella",
+      "title": "A day in the hills",
+      "description": "Little Adam’s Peak or a tea-factory visit.",
+      "overnight": "Ella · night 2 of 2",
+      "schedule": [
+        {"period": "Day", "description": "One walk, not three."},
+        {"period": "Evening", "description": "Early night before the southbound road."}
+      ]
+    },
+    {
+      "place": "Galle",
+      "title": "The south coast",
+      "description": "Down to Galle Fort or a nearby beach.",
+      "overnight": "Galle · night 1 of 2",
+      "schedule": [
+        {"period": "Day", "description": "Scenic transfer to the coast."},
+        {"period": "Evening", "description": "Fort walls at dusk if you stay in Galle."}
+      ]
+    },
+    {
+      "place": "Galle",
+      "title": "A beach or fort day",
+      "description": "Unstructured time by the sea.",
+      "overnight": "Galle · night 2 of 2",
+      "schedule": [
+        {"period": "Day", "description": "Beach, fort streets or a cookery class if you asked."},
+        {"period": "Evening", "description": "A last dinner on the coast."}
+      ]
+    },
+    {
+      "place": "Galle",
+      "title": "Departure",
+      "description": "Return to Colombo for your international flight.",
+      "overnight": "",
+      "schedule": [
+        {"period": "Departure", "description": "Private transfer to CMB, timed to your ticket."}
+      ]
+    }
+  ]
+}

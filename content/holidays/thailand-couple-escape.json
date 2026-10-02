@@ -1,0 +1,136 @@
+{
+  "title": "Thailand Couple Escape",
+  "slug": "thailand-couple-escape",
+  "active": true,
+  "featured": false,
+  "order": 5,
+  "audience": "couple",
+  "country": "Thailand",
+  "eyebrow": "COUPLE RETREAT",
+  "headline": "Bangkok temples, then Phuket and a night among the islands.",
+  "description": "Six nights for two: three in Bangkok, three on Phuket, with a Phi Phi or Phang Nga day on the Andaman.",
+  "image": "/assets/holidays/phuket.webp",
+  "image_alt": "Tropical beach and turquoise water along the Thai Andaman coast",
+  "destinations": ["Bangkok", "Phuket"],
+  "nights": [
+    {"place": "Bangkok", "nights": 3},
+    {"place": "Phuket", "nights": 3}
+  ],
+  "duration": "7 Days / 6 Nights",
+  "hotels": 2,
+  "support": "24×7 concierge",
+  "customizable": true,
+  "starting_price": 0,
+  "price_unit": "per couple",
+  "price_label": "Quoted for your dates and hotels",
+  "price_guidance": "Thailand pricing depends on hotel category, island day-boat and whether you add Krabi or Pattaya. We confirm a written total before you reserve.",
+  "overview": "A honeymoon-paced Thailand: city first, sea second. Three nights in Bangkok for temples, river evenings and dining, then fly south for Phuket beaches and one shared or private island day. Built for two, without a group timetable.",
+  "highlights": [
+    "Three nights in Bangkok with a Chao Phraya river evening.",
+    "Grand Palace or Wat Arun timed around the heat of the day.",
+    "Three nights on Phuket for beach time and a sunset dinner.",
+    "One Andaman island day — Phi Phi or Phang Nga — as quoted."
+  ],
+  "why": [
+    "City and islands in one week, without packing every night.",
+    "Vegetarian and Jain dining can be flagged to hotels in advance.",
+    "Visa-exemption or e-visa guidance for Indian passports, with your tickets."
+  ],
+  "inclusions": [
+    "Airport and hotel transfers in a private vehicle",
+    "Breakfast on hotel mornings",
+    "Visa assistance",
+    "Accommodation on twin sharing",
+    "Domestic flight Bangkok–Phuket, once ticketed",
+    "One island day tour as specified in your quote"
+  ],
+  "exclusions": [
+    "International flights",
+    "Thailand visa or exemption processing fees if they apply",
+    "Travel insurance",
+    "Meals other than specified",
+    "Optional massages, cabaret or national-park tickets unless added",
+    "Personal expenses, GST and tourism fees"
+  ],
+  "stay": {
+    "name": "Selected 4-star hotels in Bangkok and Phuket",
+    "nights": 6,
+    "room": "Double occupancy throughout",
+    "amenities": ["Breakfast at hotels", "Air conditioning", "Wi-Fi", "Island-day boat as quoted"]
+  },
+  "notes": "Hotels, island operator and boat type are confirmed only after you approve the written quote. Sea days depend on weather and marine-park rules. An inquiry is not a booking.",
+  "itinerary_note": "Suggested order: Bangkok, then Phuket. Krabi or Pattaya can replace a city or beach night if you prefer.",
+  "itinerary": [
+    {
+      "place": "Bangkok",
+      "title": "Arrive in the capital",
+      "description": "Settle in and take a first evening by the river.",
+      "overnight": "Bangkok · night 1 of 3",
+      "schedule": [
+        {"period": "Arrival", "description": "Private transfer from Suvarnabhumi or Don Mueang to your hotel."},
+        {"period": "Evening", "description": "A first dinner nearby, or an optional river cruise if you asked for it."}
+      ]
+    },
+    {
+      "place": "Bangkok",
+      "title": "Temples and the old city",
+      "description": "Grand Palace, river wats and an unhurried afternoon.",
+      "overnight": "Bangkok · night 2 of 3",
+      "schedule": [
+        {"period": "Morning", "description": "Grand Palace and Wat Pho, started early to miss the heaviest heat."},
+        {"period": "Afternoon", "description": "Time at leisure — spa, tailors or a rest at the hotel."},
+        {"period": "Evening", "description": "Chinatown or a quieter riverside dinner."}
+      ]
+    },
+    {
+      "place": "Bangkok",
+      "title": "A city day of your choosing",
+      "description": "Markets, rooftops or a day trip you added to the quote.",
+      "overnight": "Bangkok · night 3 of 3",
+      "schedule": [
+        {"period": "Day", "description": "Jim Thompson House, Chatuchak when it is open, or hotel time."},
+        {"period": "Evening", "description": "A last dinner in Bangkok."}
+      ]
+    },
+    {
+      "place": "Phuket",
+      "title": "South to the Andaman",
+      "description": "Fly to Phuket and check in by the sea.",
+      "overnight": "Phuket · night 1 of 3",
+      "schedule": [
+        {"period": "Morning", "description": "Domestic flight and private hotel transfer."},
+        {"period": "Afternoon", "description": "Beach time if the flight allows."},
+        {"period": "Evening", "description": "Dinner near the hotel."}
+      ]
+    },
+    {
+      "place": "Phuket",
+      "title": "Islands for a day",
+      "description": "Phi Phi or Phang Nga, as confirmed in writing.",
+      "overnight": "Phuket · night 2 of 3",
+      "schedule": [
+        {"period": "Day", "description": "Shared or private boat day with lunch as the operator includes it."},
+        {"period": "Evening", "description": "Return to the hotel and rest."}
+      ]
+    },
+    {
+      "place": "Phuket",
+      "title": "A beach day together",
+      "description": "Keep the sand, or add a sunset viewpoint.",
+      "overnight": "Phuket · night 3 of 3",
+      "schedule": [
+        {"period": "Day", "description": "Unstructured beach time; Promthep Cape can be added at dusk."},
+        {"period": "Evening", "description": "A last dinner by the water."}
+      ]
+    },
+    {
+      "place": "Phuket",
+      "title": "Departure",
+      "description": "Transfer out according to your international flight.",
+      "overnight": "",
+      "schedule": [
+        {"period": "Departure", "description": "Private transfer to Phuket International Airport."}
+      ]
+    }
+  ]
+}

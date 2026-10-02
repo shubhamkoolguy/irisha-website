@@ -32,3 +32,13 @@ Downloaded 27 September 2026 from Pexels (license allows website use; attributio
 | `assets/holidays/hoi-an.webp` | Quynh Le, Pexels — https://www.pexels.com/photo/people-walking-on-street-near-buildings-2166553/ |
 | `assets/holidays/maldives.webp` | Asad Photo Maldives, Pexels — https://www.pexels.com/photo/brown-hut-in-island-753626/ |
 | `assets/holidays/phu-quoc.webp` | Asad Photo Maldives, Pexels — https://www.pexels.com/photo/landscape-photography-of-trees-on-shoreline-1450353/ |
+| `assets/holidays/thailand.webp` | Pixabay, Pexels — https://www.pexels.com/photo/gray-pointed-concrete-structure-460376/ |
+| `assets/holidays/phuket.webp` | Pixabay, Pexels — https://www.pexels.com/photo/seashore-240526/ |
+| `assets/holidays/bali.webp` | Timur Kozmenko, Pexels — https://www.pexels.com/photo/high-angle-photo-of-beach-2474690/ |
+| `assets/holidays/dubai.webp` | Nextvoyage, Pexels — https://www.pexels.com/photo/city-buildings-during-sunset-1470502/ |
+| `assets/holidays/singapore.webp` | Kin Pastor, Pexels — https://www.pexels.com/photo/marina-bay-sands-singapore-777059/ |
+| `assets/holidays/sri-lanka.webp` | Genine Alyssa Pedreno-Andrada, Pexels — https://www.pexels.com/photo/brown-train-rail-surrounded-of-green-leaf-tree-2403209/ |
+| `assets/holidays/mauritius.webp` | Asad Photo Maldives, Pexels — https://www.pexels.com/photo/two-person-riding-kayak-1320684/ |
+| `assets/holidays/switzerland.webp` | Pixabay, Pexels — https://www.pexels.com/photo/matterhorn-753339/ |
+| `assets/holidays/japan.webp` | Belle Co, Pexels — https://www.pexels.com/photo/red-and-black-temple-surrounded-by-trees-photo-402028/ |
+| `assets/holidays/kenya.webp` | Frans van Heerden, Pexels — https://www.pexels.com/photo/elephants-on-brown-mountain-631317/ |

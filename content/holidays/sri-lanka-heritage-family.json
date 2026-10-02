@@ -1,0 +1,133 @@
+{
+  "title": "Sri Lanka Heritage Family",
+  "slug": "sri-lanka-heritage-family",
+  "active": true,
+  "featured": false,
+  "order": 27,
+  "audience": "family",
+  "country": "Sri Lanka",
+  "eyebrow": "FAMILY GETAWAY",
+  "headline": "Sigiriya at an easy pace, then Kandy and Colombo.",
+  "description": "Six nights for a family: three in the cultural triangle, two in Kandy, then Colombo.",
+  "image": "/assets/holidays/sri-lanka.webp",
+  "image_alt": "Nine Arches Bridge and a train in the hills near Ella, Sri Lanka",
+  "destinations": ["Sigiriya", "Kandy", "Colombo"],
+  "nights": [
+    {"place": "Sigiriya", "nights": 3},
+    {"place": "Kandy", "nights": 2},
+    {"place": "Colombo", "nights": 1}
+  ],
+  "duration": "7 Days / 6 Nights",
+  "hotels": 3,
+  "support": "24×7 concierge",
+  "customizable": true,
+  "starting_price": 39999,
+  "price_unit": "per person",
+  "price_label": "Quoted for your family and dates",
+  "price_guidance": "Family pricing depends on room type, child ages and whether you add Dambulla or a village walk. Site tickets sit outside the base figure unless you ask us to include them.",
+  "overview": "A heritage-led family week: three nights near Sigiriya so the fortress morning is not rushed, two in Kandy by the lake, then Colombo. Pidurangala or a lower viewpoint can replace the full climb.",
+  "highlights": [
+    "Three nights in the cultural triangle with one fortress morning.",
+    "Optional Dambulla caves if energy remains.",
+    "Two nights in Kandy and the Temple of the Tooth.",
+    "A last Colombo night before the flight."
+  ],
+  "why": [
+    "Three stays, with time to recover between sites.",
+    "Climbs and site time can be cut for younger children.",
+    "The same driver stays with you on the circuit."
+  ],
+  "inclusions": [
+    "Private airport and inter-hotel transfers",
+    "Breakfast on hotel mornings",
+    "Visa assistance",
+    "Accommodation on twin or family-room sharing as quoted"
+  ],
+  "exclusions": [
+    "International flights",
+    "Sri Lanka ETA fees",
+    "Travel insurance",
+    "Meals other than specified",
+    "Site tickets and safari jeeps unless added",
+    "Personal expenses, GST and tourism fees"
+  ],
+  "stay": {
+    "name": "Selected family-friendly hotels on a three-stop circuit",
+    "nights": 6,
+    "room": "Twin, double or interconnecting rooms as available",
+    "amenities": ["Breakfast", "Air conditioning", "Wi-Fi"]
+  },
+  "notes": "Climb choice and any extra site are confirmed in writing. Some sites close in heavy rain. An inquiry is not a booking.",
+  "itinerary_note": "Suggested family order through Sigiriya, Kandy and Colombo. A cultural night can be dropped for a beach close.",
+  "itinerary": [
+    {
+      "place": "Sigiriya",
+      "title": "Arrive inland",
+      "description": "Transfer from Colombo and keep the first evening quiet.",
+      "overnight": "Sigiriya · night 1 of 3",
+      "schedule": [
+        {"period": "Arrival", "description": "Private transfer from CMB toward Sigiriya."},
+        {"period": "Evening", "description": "Hotel rest."}
+      ]
+    },
+    {
+      "place": "Sigiriya",
+      "title": "A fortress morning",
+      "description": "Sigiriya, Pidurangala, or a viewpoint — as you prefer.",
+      "overnight": "Sigiriya · night 2 of 3",
+      "schedule": [
+        {"period": "Morning", "description": "One climb or a village walk, started early."},
+        {"period": "Afternoon", "description": "Hotel pool."}
+      ]
+    },
+    {
+      "place": "Sigiriya",
+      "title": "A quieter day",
+      "description": "Dambulla if you asked; otherwise the hotel.",
+      "overnight": "Sigiriya · night 3 of 3",
+      "schedule": [
+        {"period": "Day", "description": "Optional cave temples or a village walk."},
+        {"period": "Evening", "description": "Early night before the road to Kandy."}
+      ]
+    },
+    {
+      "place": "Kandy",
+      "title": "To the lake city",
+      "description": "Road to Kandy and a temple visit.",
+      "overnight": "Kandy · night 1 of 2",
+      "schedule": [
+        {"period": "Day", "description": "Transfer and Temple of the Tooth at an easy hour."},
+        {"period": "Evening", "description": "Lakeside walk if energy remains."}
+      ]
+    },
+    {
+      "place": "Kandy",
+      "title": "A Kandy day",
+      "description": "Gardens or an unhurried city morning.",
+      "overnight": "Kandy · night 2 of 2",
+      "schedule": [
+        {"period": "Day", "description": "Peradeniya or hotel time."},
+        {"period": "Evening", "description": "Early dinner."}
+      ]
+    },
+    {
+      "place": "Colombo",
+      "title": "Departure eve",
+      "description": "Down to Colombo for the flight next day.",
+      "overnight": "Colombo · night 1 of 1",
+      "schedule": [
+        {"period": "Day", "description": "Private transfer to Colombo."},
+        {"period": "Evening", "description": "Hotel dinner."}
+      ]
+    },
+    {
+      "place": "Colombo",
+      "title": "Departure",
+      "description": "Return to the airport for your onward flight.",
+      "overnight": "",
+      "schedule": [
+        {"period": "Departure", "description": "Private transfer to CMB."}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "title": "Bali Family Getaway",
+  "slug": "bali-family-getaway",
+  "active": true,
+  "featured": false,
+  "order": 8,
+  "audience": "family",
+  "country": "Bali",
+  "eyebrow": "FAMILY GETAWAY",
+  "headline": "Ubud for a few days, then a beach stay the children will remember.",
+  "description": "A six-night family holiday in Bali: culture and rice country first, then a coastal hotel with a pool and easy evenings.",
+  "image": "/assets/holidays/bali.webp",
+  "image_alt": "Turquoise water and cliffs on the Bali coast",
+  "destinations": ["Ubud", "Nusa Dua"],
+  "nights": [
+    {"place": "Ubud", "nights": 3},
+    {"place": "Nusa Dua", "nights": 3}
+  ],
+  "duration": "7 Days / 6 Nights",
+  "hotels": 2,
+  "support": "24×7 concierge",
+  "customizable": true,
+  "starting_price": 0,
+  "price_unit": "per person",
+  "price_label": "Quoted for your family and dates",
+  "price_guidance": "Family pricing depends on room configuration, child ages and whether a water park or Tanah Lot evening is included. International flights sit outside this figure unless you ask us to ticket them.",
+  "overview": "Two stays so you are not packing every morning. Ubud introduces temples and terraces at a child’s pace; Nusa Dua or a similar resort coast closes the week with a beach and a proper pool. Private transfers throughout.",
+  "highlights": [
+    "Three nights in Ubud with one gentle culture morning.",
+    "Family rooms or interconnecting rooms requested where possible.",
+    "Three nights on a resort coast with beach and pool time.",
+    "Optional water park or Tanah Lot, if you add it to the quote."
+  ],
+  "why": [
+    "Culture and a beach week without a long island-hop.",
+    "Daily load can be cut for younger children.",
+    "The same concierge handles stays, drivers and any park tickets."
+  ],
+  "inclusions": [
+    "Private airport and inter-hotel transfers",
+    "Breakfast on hotel mornings",
+    "Visa assistance",
+    "Accommodation on twin or family-room sharing as quoted",
+    "One private half-day Ubud driver as quoted"
+  ],
+  "exclusions": [
+    "International flights",
+    "Indonesia visa-on-arrival or e-VOA fees",
+    "Travel insurance",
+    "Meals other than specified",
+    "Water-park tickets, Tanah Lot and paid shows unless added",
+    "Personal expenses, GST and tourism fees"
+  ],
+  "stay": {
+    "name": "Selected family-friendly hotels in Ubud and on the south coast",
+    "nights": 6,
+    "room": "Twin, double or interconnecting rooms as available",
+    "amenities": ["Breakfast", "Air conditioning", "Wi-Fi", "Resort pool at the beach stay"]
+  },
+  "notes": "Room types, driver days and attraction tickets are confirmed in writing. Some temples close for ceremonies. An inquiry is not a booking.",
+  "itinerary_note": "Suggested family order: Ubud, then Nusa Dua or Sanur. A stay can be lengthened if you prefer more beach than culture.",
+  "itinerary": [
+    {
+      "place": "Ubud",
+      "title": "Arrive in Ubud",
+      "description": "Transfer inland and keep the first evening quiet.",
+      "overnight": "Ubud · night 1 of 3",
+      "schedule": [
+        {"period": "Arrival", "description": "Private transfer from Ngurah Rai to the hotel."},
+        {"period": "Evening", "description": "Early dinner; pool if anyone still has energy."}
+      ]
+    },
+    {
+      "place": "Ubud",
+      "title": "Terraces at an easy pace",
+      "description": "One short outing, then hotel time.",
+      "overnight": "Ubud · night 2 of 3",
+      "schedule": [
+        {"period": "Morning", "description": "Rice terrace or a nearby temple, without a packed circuit."},
+        {"period": "Afternoon", "description": "Hotel rest."},
+        {"period": "Evening", "description": "Family dinner."}
+      ]
+    },
+    {
+      "place": "Ubud",
+      "title": "A free Ubud day",
+      "description": "Monkey Forest only if you want it — it is optional.",
+      "overnight": "Ubud · night 3 of 3",
+      "schedule": [
+        {"period": "Day", "description": "At leisure, or a short village walk."},
+        {"period": "Evening", "description": "Dinner near the hotel."}
+      ]
+    },
+    {
+      "place": "Nusa Dua",
+      "title": "To the resort coast",
+      "description": "Road transfer and check-in by the sea.",
+      "overnight": "Nusa Dua · night 1 of 3",
+      "schedule": [
+        {"period": "Day", "description": "Private transfer south; afternoon at the pool."},
+        {"period": "Evening", "description": "Resort dinner."}
+      ]
+    },
+    {
+      "place": "Nusa Dua",
+      "title": "Beach or a park day",
+      "description": "Stay put, or add a water park if you asked.",
+      "overnight": "Nusa Dua · night 2 of 3",
+      "schedule": [
+        {"period": "Day", "description": "Beach and pool, or Waterbom when included."},
+        {"period": "Evening", "description": "Optional Tanah Lot sunset if added to the quote."}
+      ]
+    },
+    {
+      "place": "Nusa Dua",
+      "title": "A last resort day",
+      "description": "Unstructured time before the flight home.",
+      "overnight": "Nusa Dua · night 3 of 3",
+      "schedule": [
+        {"period": "Day", "description": "Beach, spa for adults, or more pool time."},
+        {"period": "Evening", "description": "A last family dinner."}
+      ]
+    },
+    {
+      "place": "Nusa Dua",
+      "title": "Departure",
+      "description": "Transfer to Denpasar for your onward flight.",
+      "overnight": "",
+      "schedule": [
+        {"period": "Departure", "description": "Private transfer to Ngurah Rai."}
+      ]
+    }
+  ]
+}

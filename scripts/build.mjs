@@ -122,6 +122,41 @@ const pageClose=`</main><footer class="site-footer container"><div class="footer
 <dialog id="inquiry-dialog" class="inquiry-dialog" aria-labelledby="inquiry-title"><button class="dialog-close icon-button" data-close aria-label="Close inquiry">${icon('close')}</button><p class="eyebrow">A JOURNEY THAT’S YOURS</p><h2 id="inquiry-title">Let’s make it <em>personal.</em></h2><p class="dialog-description">A few details are all we need to begin. Your concierge will take it from here.</p><form id="inquiry-form"><label>I'm interested in<select name="interest" id="interest">${[...packages.map(x=>x.title),...fleet.map(x=>x.title),...services.map(x=>x.title),...holidays.map(x=>x.title)].map(x=>`<option>${e(x)}</option>`).join('')}</select></label><div class="form-row"><label>Your name <span>(required)</span><input name="name" autocomplete="given-name" placeholder="How should we address you?" maxlength="80" required></label><label>Guests<select name="guests"><option value="Not decided">Not decided yet</option><option>1–2 guests</option><option>3–6 guests</option><option>7–10 guests</option><option>11–16 guests</option><option>17+ guests</option></select></label></div><label>Preferred travel date <span>(optional)</span><input type="date" name="date" id="travel-date"></label><label>Anything you’d like us to know? <span>(optional)</span><textarea name="notes" rows="3" maxlength="1500" placeholder="Your pickup city, special puja, occasion or a little wish…"></textarea></label><div class="form-trap" aria-hidden="true"><label>Leave this field empty<input name="company_website" type="text" tabindex="-1" autocomplete="off"></label></div><button class="button form-submit" type="submit">Continue securely ${icon('arrow')}</button><p class="form-note">After verification, WhatsApp opens with your trip details. Nothing is sent until you choose to send it. Protected by reCAPTCHA: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Privacy</a> · <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">Terms</a>.</p></form></dialog>
 <script type="application/json" id="site-data">${JSON.stringify({settings,packages,fleet,services,holidays,offers}).replace(/</g,'\u003c')}</script>
 </body></html>`;
+const nightsLine=h=>(h.nights||[]).map(n=>`${e(n.place)}, ${n.nights}N`).join(' · ');
+const countrySlug=name=>String(name||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+const holidayCountries=[...new Set(holidays.map(h=>h.country).filter(Boolean))].sort((a,b)=>{
+  const rank=name=>name==='Sri Lanka'?0:Math.min(...holidays.filter(h=>h.country===name).map(h=>h.order||99));
+  return rank(a)-rank(b) || a.localeCompare(b);
+});
+const holidayCard=h=>`<article class="holiday-card">
+<a class="holiday-card-media" href="/holidays/${e(h.slug)}/"><img src="${safePath(h.image)}" alt="${e(h.image_alt)}" width="1400" height="934" loading="lazy"><span class="holiday-duration">${e(h.duration)}</span>${h.customizable?`<span class="holiday-flag">Customisable</span>`:''}</a>
+<div class="holiday-card-body">
+<p class="small-eyebrow">${e(h.eyebrow)}</p>
+<h2><a href="/holidays/${e(h.slug)}/">${e(h.title)}</a></h2>
+<p class="holiday-card-copy">${e(h.description)}</p>
+<ul class="holiday-meta"><li>${icon('stay')}${h.hotels||1} ${h.hotels===1?'hotel':'hotels'}</li><li>${icon('sparkle')}${e(h.support||'24×7 concierge')}</li></ul>
+<p class="holiday-nights">${nightsLine(h)}</p>
+<div class="holiday-card-foot"><p class="quote-price">${price(h)}</p><a class="button button-small" href="/holidays/${e(h.slug)}/">View details ${icon('arrow')}</a></div>
+</div></article>`;
+const carouselNav=(id,label)=>`<div class="holiday-carousel-nav"><button type="button" class="icon-button holiday-carousel-btn" data-carousel="${e(id)}" data-dir="-1" aria-label="Previous ${e(label)}">${icon('chevron')}</button><button type="button" class="icon-button holiday-carousel-btn" data-carousel="${e(id)}" data-dir="1" aria-label="Next ${e(label)}">${icon('chevron')}</button></div>`;
+const destinationCarousel=id=>{
+  if(!holidayCountries.length)return '';
+  const cards=holidayCountries.map(country=>{
+    const items=holidays.filter(h=>h.country===country);
+    const lead=items[0];
+    const slug=countrySlug(country);
+    return `<a class="destination-card" href="/services/holidays-tours/#${slug}-holidays"><img src="${safePath(lead.image)}" alt="${e(lead.image_alt)}" width="900" height="600" loading="lazy"><span class="destination-card-copy"><strong>${e(country)}</strong><small>${items.length} ${items.length===1?'holiday':'holidays'}</small></span></a>`;
+  }).join('');
+  return `<div class="destination-carousel-wrap">${carouselNav(id,'destinations')}<div class="destination-carousel" data-carousel-track="${e(id)}">${cards}</div></div>`;
+};
+const countryHolidayBoards=holidayCountries.map(country=>{
+  const items=holidays.filter(h=>h.country===country);
+  const slug=countrySlug(country);
+  const couples=items.filter(h=>h.audience==='couple').length;
+  const families=items.filter(h=>h.audience==='family').length;
+  const intro=[couples?`${couples} couple ${couples===1?'retreat':'retreats'}`:'',families?`${families} family ${families===1?'getaway':'getaways'}`:''].filter(Boolean).join(' · ');
+  return `<section class="container holiday-board" id="${slug}-holidays" aria-labelledby="${slug}-holidays-title"><div class="holiday-board-intro"><div><h2 id="${slug}-holidays-title">${e(country)}</h2><p>${e(intro||'Curated holidays, shaped around you.')}</p></div>${carouselNav(slug,country)}</div><div class="holiday-carousel" data-carousel-track="${e(slug)}">${items.map(holidayCard).join('')}</div></section>`;
+}).join('');
 const html=`${pageHead({title:seoTitle,description:settings.description,canonical:`${settings.site_url}/`,jsonLd:structuredData,preload:heroSlides[0].image})}
 ${chrome(true)}
 <main id="main" tabindex="-1">
@@ -147,21 +182,9 @@ ${chrome(true)}
 <div class="more-packages">${packages.map(x=>`<button class="secondary-vehicle" data-package="${e(x.slug)}"><span><span class="small-eyebrow">${e(x.eyebrow)}</span><strong>${e(x.title)}</strong><small>${price(x)}</small></span>${icon('arrow')}</button>`).join('')}</div>
 </section>
 <section class="section fleet-section" id="elite-fleet" aria-labelledby="fleet-title"><div class="container"><div class="section-heading centered"><p class="eyebrow">THE ART OF ARRIVING</p><h2 id="fleet-title">Private chauffeur-driven<br><em>transfers &amp; travel.</em></h2><p>Your own space. Your own pace. A finer way to travel.</p></div><div class="fleet-card"><div class="fleet-visual"><div class="fleet-visual-heading"><span class="small-eyebrow">THE ELITE FLEET</span><span class="seats-label">${icon('users')}${e(vehicle.seats)}</span></div><span class="fleet-watermark" aria-hidden="true">${e(vehicle.title.replace('Force ',''))}</span>${vehicle.image?`<img src="${safePath(vehicle.image)}" alt="${e(vehicle.image_alt)}" width="1920" height="734" loading="lazy">`:''}<p class="vehicle-caption">${e(vehicle.image_note)}</p></div><div class="fleet-content"><p class="eyebrow">${e(vehicle.category)}</p><h3>${e(vehicle.title)}</h3><p class="fleet-subtitle">${e(vehicle.audience)}</p><p class="card-description">${e(vehicle.description)}</p><ul class="fleet-features">${vehicle.features.map((x,i)=>`<li>${icon(i===0?'seat':i===1?'users':i===2?'sparkle':'check')}<span>${e(x)}</span></li>`).join('')}</ul><div class="fleet-actions"><button class="text-link" data-vehicle="${e(vehicle.slug)}">Explore this vehicle ${icon('diagonal')}</button><button class="button button-outline" data-inquire="${e(vehicle.title)}">Request a quote ${icon('arrow')}</button></div><p class="fleet-price">${price(vehicle)}</p></div></div><div class="secondary-fleet">${fleet.filter(x=>x!==vehicle).map(x=>`<button class="secondary-vehicle" data-vehicle="${e(x.slug)}"><div class="vehicle-icon">${icon('seat')}</div><span><span class="small-eyebrow">${e(x.category)}</span><strong>${e(x.title)}</strong><small>${e(x.seats)} · ${price(x)}</small></span><span class="circle-arrow">${icon('diagonal')}</span></button>`).join('')}</div></div></section>
-<section class="section container services-section" id="holidays" aria-labelledby="services-title"><div class="section-heading split-heading"><div><p class="eyebrow">ONE CONCIERGE. ENDLESS POSSIBILITIES.</p><h2 id="services-title">Holidays &amp; travel<br><em>concierge services.</em></h2></div><p>From a change of scenery to a celebration.<br>Every detail, beautifully in place.</p></div><div class="bento-grid">${services.map(x=>`<a class="service-card ${x.large?'service-large':''}" href="/services/${e(x.slug)}/"><span class="service-top">${icon(x.icon)}<span class="circle-arrow">${icon('diagonal')}</span></span><span class="service-copy"><span class="small-eyebrow">${e(x.eyebrow)}</span><strong>${e(x.title)}</strong><span class="service-description">${e(x.description)}</span></span>${x.large?`<span class="service-extra">A LITTLE WONDER. A WORLD OF POSSIBILITIES.</span>`:''}</a>`).join('')}</div></section>
+<section class="section container services-section" id="holidays" aria-labelledby="services-title"><div class="section-heading split-heading"><div><p class="eyebrow">ONE CONCIERGE. ENDLESS POSSIBILITIES.</p><h2 id="services-title">Holidays &amp; travel<br><em>concierge services.</em></h2></div><p>From a change of scenery to a celebration.<br>Every detail, beautifully in place.</p></div><div class="bento-grid">${services.map(x=>`<a class="service-card ${x.large?'service-large':''}" href="/services/${e(x.slug)}/"><span class="service-top">${icon(x.icon)}<span class="circle-arrow">${icon('diagonal')}</span></span><span class="service-copy"><span class="small-eyebrow">${e(x.eyebrow)}</span><strong>${e(x.title)}</strong><span class="service-description">${e(x.description)}</span></span>${x.large?`<span class="service-extra">A LITTLE WONDER. A WORLD OF POSSIBILITIES.</span>`:''}</a>`).join('')}</div>${holidayCountries.length?`<div class="home-destinations" aria-labelledby="destinations-title"><div class="holiday-board-intro"><div><h2 id="destinations-title">Holiday destinations</h2><p>Browse countries, then open a circuit built around your dates.</p></div></div>${destinationCarousel('home-destinations')}</div>`:''}</section>
 ${contactBlock}
 ${pageClose}`;
-const nightsLine=h=>(h.nights||[]).map(n=>`${e(n.place)}, ${n.nights}N`).join(' · ');
-const holidayCard=h=>`<article class="holiday-card">
-<a class="holiday-card-media" href="/holidays/${e(h.slug)}/"><img src="${safePath(h.image)}" alt="${e(h.image_alt)}" width="1400" height="934" loading="lazy"><span class="holiday-duration">${e(h.duration)}</span>${h.customizable?`<span class="holiday-flag">Customisable</span>`:''}</a>
-<div class="holiday-card-body">
-<p class="small-eyebrow">${e(h.eyebrow)}</p>
-<h2><a href="/holidays/${e(h.slug)}/">${e(h.title)}</a></h2>
-<p class="holiday-card-copy">${e(h.description)}</p>
-<ul class="holiday-meta"><li>${icon('stay')}${h.hotels||1} ${h.hotels===1?'hotel':'hotels'}</li><li>${icon('sparkle')}${e(h.support||'24×7 concierge')}</li></ul>
-<p class="holiday-nights">${nightsLine(h)}</p>
-<div class="holiday-card-foot"><p class="quote-price">${price(h)}</p><a class="button button-small" href="/holidays/${e(h.slug)}/">View details ${icon('arrow')}</a></div>
-</div></article>`;
-const holidayGroups=[['couple','Couple retreats','Honeymoon and couple holidays, paced for two.'],['family','Family getaways','Itineraries with room for children, beaches and shared days.']];
 const servicePage=s=>{
   const url=`${settings.site_url}/services/${s.slug}/`;
   const title=`${s.title} | ${settings.brand}`;
@@ -186,10 +209,7 @@ ${chrome(false)}
 <div class="hero-actions"><button class="button" data-inquire="${e(s.title)}">Enquire about ${e(s.title)} ${icon('arrow')}</button></div>
 </div>
 ${s.highlights?.length?`<div class="container inclusion-grid service-page-grid">${s.highlights.map(x=>`<div class="inclusion">${icon('sparkle')}<div><h2>${e(x.title)}</h2><p>${e(x.description)}</p></div></div>`).join('')}</div>`:''}
-${showHolidays?holidayGroups.map(([audience,heading,intro])=>{
-  const items=holidays.filter(h=>h.audience===audience);
-  return items.length?`<section class="container holiday-board" id="${audience}-holidays" aria-labelledby="${audience}-holidays-title"><div class="holiday-board-intro"><h2 id="${audience}-holidays-title">${e(heading)}</h2><p>${e(intro)}</p></div><div class="holiday-grid">${items.map(holidayCard).join('')}</div></section>`:'';
-}).join(''):''}
+${showHolidays?`<div class="container holiday-destinations" aria-labelledby="holiday-destinations-title"><div class="holiday-board-intro"><div><h2 id="holiday-destinations-title">Choose a country</h2><p>Each destination has its own carousel of couple and family circuits.</p></div></div>${destinationCarousel('holiday-destinations')}</div>${countryHolidayBoards}`:''}
 ${isVisa&&s.countries?.length?`<section class="container holiday-board" id="visa-countries" aria-labelledby="visa-countries-title"><div class="holiday-board-intro"><h2 id="visa-countries-title">Any destination, one visa concierge</h2><p>We coordinate visas worldwide — these are the destinations travellers ask about most. Entry rules change — we confirm the current requirement for your passport and dates before you apply.</p></div><ul class="detail-route">${s.countries.map(c=>`<li><span>${e(c)}</span></li>`).join('')}</ul><p class="holiday-card-copy">Travelling somewhere else? We handle visa coordination for any country.</p></section>`:''}
 ${isVisa&&s.why_us?.length?`<section class="container holiday-board" aria-labelledby="why-us-title"><div class="holiday-board-intro"><h2 id="why-us-title">Why book your visa with Irisha</h2></div><div class="inclusion-grid service-page-grid">${s.why_us.map(x=>`<div class="inclusion">${icon('check')}<div><h2>${e(x.title)}</h2><p>${e(x.description)}</p></div></div>`).join('')}</div></section>`:''}
 <div class="container service-page-columns">

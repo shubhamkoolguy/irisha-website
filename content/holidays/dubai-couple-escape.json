@@ -1,0 +1,123 @@
+{
+  "title": "Dubai Couple Escape",
+  "slug": "dubai-couple-escape",
+  "active": true,
+  "featured": false,
+  "order": 9,
+  "audience": "couple",
+  "country": "Dubai",
+  "eyebrow": "COUPLE RETREAT",
+  "headline": "A skyline stay, desert evening and the Gulf at your own pace.",
+  "description": "Five nights in Dubai for two: one hotel, a desert evening and time for the fountain, souk or a marina walk.",
+  "image": "/assets/holidays/dubai.webp",
+  "image_alt": "Dubai Marina skyline at sunset",
+  "destinations": ["Dubai"],
+  "nights": [
+    {"place": "Dubai", "nights": 5}
+  ],
+  "duration": "6 Days / 5 Nights",
+  "hotels": 1,
+  "support": "24×7 concierge",
+  "customizable": true,
+  "starting_price": 0,
+  "price_unit": "per couple",
+  "price_label": "Quoted for your hotel and dates",
+  "price_guidance": "Dubai pricing depends on hotel category, desert-safari type and whether you add Abu Dhabi or a Burj Khalifa ticket. We confirm a written total before you reserve.",
+  "overview": "A couple’s city break with one stay so you are not changing hotels. Mornings can be empty; evenings take the fountain, a dhow or the desert. Built around how you like a city — not a coach circuit.",
+  "highlights": [
+    "Five nights in one Dubai hotel, area chosen with you.",
+    "A desert evening — shared or private — as quoted.",
+    "Time for Downtown, the souks or a marina walk.",
+    "Optional Burj Khalifa or Abu Dhabi day if you add it."
+  ],
+  "why": [
+    "One hotel, five nights — city and desert without a packed coach list.",
+    "Dining can be planned around vegetarian preferences.",
+    "UAE visa guidance for Indian passports, timed to your tickets."
+  ],
+  "inclusions": [
+    "Airport transfers in a private vehicle",
+    "Breakfast on hotel mornings",
+    "Visa assistance",
+    "Accommodation on twin sharing",
+    "One desert evening as specified in your quote"
+  ],
+  "exclusions": [
+    "International flights",
+    "UAE visa fees",
+    "Travel insurance",
+    "Meals other than specified",
+    "Theme-park, Burj Khalifa and paid attraction tickets unless added",
+    "Personal expenses, GST and tourism fees"
+  ],
+  "stay": {
+    "name": "Selected 4-star or 5-star hotel in Dubai",
+    "nights": 5,
+    "room": "Double occupancy; higher floors on request",
+    "amenities": ["Breakfast", "Air conditioning", "Wi-Fi", "Desert evening as quoted"]
+  },
+  "notes": "Hotel area, desert operator and attraction tickets are confirmed only after you approve the written quote. Desert evenings depend on weather and operator rules. An inquiry is not a booking.",
+  "itinerary_note": "A single-city stay. A day can be swapped for Abu Dhabi or a park if you prefer.",
+  "itinerary": [
+    {
+      "place": "Dubai",
+      "title": "Arrive in Dubai",
+      "description": "Transfer in and keep the first evening light.",
+      "overnight": "Dubai · night 1 of 5",
+      "schedule": [
+        {"period": "Arrival", "description": "Private transfer from DXB or DWC to your hotel."},
+        {"period": "Evening", "description": "Dinner nearby; fountain views if you are staying Downtown."}
+      ]
+    },
+    {
+      "place": "Dubai",
+      "title": "The city at street level",
+      "description": "Old Dubai or the marina — your choice.",
+      "overnight": "Dubai · night 2 of 5",
+      "schedule": [
+        {"period": "Morning", "description": "Al Fahidi, the creek abra and the gold or spice souk, or a marina walk."},
+        {"period": "Afternoon", "description": "Hotel rest through the heat."},
+        {"period": "Evening", "description": "Dinner out."}
+      ]
+    },
+    {
+      "place": "Dubai",
+      "title": "A desert evening",
+      "description": "Dunes at dusk, then dinner in camp.",
+      "overnight": "Dubai · night 3 of 5",
+      "schedule": [
+        {"period": "Afternoon", "description": "Pickup for the desert; dune drive as the operator runs it."},
+        {"period": "Evening", "description": "Camp dinner and return to the hotel."}
+      ]
+    },
+    {
+      "place": "Dubai",
+      "title": "A day of your choosing",
+      "description": "Keep the city, or add Abu Dhabi or a park.",
+      "overnight": "Dubai · night 4 of 5",
+      "schedule": [
+        {"period": "Day", "description": "At leisure, or an optional day tour confirmed in your quote."},
+        {"period": "Evening", "description": "A quieter dinner."}
+      ]
+    },
+    {
+      "place": "Dubai",
+      "title": "A last full day",
+      "description": "Spa, souk or the beach.",
+      "overnight": "Dubai · night 5 of 5",
+      "schedule": [
+        {"period": "Day", "description": "Unstructured time."},
+        {"period": "Evening", "description": "A last dinner together."}
+      ]
+    },
+    {
+      "place": "Dubai",
+      "title": "Departure",
+      "description": "Transfer out according to your international flight.",
+      "overnight": "",
+      "schedule": [
+        {"period": "Departure", "description": "Private airport transfer."}
+      ]
+    }
+  ]
+}

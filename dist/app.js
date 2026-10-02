@@ -229,51 +229,63 @@
   const heroSlides = [heroFeatured, ...data.packages.filter(p=>p!==heroFeatured), ...data.holidays]
     .map(x=>({...x, type: data.packages.includes(x) ? 'package' : 'holiday'}));
   const heroImage = byId('hero-image');
-  const heroEyebrow = byId('hero-eyebrow');
-  const heroTitle = byId('hero-title');
-  const heroSpec = byId('hero-spec');
-  const heroDescription = byId('hero-description');
-  const heroCta = byId('hero-cta');
-  const heroCtaLabel = byId('hero-cta-label');
-  const heroSection = heroImage.closest('.hero');
-  const heroDots = [...heroSection.querySelectorAll('.hero-dot')];
-  const heroPauseBtn = byId('hero-pause');
-  let heroIndex = 0;
-  let heroUserPaused = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let heroHovering = false;
-  let heroPaused = heroUserPaused;
-  function renderHero(index) {
-    const slide = heroSlides[index];
-    heroImage.src = slide.image;
-    heroImage.alt = slide.image_alt || '';
-    heroEyebrow.textContent = slide.eyebrow;
-    heroTitle.textContent = slide.title;
-    heroSpec.textContent = slide.duration || '';
-    heroDescription.textContent = slide.description;
-    if(slide.type === 'package') {
-      heroCta.setAttribute('data-package', slide.slug);
-      heroCta.onclick = null;
-      heroCtaLabel.textContent = 'Request Private Itinerary & Quote';
-    } else {
-      heroCta.removeAttribute('data-package');
-      heroCtaLabel.textContent = 'View this holiday';
-      heroCta.onclick = () => location.assign('/holidays/'+slide.slug+'/');
+  if(heroImage){
+    const heroEyebrow = byId('hero-eyebrow');
+    const heroTitle = byId('hero-title');
+    const heroSpec = byId('hero-spec');
+    const heroDescription = byId('hero-description');
+    const heroCta = byId('hero-cta');
+    const heroCtaLabel = byId('hero-cta-label');
+    const heroSection = heroImage.closest('.hero');
+    const heroDots = [...heroSection.querySelectorAll('.hero-dot')];
+    const heroPauseBtn = byId('hero-pause');
+    let heroIndex = 0;
+    let heroUserPaused = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let heroHovering = false;
+    let heroPaused = heroUserPaused;
+    function renderHero(index) {
+      const slide = heroSlides[index];
+      heroImage.src = slide.image;
+      heroImage.alt = slide.image_alt || '';
+      heroEyebrow.textContent = slide.eyebrow;
+      heroTitle.textContent = slide.title;
+      heroSpec.textContent = slide.duration || '';
+      heroDescription.textContent = slide.description;
+      if(slide.type === 'package') {
+        heroCta.setAttribute('data-package', slide.slug);
+        heroCta.onclick = null;
+        heroCtaLabel.textContent = 'Request Private Itinerary & Quote';
+      } else {
+        heroCta.removeAttribute('data-package');
+        heroCtaLabel.textContent = 'View this holiday';
+        heroCta.onclick = () => location.assign('/holidays/'+slide.slug+'/');
+      }
+      heroDots.forEach((dot,n) => dot.setAttribute('aria-selected', String(n === index)));
     }
-    heroDots.forEach((dot,n) => dot.setAttribute('aria-selected', String(n === index)));
+    function goToHero(index) {
+      heroIndex = (index + heroSlides.length) % heroSlides.length;
+      renderHero(heroIndex);
+    }
+    heroDots.forEach(dot => dot.addEventListener('click', () => goToHero(Number(dot.dataset.slide))));
+    heroSection.querySelector('.hero-prev').addEventListener('click', () => goToHero(heroIndex - 1));
+    heroSection.querySelector('.hero-next').addEventListener('click', () => goToHero(heroIndex + 1));
+    const updateHeroPause = () => {heroPauseBtn.textContent=heroUserPaused?'▶':'Ⅱ';heroPauseBtn.setAttribute('aria-label',heroUserPaused?'Play journeys':'Pause journeys');heroPauseBtn.setAttribute('aria-pressed',String(heroUserPaused));};
+    heroPauseBtn.addEventListener('click', () => {heroUserPaused=!heroUserPaused;heroPaused=heroUserPaused||heroHovering;updateHeroPause();});
+    heroSection.addEventListener('focusin', () => {heroHovering=true;heroPaused=true;});
+    heroSection.addEventListener('focusout', () => {heroHovering=false;heroPaused=heroUserPaused;});
+    heroSection.addEventListener('pointerenter', () => {heroHovering=true;heroPaused=true;});
+    heroSection.addEventListener('pointerleave', () => {heroHovering=false;heroPaused=heroUserPaused;});
+    updateHeroPause();
+    setInterval(() => {if(!document.hidden && !heroPaused)goToHero(heroIndex + 1);}, 7000);
   }
-  function goToHero(index) {
-    heroIndex = (index + heroSlides.length) % heroSlides.length;
-    renderHero(heroIndex);
-  }
-  heroDots.forEach(dot => dot.addEventListener('click', () => goToHero(Number(dot.dataset.slide))));
-  heroSection.querySelector('.hero-prev').addEventListener('click', () => goToHero(heroIndex - 1));
-  heroSection.querySelector('.hero-next').addEventListener('click', () => goToHero(heroIndex + 1));
-  const updateHeroPause = () => {heroPauseBtn.textContent=heroUserPaused?'▶':'Ⅱ';heroPauseBtn.setAttribute('aria-label',heroUserPaused?'Play journeys':'Pause journeys');heroPauseBtn.setAttribute('aria-pressed',String(heroUserPaused));};
-  heroPauseBtn.addEventListener('click', () => {heroUserPaused=!heroUserPaused;heroPaused=heroUserPaused||heroHovering;updateHeroPause();});
-  heroSection.addEventListener('focusin', () => {heroHovering=true;heroPaused=true;});
-  heroSection.addEventListener('focusout', () => {heroHovering=false;heroPaused=heroUserPaused;});
-  heroSection.addEventListener('pointerenter', () => {heroHovering=true;heroPaused=true;});
-  heroSection.addEventListener('pointerleave', () => {heroHovering=false;heroPaused=heroUserPaused;});
-  updateHeroPause();
-  setInterval(() => {if(!document.hidden && !heroPaused)goToHero(heroIndex + 1);}, 7000);
+
+  document.addEventListener('click', event => {
+    const button = event.target.closest('[data-carousel][data-dir]');
+    if(!button)return;
+    const track = document.querySelector(`[data-carousel-track="${button.dataset.carousel}"]`);
+    if(!track)return;
+    const card = track.querySelector(':scope > *');
+    const step = card ? card.getBoundingClientRect().width + 18 : track.clientWidth * 0.8;
+    track.scrollBy({left: Number(button.dataset.dir) * step, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'});
+  });
 })();

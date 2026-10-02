@@ -1,0 +1,123 @@
+{
+  "title": "Dubai Family Holiday",
+  "slug": "dubai-family-holiday",
+  "active": true,
+  "featured": false,
+  "order": 10,
+  "audience": "family",
+  "country": "Dubai",
+  "eyebrow": "FAMILY GETAWAY",
+  "headline": "One hotel, a desert evening and park days if you want them.",
+  "description": "Five nights in Dubai planned for families: a single stay, private transfers and park or desert days added only if you ask.",
+  "image": "/assets/holidays/dubai.webp",
+  "image_alt": "Dubai Marina skyline at sunset",
+  "destinations": ["Dubai"],
+  "nights": [
+    {"place": "Dubai", "nights": 5}
+  ],
+  "duration": "6 Days / 5 Nights",
+  "hotels": 1,
+  "support": "24×7 concierge",
+  "customizable": true,
+  "starting_price": 0,
+  "price_unit": "per person",
+  "price_label": "Quoted for your family and dates",
+  "price_guidance": "Family pricing depends on room type, child ages and which parks you add. Theme-park tickets and international flights sit outside the base figure unless you ask us to include them.",
+  "overview": "A family Dubai that does not try to do every park. One hotel near the attractions you actually want; a desert evening most families enjoy; the rest left open for the pool, fountain or a single park day.",
+  "highlights": [
+    "Five nights in one family-friendly hotel.",
+    "A desert evening paced for children.",
+    "Park days only when you add them — Miracle Garden, a water park or a major park.",
+    "Private airport transfers; no hotel changes."
+  ],
+  "why": [
+    "One stay keeps packing off the daily list.",
+    "Interconnecting or family rooms requested where hotels can offer them.",
+    "Daily load can be cut for younger children."
+  ],
+  "inclusions": [
+    "Private airport transfers",
+    "Breakfast on hotel mornings",
+    "Visa assistance",
+    "Accommodation on twin or family-room sharing as quoted",
+    "One desert evening as specified in your quote"
+  ],
+  "exclusions": [
+    "International flights",
+    "UAE visa fees",
+    "Travel insurance",
+    "Meals other than specified",
+    "Theme-park and attraction tickets unless added",
+    "Personal expenses, GST and tourism fees"
+  ],
+  "stay": {
+    "name": "Selected family-friendly hotel in Dubai",
+    "nights": 5,
+    "room": "Twin, double or interconnecting rooms as available",
+    "amenities": ["Breakfast", "Air conditioning", "Wi-Fi", "Pool access at the hotel"]
+  },
+  "notes": "Park tickets are dated and sell out; they are confirmed only in the written quote. Desert evenings depend on weather. An inquiry is not a booking.",
+  "itinerary_note": "A single-city family stay. Swap a leisure day for a park when tickets are included.",
+  "itinerary": [
+    {
+      "place": "Dubai",
+      "title": "Arrive in Dubai",
+      "description": "Transfer in and keep the first evening quiet.",
+      "overnight": "Dubai · night 1 of 5",
+      "schedule": [
+        {"period": "Arrival", "description": "Private transfer to the hotel."},
+        {"period": "Evening", "description": "Pool or an early dinner."}
+      ]
+    },
+    {
+      "place": "Dubai",
+      "title": "A light city day",
+      "description": "Fountain, mall or the creek — nothing all-day.",
+      "overnight": "Dubai · night 2 of 5",
+      "schedule": [
+        {"period": "Morning", "description": "A short outing while the day is cooler."},
+        {"period": "Afternoon", "description": "Hotel rest."},
+        {"period": "Evening", "description": "Family dinner."}
+      ]
+    },
+    {
+      "place": "Dubai",
+      "title": "Desert evening",
+      "description": "Dunes and a camp dinner, then back to the hotel.",
+      "overnight": "Dubai · night 3 of 5",
+      "schedule": [
+        {"period": "Afternoon", "description": "Pickup for the desert safari."},
+        {"period": "Evening", "description": "Camp dinner and return."}
+      ]
+    },
+    {
+      "place": "Dubai",
+      "title": "Park day or pool day",
+      "description": "Only a park if you added tickets.",
+      "overnight": "Dubai · night 4 of 5",
+      "schedule": [
+        {"period": "Day", "description": "Hotel, Miracle Garden, or a major park as quoted."},
+        {"period": "Evening", "description": "Quiet night in."}
+      ]
+    },
+    {
+      "place": "Dubai",
+      "title": "A last full day",
+      "description": "Beach, spa for adults, or a second short outing.",
+      "overnight": "Dubai · night 5 of 5",
+      "schedule": [
+        {"period": "Day", "description": "At leisure."},
+        {"period": "Evening", "description": "A last family dinner."}
+      ]
+    },
+    {
+      "place": "Dubai",
+      "title": "Departure",
+      "description": "Transfer to the airport for your onward flight.",
+      "overnight": "",
+      "schedule": [
+        {"period": "Departure", "description": "Private airport transfer."}
+      ]
+    }
+  ]
+}

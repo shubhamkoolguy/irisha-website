@@ -427,6 +427,9 @@ collections:
     options:
     - couple
     - family
+  - label: Country
+    name: country
+    widget: string
   - label: Signature label
     name: eyebrow
     widget: string

@@ -1,0 +1,102 @@
+{
+  "title": "Sri Lanka Family Escape",
+  "slug": "sri-lanka-family-escape",
+  "active": true,
+  "featured": false,
+  "order": 26,
+  "audience": "family",
+  "country": "Sri Lanka",
+  "eyebrow": "FAMILY GETAWAY",
+  "headline": "Two beach nights, then Colombo before you fly.",
+  "description": "Three nights for a family: Bentota sand and a pool, then a last night in Colombo.",
+  "image": "/assets/holidays/sri-lanka.webp",
+  "image_alt": "Nine Arches Bridge and a train in the hills near Ella, Sri Lanka",
+  "destinations": ["Bentota", "Colombo"],
+  "nights": [
+    {"place": "Bentota", "nights": 2},
+    {"place": "Colombo", "nights": 1}
+  ],
+  "duration": "4 Days / 3 Nights",
+  "hotels": 2,
+  "support": "24×7 concierge",
+  "customizable": true,
+  "starting_price": 27999,
+  "price_unit": "per person",
+  "price_label": "Quoted for your family and dates",
+  "price_guidance": "Family pricing depends on room type and child ages. A river boat or city evening sits outside the base figure unless you ask us to include it.",
+  "overview": "A short family Sri Lanka: two nights on a west-coast beach the children can use, then Colombo for an easy airport morning. Built for school-holiday weekends.",
+  "highlights": [
+    "Two nights at a family beach hotel in Bentota.",
+    "Private vehicle from and to Colombo airport.",
+    "A quiet Colombo night before departure.",
+    "Pace short enough for younger children."
+  ],
+  "why": [
+    "Two stays, not a hotel every night.",
+    "Pool and beach time before anyone is tired of the road.",
+    "The same driver stays with you."
+  ],
+  "inclusions": [
+    "Private airport and inter-hotel transfers",
+    "Breakfast on hotel mornings",
+    "Visa assistance",
+    "Accommodation on twin or family-room sharing as quoted"
+  ],
+  "exclusions": [
+    "International flights",
+    "Sri Lanka ETA fees",
+    "Travel insurance",
+    "Meals other than specified",
+    "River boats and city tickets unless added",
+    "Personal expenses, GST and tourism fees"
+  ],
+  "stay": {
+    "name": "Selected family-friendly hotels",
+    "nights": 3,
+    "room": "Twin, double or interconnecting rooms as available",
+    "amenities": ["Breakfast", "Air conditioning", "Wi-Fi"]
+  },
+  "notes": "Beach hotel and room type are confirmed in writing. An inquiry is not a booking.",
+  "itinerary_note": "Suggested family order: Bentota, then Colombo. A third beach night can replace the city.",
+  "itinerary": [
+    {
+      "place": "Bentota",
+      "title": "Arrive on the coast",
+      "description": "Transfer from Colombo and keep the first evening quiet.",
+      "overnight": "Bentota · night 1 of 2",
+      "schedule": [
+        {"period": "Arrival", "description": "Private transfer from CMB to Bentota."},
+        {"period": "Evening", "description": "Hotel rest and an early dinner."}
+      ]
+    },
+    {
+      "place": "Bentota",
+      "title": "Beach and pool",
+      "description": "Unstructured time; a river boat only if you asked.",
+      "overnight": "Bentota · night 2 of 2",
+      "schedule": [
+        {"period": "Day", "description": "Beach, pool and optional Madu river boat as quoted."},
+        {"period": "Evening", "description": "Early dinner."}
+      ]
+    },
+    {
+      "place": "Colombo",
+      "title": "A night in the city",
+      "description": "Road north for a last easy night.",
+      "overnight": "Colombo · night 1 of 1",
+      "schedule": [
+        {"period": "Day", "description": "Transfer to Colombo."},
+        {"period": "Evening", "description": "Hotel dinner."}
+      ]
+    },
+    {
+      "place": "Colombo",
+      "title": "Departure",
+      "description": "Return to the airport for your onward flight.",
+      "overnight": "",
+      "schedule": [
+        {"period": "Departure", "description": "Private transfer to CMB."}
+      ]
+    }
+  ]
+}

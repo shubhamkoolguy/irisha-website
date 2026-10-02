@@ -24,7 +24,10 @@ for(const collection of ['packages','fleet','holidays']){
   assert(Number.isFinite(record.starting_price)&&record.starting_price>=0,'Prices must be nonnegative numbers.');
   if(record.image)await access(path.join(record.image.replace(/^\//,'')));
   assert(record.title && record.description,'Content records need a title and description.');
-  if(collection==='holidays')assert(['couple','family'].includes(record.audience),'Holiday audience must be couple or family: '+record.slug);
+   if(collection==='holidays'){
+    assert(['couple','family'].includes(record.audience),'Holiday audience must be couple or family: '+record.slug);
+    assert(typeof record.country==='string' && record.country.trim(),'Holiday needs a country: '+record.slug);
+   }
  }
 }
 for(const name of await readdir('content/offers')){
@@ -65,6 +68,12 @@ for(const [,target] of html.matchAll(/href="#([^"]+)"/g))assert(ids.includes(tar
   }
   const holidaysPage=await readFile('dist/services/holidays-tours/index.html','utf8');
   for(const holiday of data.holidays||[])assert(holidaysPage.includes(`/holidays/${holiday.slug}/`),'Holidays page must link to '+holiday.slug);
+  const countries=new Set((data.holidays||[]).map(h=>h.country));
+  for(const country of countries){
+    const slug=country.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+    assert(holidaysPage.includes(`id="${slug}-holidays"`),'Holidays page missing country carousel: '+country);
+    assert(html.includes(`/services/holidays-tours/#${slug}-holidays`),'Homepage must link to '+country+' holidays');
+  }
 assert(!html.includes('REPLACE_WITH'),'Public homepage contains setup placeholders.');
 const cmsConfig=await readFile('admin/config.yml','utf8');
 assert.equal(cmsConfig,await readFile('dist/admin/config.yml','utf8'),'CMS output is stale.');

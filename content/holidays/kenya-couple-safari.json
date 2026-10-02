@@ -1,0 +1,113 @@
+{
+  "title": "Kenya Couple Safari",
+  "slug": "kenya-couple-safari",
+  "active": true,
+  "featured": false,
+  "order": 21,
+  "audience": "couple",
+  "country": "Kenya",
+  "eyebrow": "COUPLE RETREAT",
+  "headline": "Nairobi, then two camps and the Mara at first light.",
+  "description": "Six nights for two: a night in Nairobi, then safari lodges with game drives timed to the light, not a coach list.",
+  "image": "/assets/holidays/kenya.webp",
+  "image_alt": "African elephants walking across open savanna",
+  "destinations": ["Nairobi", "Masai Mara"],
+  "nights": [
+    {"place": "Nairobi", "nights": 1},
+    {"place": "Masai Mara", "nights": 5}
+  ],
+  "duration": "7 Days / 6 Nights",
+  "hotels": 2,
+  "support": "24×7 concierge",
+  "customizable": true,
+  "starting_price": 0,
+  "price_unit": "per couple",
+  "price_label": "Quoted for your camps and season",
+  "price_guidance": "Kenya safari pricing depends on camp category, season — migration months command more — and whether you fly or drive to the Mara. We confirm a written total before you reserve.",
+  "overview": "A couple’s first Kenya: one Nairobi night to recover from the flight, then a Mara lodge or tented camp with morning and afternoon drives. Built for two, with dietary needs sent to camp before you land.",
+  "highlights": [
+    "A Nairobi arrival night.",
+    "Five nights in the Mara as quoted — one camp or a split stay.",
+    "Shared or private game drives as the camp operates them.",
+    "Optional balloon morning if you add it."
+  ],
+  "why": [
+    "Safari time, not a multi-park dash.",
+    "Vegetarian camp meals can be arranged when the lodge can do them.",
+    "eTA guidance for Indian passports, timed to your tickets."
+  ],
+  "inclusions": [
+    "Airport and lodge transfers as quoted — road or scheduled bush flight",
+    "Meals at the safari camp as the plan includes them",
+    "Visa assistance",
+    "Accommodation on twin sharing",
+    "Game drives as specified in your quote"
+  ],
+  "exclusions": [
+    "International flights",
+    "Kenya eTA fees",
+    "Travel insurance",
+    "Park fees if they are not itemised in the quote",
+    "Balloon safari, spa and drinks unless added",
+    "Personal expenses, GST and tourism fees"
+  ],
+  "stay": {
+    "name": "Selected Nairobi hotel and Mara lodge or tented camp",
+    "nights": 6,
+    "room": "Double tent or room; private conservancy camps on request",
+    "amenities": ["Camp meals as quoted", "Game drives", "Wi-Fi where the camp offers it"]
+  },
+  "notes": "Camp, vehicle type and park fees are confirmed only after you approve the written quote. Wildlife sightings are never guaranteed. An inquiry is not a booking.",
+  "itinerary_note": "A Nairobi night plus a Mara stay. Amboseli or a second park can replace some Mara nights if you prefer.",
+  "itinerary": [
+    {
+      "place": "Nairobi",
+      "title": "Arrive in Nairobi",
+      "description": "Transfer in and rest after the long flight.",
+      "overnight": "Nairobi · night 1 of 1",
+      "schedule": [
+        {"period": "Arrival", "description": "Private transfer from JKIA to your hotel."},
+        {"period": "Evening", "description": "An early dinner; Giraffe Centre can wait unless you asked."}
+      ]
+    },
+    {
+      "place": "Masai Mara",
+      "title": "Into the Mara",
+      "description": "Road or bush flight, then a first afternoon drive.",
+      "overnight": "Masai Mara · night 1 of 5",
+      "schedule": [
+        {"period": "Day", "description": "Transfer as quoted and camp check-in."},
+        {"period": "Evening", "description": "Afternoon game drive if you arrive in time."}
+      ]
+    },
+    {
+      "place": "Masai Mara",
+      "title": "Safari days",
+      "description": "Morning and afternoon drives; a balloon only if added.",
+      "overnight": "Masai Mara · nights 2–4 of 5",
+      "schedule": [
+        {"period": "Mornings", "description": "Early drive, back for brunch."},
+        {"period": "Afternoons", "description": "Rest, then a second drive toward dusk."}
+      ]
+    },
+    {
+      "place": "Masai Mara",
+      "title": "A last morning in camp",
+      "description": "One more drive, or a slow breakfast.",
+      "overnight": "Masai Mara · night 5 of 5",
+      "schedule": [
+        {"period": "Day", "description": "At leisure in camp, or a final drive."},
+        {"period": "Evening", "description": "A last dinner under canvas or in the lodge."}
+      ]
+    },
+    {
+      "place": "Nairobi",
+      "title": "Departure",
+      "description": "Return to Nairobi for your international flight.",
+      "overnight": "",
+      "schedule": [
+        {"period": "Departure", "description": "Road or bush flight back, then the airport as ticketed."}
+      ]
+    }
+  ]
+}
