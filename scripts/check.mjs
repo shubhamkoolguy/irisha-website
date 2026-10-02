@@ -66,7 +66,14 @@ for(const [,target] of html.matchAll(/href="#([^"]+)"/g))assert(ids.includes(tar
   const holidaysPage=await readFile('dist/services/holidays-tours/index.html','utf8');
   for(const holiday of data.holidays||[])assert(holidaysPage.includes(`/holidays/${holiday.slug}/`),'Holidays page must link to '+holiday.slug);
 assert(!html.includes('REPLACE_WITH'),'Public homepage contains setup placeholders.');
-assert.equal(await readFile('admin/config.yml','utf8'),await readFile('dist/admin/config.yml','utf8'),'CMS output is stale.');
+const cmsConfig=await readFile('admin/config.yml','utf8');
+assert.equal(cmsConfig,await readFile('dist/admin/config.yml','utf8'),'CMS output is stale.');
+const cmsLines=cmsConfig.split('\n');
+for(let i=0;i<cmsLines.length;i++){
+  if(/widget:\s*select\s*$/.test(cmsLines[i]) && /^\s+options:/.test(cmsLines[i+1]||'')){
+    assert.equal(cmsLines[i+1].match(/^(\s*)/)[0].length,cmsLines[i].match(/^(\s*)/)[0].length,'CMS YAML: options must align with widget: select (line '+(i+2)+').');
+  }
+}
 for(const file of ['public/app.js','admin/admin.js','scripts/build.mjs','server/oauth.mjs','functions/api/auth.js','functions/api/callback.js','server/contact-worker.mjs','scripts/build-worker.mjs','functions/api/contact.js','functions/api/captcha-config.js'])execFileSync(process.execPath,['--check',file]);
 // Critical OAuth boundaries: no real network or credentials are used here.
 const {onRequestGet:authorize}=await import('../functions/api/auth.js');

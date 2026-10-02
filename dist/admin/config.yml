@@ -356,17 +356,17 @@ collections:
       - label: Description
         name: description
         widget: text
-      - label: Icon
-        name: icon
-        widget: select
-          options:
-          - globe
-          - passport
-          - stay
-          - plane
-          - music
-          - ship
-          - sparkle
+       - label: Icon
+         name: icon
+         widget: select
+         options:
+         - globe
+         - passport
+         - stay
+         - plane
+         - music
+         - ship
+         - sparkle
       - label: Feature this card
         name: large
         widget: boolean
