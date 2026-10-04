@@ -260,13 +260,27 @@
         heroCtaLabel.textContent = 'View this holiday';
         heroCta.onclick = () => location.assign('/holidays/'+slide.slug+'/');
       }
-      heroDots.forEach((dot,n) => dot.setAttribute('aria-selected', String(n === index)));
+      heroDots.forEach((dot,n) => {
+        const active = n === index;
+        dot.setAttribute('aria-selected', String(active));
+        dot.tabIndex = active ? 0 : -1;
+      });
+      const activeDot = heroDots[index];
+      const left = activeDot.offsetLeft - (activeDot.parentElement.clientWidth - activeDot.offsetWidth) / 2;
+      activeDot.parentElement.scrollTo({left,behavior:'auto'});
     }
     function goToHero(index) {
       heroIndex = (index + heroSlides.length) % heroSlides.length;
       renderHero(heroIndex);
     }
     heroDots.forEach(dot => dot.addEventListener('click', () => goToHero(Number(dot.dataset.slide))));
+    heroSection.querySelector('.hero-dots').addEventListener('keydown', event => {
+      const moves = {ArrowLeft:-1,ArrowRight:1,Home:-heroSlides.length,End:heroSlides.length};
+      if(!(event.key in moves))return;
+      event.preventDefault();
+      goToHero(event.key==='Home'?0:event.key==='End'?heroSlides.length-1:heroIndex+moves[event.key]);
+      heroDots[heroIndex].focus();
+    });
     heroSection.querySelector('.hero-prev').addEventListener('click', () => goToHero(heroIndex - 1));
     heroSection.querySelector('.hero-next').addEventListener('click', () => goToHero(heroIndex + 1));
     const updateHeroPause = () => {heroPauseBtn.textContent=heroUserPaused?'▶':'Ⅱ';heroPauseBtn.setAttribute('aria-label',heroUserPaused?'Play journeys':'Pause journeys');heroPauseBtn.setAttribute('aria-pressed',String(heroUserPaused));};
@@ -275,6 +289,7 @@
     heroSection.addEventListener('focusout', () => {heroHovering=false;heroPaused=heroUserPaused;});
     heroSection.addEventListener('pointerenter', () => {heroHovering=true;heroPaused=true;});
     heroSection.addEventListener('pointerleave', () => {heroHovering=false;heroPaused=heroUserPaused;});
+    renderHero(heroIndex);
     updateHeroPause();
     setInterval(() => {if(!document.hidden && !heroPaused)goToHero(heroIndex + 1);}, 7000);
   }

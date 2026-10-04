@@ -27,13 +27,14 @@ const contrast=(fg,bg)=>{const a=luminance(fg),b=luminance(bg);return (Math.max(
 for(const [name,fg,bg,min] of [
   ['legal dialog copy','#1F2937','#FAF9F6',4.5],
   ['secondary text contrast','#6B7280','#FAF9F6',4.5],
-  ['accent and icon contrast','#B08D57','#FAF9F6',2.9],
+  ['gold icon on white surface','#B08D57','#ffffff',3],
+  ['charcoal interactive edge against page','#1F2937','#FAF9F6',3],
+  ['charcoal interactive edge against surface','#1F2937','#ffffff',3],
+  ['announcement text on warm cream','#1F2937','#F3EFE8',4.5],
   ['hero eyebrow over worst-case white image beneath 72% dark scrim','#f0c5e1','#4f4c56',4.5],
   ['hero supporting copy','#eee2f1','#4f4c56',4.5],
-  ['form focus on white','#B08D57','#ffffff',3],
-  ['focus on light surface','#B08D57','#FAF9F6',2.9],
+  ['form focus on white','#1F2937','#ffffff',3],
+  ['focus on light surface','#1F2937','#FAF9F6',3],
   ['hero focus','#f0c5e1','#4f4c56',3],
-  ['interactive card edge','#B08D57','#ffffff',3],
-  ['interactive card edge against page','#B08D57','#FAF9F6',2.9],
   ['legal link','#1F2937','#FAF9F6',4.5]
 ]){const ratio=contrast(fg,bg);assert(ratio>=min,`${name}: ${ratio}`);console.log(`PASS: ${name}: ${ratio.toFixed(2)}:1`)}

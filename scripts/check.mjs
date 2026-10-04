@@ -83,7 +83,8 @@ for(let i=0;i<cmsLines.length;i++){
     assert.equal(cmsLines[i+1].match(/^(\s*)/)[0].length,cmsLines[i].match(/^(\s*)/)[0].length,'CMS YAML: options must align with widget: select (line '+(i+2)+').');
   }
 }
-for(const file of ['public/app.js','admin/admin.js','scripts/build.mjs','server/oauth.mjs','functions/api/auth.js','functions/api/callback.js','server/contact-worker.mjs','scripts/build-worker.mjs','functions/api/contact.js','functions/api/captcha-config.js'])execFileSync(process.execPath,['--check',file]);
+for(const file of ['public/app.js','public/theme.js','admin/admin.js','scripts/build.mjs','server/oauth.mjs','functions/api/auth.js','functions/api/callback.js','server/contact-worker.mjs','scripts/build-worker.mjs','functions/api/contact.js','functions/api/captcha-config.js'])execFileSync(process.execPath,['--check',file]);
+execFileSync(process.execPath,['scripts/check-theme.cjs'],{stdio:'inherit'});
 // Critical OAuth boundaries: no real network or credentials are used here.
 const {onRequestGet:authorize}=await import('../functions/api/auth.js');
 const {onRequestGet:callback}=await import('../functions/api/callback.js');
