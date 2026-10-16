@@ -42,8 +42,17 @@
       if(!detail.open && !inquiry.open){document.body.classList.remove('dialog-open');returnFocus?.focus();}
     });
   });
-  const today = new Date();
-  byId('travel-date').min = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+  // Travel date is typed as DD/MM/YYYY; validate it is a real date, not in the past.
+  const travelDate = byId('travel-date');
+  travelDate.addEventListener('input', () => {
+    const digits = travelDate.value.replace(/\D/g,'').slice(0,8);
+    travelDate.value = [digits.slice(0,2), digits.slice(2,4), digits.slice(4)].filter(Boolean).join('/');
+    const [dd,mm,yyyy] = travelDate.value.split('/').map(Number);
+    const parsed = new Date(yyyy, mm-1, dd);
+    const startOfToday = new Date(); startOfToday.setHours(0,0,0,0);
+    const valid = !travelDate.value || (travelDate.value.length === 10 && parsed.getFullYear() === yyyy && parsed.getMonth() === mm-1 && parsed.getDate() === dd);
+    travelDate.setCustomValidity(!valid ? 'Enter a valid date as DD/MM/YYYY.' : (travelDate.value && parsed < startOfToday ? 'Travel date cannot be in the past.' : ''));
+  });
   function inquire(interest, trigger) {
     if(detail.open) detail.close();
     const select = byId('interest');

@@ -115,12 +115,16 @@ collections:
     name: starts_at
     widget: datetime
     required: false
+    date_format: DD/MM/YYYY
+    time_format: HH:mm
     format: YYYY-MM-DDTHH:mm:ssZ
     default: ''
   - label: End time (optional)
     name: ends_at
     widget: datetime
     required: false
+    date_format: DD/MM/YYYY
+    time_format: HH:mm
     format: YYYY-MM-DDTHH:mm:ssZ
     default: ''
 - name: packages
