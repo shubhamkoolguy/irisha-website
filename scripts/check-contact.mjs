@@ -46,7 +46,7 @@ const dialogs=[...html.matchAll(/<dialog\b[\s\S]*?<\/dialog>/g)].map(m=>m[0]);
 assert(dialogs.every(dialog=>!dialog.includes('id="captcha-widget"')),'Challenge must be outside native modal dialogs');
 const worker=await import('../dist/server/index.js');
 const homepage=await worker.default.fetch(new Request(site+'/'),env);
-assert.equal(homepage.status,200);assert((await homepage.text()).includes('id="contact-verification"'));
+assert.equal(homepage.status,200);assert((await homepage.text()).includes('id="inquiry-form"'));
 assert.equal(homepage.headers.get('x-frame-options'),null,'Public pages must allow the ChatGPT embed');
 assert.equal(homepage.headers.get('content-security-policy').split('frame-ancestors ')[1],"'self' https://chatgpt.com",'Allow only the site itself and the trusted ChatGPT parent');
 const unconfiguredHomepage=await worker.default.fetch(new Request(site+'/'),{});

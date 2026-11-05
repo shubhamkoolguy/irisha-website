@@ -68,9 +68,11 @@
     },
     {
       "place": "Resort island",
+      "day": 2,
+      "day_label": "Days 2–5",
       "title": "Lagoon days",
       "description": "Unstructured time: reef, pool, spa or a book on the deck.",
-      "overnight": "Resort · nights 2–4 of 5",
+      "overnight": "Resort · nights 2–5 of 5",
       "schedule": [
         {"period": "Days at leisure", "description": "House reef, optional excursions and spa treatments as you request."},
         {"period": "Evenings", "description": "Resort dining; a sunset cruise can be added if you wish."}
@@ -78,6 +80,8 @@
     },
     {
       "place": "Resort → Malé",
+      "day": 6,
+      "day_label": "Day 6",
       "title": "Departure",
       "description": "Transfer back to Malé for your international flight.",
       "overnight": "",

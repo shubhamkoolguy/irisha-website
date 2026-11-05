@@ -58,12 +58,15 @@
     const select = byId('interest');
     const normalized=interest==='Innova Crysta Hire in Varanasi' || interest==='Innova Hycross Hire in Varanasi' ? 'Innova Hycross & Crysta Rental in Varanasi' : interest;
     if([...select.options].some(option => option.value === normalized))select.value = normalized;
+    const path=location.pathname;
+    const preferred=path.includes('/sacred-circuits/varanasi-')?'The Sacred Triangle':path.includes('/sacred-circuits/nalanda-')?'Nalanda, Gaya & Bodhgaya':path.includes('/elite-fleet/force-')?'Force Urbania':path.includes('/elite-fleet/innova-')?'Innova Hycross & Crysta Rental in Varanasi':null;
+    if(preferred && [...select.options].some(option=>option.value===preferred))select.value=preferred;
     openDialog(inquiry, trigger);
   }
   const action = label => `<button class="button detail-cta" data-inquire="${e(label)}">Personalise my ${data.fleet.some(x=>x.title===label)?'ride':'journey'} <span aria-hidden="true">→</span></button>`;
-  const privacyCopy = `<p>This site’s inquiry form prepares your travel message on your device. The message is not sent to our website server or stored in browser storage. You decide whether to send it in WhatsApp. Before opening WhatsApp, we verify a reCAPTCHA token on our server to help prevent automated contact harvesting.</p><h3>When you contact us</h3><p>The details you choose to share are used to discuss and arrange your travel. Avoid including passport numbers, payment details or other sensitive documents in your first inquiry. Public phone and email links may be processed by your device and service provider when used.</p><h3>Third-party services</h3><p>WhatsApp applies its own privacy terms when you open or use it. Site hosting providers may process technical request information. Web fonts are delivered through Google Fonts. Google Tag Manager and Google Ads tags are present on the site. Your light or dark appearance preference is stored locally on this device; it contains no inquiry details. Google reCAPTCHA processes device and interaction information when contact verification is used.</p><p>For questions about information you have shared, email concierge@irisha.co.in.</p>`;
+  const privacyCopy = `<p>This inquiry form prepares a WhatsApp message on your device; lead storage is not enabled yet. You decide whether to send the message in WhatsApp. URL advertising parameters support conversion attribution.</p><h3>When you contact us</h3><p>The details you choose to share are used to discuss and arrange your travel. Avoid including passport numbers, payment details or other sensitive documents in your first inquiry. Public phone and email links may be processed by your device and service provider when used.</p><h3>Third-party services</h3><p>WhatsApp applies its own privacy terms when you open or use it. Site hosting providers may process technical request information. Web fonts are delivered through Google Fonts. Google Tag Manager and Google Ads tags are present on the site. Your light or dark appearance preference is stored locally on this device; it contains no inquiry details.</p><p>For questions about information you have shared, email concierge@irisha.co.in.</p>`;
   const bookingCopy = `<p>Every journey is tailored to your dates, group and preferences. An inquiry is not a confirmed reservation or payment.</p><h3>Your quote</h3><p>Your concierge confirms itinerary, accommodation, vehicle configuration, inclusions, exclusions, taxes, payment schedule, amendments, cancellation terms and refund terms in writing before booking. No booking is confirmed until your concierge confirms it in writing.</p><h3>Sacred experiences</h3><p>Darshan coordination is subject to temple rules, official procedures and availability. Ritual coordination and private boat arrangements are available on request and subject to availability, local permissions and provider conditions.</p><h3>Flights and other providers</h3><p>Flights are excluded from the Sacred Triangle package and can be booked on request. Airfare, baggage, schedule changes, cancellations and refunds follow the airline’s rules. Other third-party experiences follow the relevant provider’s conditions. Review your written quotation and booking confirmation for the applicable terms before paying.</p>`;
-  const packageItinerary = p => `<ol class="itinerary">${p.itinerary.map((day,i)=>`<li class="itinerary-stop"><span class="stop-number" aria-hidden="true">${String(i+1).padStart(2,'0')}</span><div><p class="small-eyebrow">Day ${i+1} · ${e(day.place)}</p><h3>${e(day.title)}</h3><p>${e(day.description)}</p>${day.schedule?.length?`<dl class="itinerary-schedule">${day.schedule.map(slot=>`<div><dt>${e(slot.period)}</dt><dd>${e(slot.description)}</dd></div>`).join('')}</dl>`:''}${day.overnight?`<p class="itinerary-overnight"><strong>Overnight</strong> ${e(day.overnight)}</p>`:''}</div></li>`).join('')}</ol>`;
+  const packageItinerary = p => `<ol class="itinerary">${p.itinerary.map((day,i)=>`<li class="itinerary-stop"><span class="stop-number" aria-hidden="true">${String(day.day||i+1).padStart(2,'0')}</span><div><p class="small-eyebrow">${e(day.day_label||`Day ${day.day||i+1}`)} · ${e(day.place)}</p><h3>${e(day.title)}</h3><p>${e(day.description)}</p>${day.schedule?.length?`<dl class="itinerary-schedule">${day.schedule.map(slot=>`<div><dt>${e(slot.period)}</dt><dd>${e(slot.description)}</dd></div>`).join('')}</dl>`:''}${day.overnight?`<p class="itinerary-overnight"><strong>Overnight</strong> ${e(day.overnight)}</p>`:''}</div></li>`).join('')}</ol>`;
   function showDetail(type, key, trigger) {
     let html = '';
     if(type === 'package') {
@@ -88,9 +91,10 @@
   document.addEventListener('click',event => {
     const button = event.target.closest('[data-contact],[data-inquire],[data-package],[data-vehicle],[data-policy]');
     if(!button)return;
-    if(button.hasAttribute('data-contact')){startVerification('Namaste Irisha Concierge, I would like to plan a private journey. Please help me with the next steps.',button);return;}
+    if(button.hasAttribute('data-contact')){inquire(document.querySelector('h1')?.textContent||'Private journey',button);return;}
     if(button.hasAttribute('data-inquire'))inquire(button.dataset.inquire, button.closest('dialog') ? returnFocus : button);
-    else for(const type of ['package','vehicle','policy'])if(button.hasAttribute('data-'+type)){showDetail(type,button.dataset[type],button);break;}
+    else if(button.hasAttribute('data-package'))location.assign(button.dataset.package==='sacred-triangle'?'/sacred-circuits/varanasi-prayagraj-ayodhya-tour/':'/sacred-circuits/nalanda-gaya-bodhgaya-tour/');
+    else for(const type of ['vehicle','policy'])if(button.hasAttribute('data-'+type)){showDetail(type,button.dataset[type],button);break;}
   });
   byId('inquiry-form').addEventListener('submit',event => {
     event.preventDefault();
@@ -106,103 +110,17 @@
       values.get('notes').trim() ? `My wishes: ${values.get('notes').trim()}` : '',
       'Please help me plan and share a personalised quote.'
     ].filter(Boolean).join('\n');
-    byId('contact-company').value = String(values.get('company_website') || '');
-    startVerification(message,returnFocus);
+    if(values.get('company_website'))return;
+    if(window.IRISHA_ADS_CONVERSION_LABEL)window.gtag?.('event','conversion',{send_to:window.IRISHA_ADS_CONVERSION_LABEL,value:1,currency:'INR'});
+    const url='https://wa.me/919966320256?text='+encodeURIComponent(message);
+    window.location.assign(url);
   });
 
-  // Render the Google challenge outside native dialogs so its challenge iframe
-  // remains keyboard-accessible and is not made inert by showModal().
-  const verificationPanel = byId('contact-verification');
-  const status = byId('captcha-status');
-  const verifyButton = byId('verified-contact');
-  const retryButton = byId('captcha-retry');
-  let pendingMessage = '';
-  let verificationTrigger;
-  let captchaToken = '';
-  let widgetId;
-  let apiPromise;
-  let loading = false;
-  let sending = false;
-  function clearToken() {captchaToken='';verifyButton.disabled=true;}
-  function resetWidget() {clearToken();if(widgetId!==undefined && window.grecaptcha)window.grecaptcha.reset(widgetId);}
-  function loadGoogle() {
-    if(window.grecaptcha?.render)return Promise.resolve();
-    if(apiPromise)return apiPromise;
-    apiPromise = new Promise((resolve,reject) => {
-      const script=document.createElement('script');
-      const timeout=setTimeout(()=>{script.remove();reject(Error('Verification could not load. Please check your connection and try again.'));},15000);
-      window.irishaCaptchaReady=()=>{clearTimeout(timeout);resolve();};
-      script.src='https://www.google.com/recaptcha/api.js?onload=irishaCaptchaReady&render=explicit';
-      script.async=true;script.defer=true;
-      script.onerror=()=>{clearTimeout(timeout);script.remove();reject(Error('Verification could not load. Please check your connection and try again.'));};
-      document.head.append(script);
-    }).catch(error=>{apiPromise=undefined;throw error;});
-    return apiPromise;
-  }
-  async function loadCaptcha() {
-    if(loading)return;
-    loading=true;clearToken();retryButton.hidden=true;
-    status.textContent='Loading secure verification…';
-    try {
-      const response=await fetch('/api/captcha-config',{cache:'no-store',credentials:'same-origin',signal:AbortSignal.timeout(10000)});
-      if(!response.ok)throw Error('Contact verification is temporarily unavailable. Please try again later.');
-      const config=await response.json();
-      if(!config.configured || !config.siteKey)throw Error('Contact verification is temporarily unavailable. Please try again later.');
-      await loadGoogle();
-      if(widgetId===undefined){
-        // Google's horizontal layout fits the concierge card on most screens.
-        // Use its compact layout only when the available space is narrower.
-        const widgetSize=byId('captcha-widget').clientWidth>=304?'normal':'compact';
-        byId('captcha-widget').dataset.layout=widgetSize;
-        widgetId=window.grecaptcha.render('captcha-widget',{
-          sitekey:config.siteKey,theme:document.documentElement.dataset.theme || 'dark',size:widgetSize,
-          callback:token=>{captchaToken=token;verifyButton.disabled=false;status.textContent='Check complete. You can continue to WhatsApp.';},
-          'expired-callback':()=>{clearToken();status.textContent='Your verification expired. Please check the box again.';},
-          'error-callback':()=>{clearToken();status.textContent='Verification could not complete. Please try again.';retryButton.hidden=false;}
-        });
-      }else resetWidget();
-      status.textContent='Complete the checkbox to continue.';
-    }catch(error){clearToken();status.textContent=error.name==='TimeoutError'?'Verification took too long. Please try again.':error.message;retryButton.hidden=false;}
-    finally{loading=false;}
-  }
-  function startVerification(message,trigger) {
-    if(sending)return;
-    pendingMessage=message;
-    verificationTrigger=trigger;
-    closeMenu();
-    if(inquiry.open)inquiry.close();
-    if(detail.open)detail.close();
-    verificationPanel.hidden=false;
-    requestAnimationFrame(()=>{verificationPanel.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'center'});byId('verification-title').focus({preventScroll:true});});
-    loadCaptcha();
-  }
-  retryButton.addEventListener('click',loadCaptcha);
-  byId('verification-cancel').addEventListener('click',()=>{
-    if(sending)return;
-    resetWidget();pendingMessage='';verificationPanel.hidden=true;
-    verificationTrigger?.focus({preventScroll:false});
-  });
-  verifyButton.addEventListener('click',async()=>{
-    if(sending || !captchaToken || !pendingMessage)return;
-    sending=true;verifyButton.disabled=true;verifyButton.setAttribute('aria-busy','true');
-    status.textContent='Checking securely…';
-    try {
-      const response=await fetch('/api/contact',{
-        method:'POST',credentials:'same-origin',cache:'no-store',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({token:captchaToken,company_website:byId('contact-company').value}),
-        signal:AbortSignal.timeout(15000)
-      });
-      const result=await response.json();
-      if(!response.ok)throw Error(result.error || 'Verification failed. Please try again.');
-      if(typeof result.whatsappUrl!=='string' || !/^https:\/\/wa\.me\/[1-9][0-9]{7,14}$/.test(result.whatsappUrl))throw Error('The contact link could not be opened. Please try again.');
-      clearToken();
-      status.textContent='Verified. Opening WhatsApp…';
-      // Same-tab navigation avoids popup blockers after an asynchronous verification.
-      window.location.assign(result.whatsappUrl+'?text='+encodeURIComponent(pendingMessage));
-    }catch(error){resetWidget();status.textContent=error.name==='TimeoutError'?'Verification took too long. Please try again.':error.message;retryButton.hidden=false;}
-    finally{sending=false;verifyButton.removeAttribute('aria-busy');}
-  });
+  const form=byId('inquiry-form');
+  const params=new URLSearchParams(location.search);
+  for(const key of ['gclid','utm_source','utm_medium','utm_campaign','utm_term'])form.elements[key].value=params.get(key)||'';
+  form.elements.landing_page_url.value=location.href;
+  document.querySelectorAll('[data-track-tel]').forEach(link=>link.addEventListener('click',()=>window.gtag?.('event','phone_click',{phone_number:'+919966320256'})));
 
   // Resolve offer schedules on the visitor's clock too, so an expired offer
   // disappears without waiting for another static deployment.

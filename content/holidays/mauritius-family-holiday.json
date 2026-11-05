@@ -59,6 +59,8 @@
   "itinerary": [
     {
       "place": "Mauritius",
+      "day": 1,
+      "day_label": "Day 1",
       "title": "Arrive on the island",
       "description": "Transfer in and keep the first evening quiet.",
       "overnight": "Resort · night 1 of 6",
@@ -69,6 +71,8 @@
     },
     {
       "place": "Mauritius",
+      "day": 2,
+      "day_label": "Days 2–4",
       "title": "Resort days",
       "description": "Beach, pool and unstructured time.",
       "overnight": "Resort · nights 2–4 of 6",
@@ -79,6 +83,8 @@
     },
     {
       "place": "Mauritius",
+      "day": 5,
+      "day_label": "Day 5",
       "title": "An optional day out",
       "description": "Island, park or another leisure day.",
       "overnight": "Resort · night 5 of 6",
@@ -89,6 +95,8 @@
     },
     {
       "place": "Mauritius",
+      "day": 6,
+      "day_label": "Day 6",
       "title": "A last resort day",
       "description": "Slow morning before the flight home.",
       "overnight": "Resort · night 6 of 6",
@@ -99,6 +107,8 @@
     },
     {
       "place": "Mauritius",
+      "day": 7,
+      "day_label": "Day 7",
       "title": "Departure",
       "description": "Transfer to the airport for your onward flight.",
       "overnight": "",
