@@ -103,10 +103,10 @@ collections:
   - label: Destination link
     name: href
     widget: string
-    hint: 'Use a section such as #sacred-circuits or a full https:// URL.'
+     hint: 'Use an internal path such as /sacred-circuits/ or a full https:// URL.'
     pattern:
-    - ^(#[a-zA-Z][\w-]*|https://.+)$
-    - Use an internal anchor or HTTPS URL.
+     - ^(#[a-zA-Z][\w-]*|/(?!/).+|https://.+)$
+     - Use an internal path or HTTPS URL.
   - label: Coupon code
     name: code
     widget: string

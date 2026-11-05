@@ -56,10 +56,13 @@
   function inquire(interest, trigger) {
     if(detail.open) detail.close();
     const select = byId('interest');
-    if([...select.options].some(option => option.value === interest))select.value = interest;
+    const normalized=interest==='Innova Crysta Hire in Varanasi' || interest==='Innova Hycross Hire in Varanasi' ? 'Innova Hycross & Crysta Rental in Varanasi' : interest;
+    if([...select.options].some(option => option.value === normalized))select.value = normalized;
     openDialog(inquiry, trigger);
   }
   const action = label => `<button class="button detail-cta" data-inquire="${e(label)}">Personalise my ${data.fleet.some(x=>x.title===label)?'ride':'journey'} <span aria-hidden="true">→</span></button>`;
+  const privacyCopy = `<p>This site’s inquiry form prepares your travel message on your device. The message is not sent to our website server or stored in browser storage. You decide whether to send it in WhatsApp. Before opening WhatsApp, we verify a reCAPTCHA token on our server to help prevent automated contact harvesting.</p><h3>When you contact us</h3><p>The details you choose to share are used to discuss and arrange your travel. Avoid including passport numbers, payment details or other sensitive documents in your first inquiry. Public phone and email links may be processed by your device and service provider when used.</p><h3>Third-party services</h3><p>WhatsApp applies its own privacy terms when you open or use it. Site hosting providers may process technical request information. Web fonts are delivered through Google Fonts. Google Tag Manager and Google Ads tags are present on the site. Your light or dark appearance preference is stored locally on this device; it contains no inquiry details. Google reCAPTCHA processes device and interaction information when contact verification is used.</p><p>For questions about information you have shared, email concierge@irisha.co.in.</p>`;
+  const bookingCopy = `<p>Every journey is tailored to your dates, group and preferences. An inquiry is not a confirmed reservation or payment.</p><h3>Your quote</h3><p>Your concierge confirms itinerary, accommodation, vehicle configuration, inclusions, exclusions, taxes, payment schedule, amendments, cancellation terms and refund terms in writing before booking. No booking is confirmed until your concierge confirms it in writing.</p><h3>Sacred experiences</h3><p>Darshan coordination is subject to temple rules, official procedures and availability. Ritual coordination and private boat arrangements are available on request and subject to availability, local permissions and provider conditions.</p><h3>Flights and other providers</h3><p>Flights are excluded from the Sacred Triangle package and can be booked on request. Airfare, baggage, schedule changes, cancellations and refunds follow the airline’s rules. Other third-party experiences follow the relevant provider’s conditions. Review your written quotation and booking confirmation for the applicable terms before paying.</p>`;
   const packageItinerary = p => `<ol class="itinerary">${p.itinerary.map((day,i)=>`<li class="itinerary-stop"><span class="stop-number" aria-hidden="true">${String(i+1).padStart(2,'0')}</span><div><p class="small-eyebrow">Day ${i+1} · ${e(day.place)}</p><h3>${e(day.title)}</h3><p>${e(day.description)}</p>${day.schedule?.length?`<dl class="itinerary-schedule">${day.schedule.map(slot=>`<div><dt>${e(slot.period)}</dt><dd>${e(slot.description)}</dd></div>`).join('')}</dl>`:''}${day.overnight?`<p class="itinerary-overnight"><strong>Overnight</strong> ${e(day.overnight)}</p>`:''}</div></li>`).join('')}</ol>`;
   function showDetail(type, key, trigger) {
     let html = '';
@@ -74,6 +77,10 @@
     } else if(type === 'policy') {
       const privacy = key === 'privacy';
       html = `<p class="eyebrow">IRISHA CONCIERGE</p><h2 id="detail-title">${privacy?'Your privacy.':'Before you travel.'}</h2><div class="legal-copy">${privacy?`<p>This site’s inquiry form prepares your travel message on your device. The message is not sent to our website server or stored in browser storage. You decide whether to send it in WhatsApp. Before opening WhatsApp, we verify a reCAPTCHA token on our server to help prevent automated contact harvesting.</p><h3>When you contact us</h3><p>The details you choose to share are used to discuss and arrange your travel. Avoid including passport numbers, payment details or other sensitive documents in your first inquiry.</p><h3>Third-party services</h3><p>WhatsApp applies its own privacy terms when you open or use it. Site hosting providers may process technical request information. Web fonts are delivered through Google Fonts. This site does not include advertising or analytics trackers. Your light or dark appearance preference is stored locally on this device; it contains no inquiry details. When you open contact verification, Google reCAPTCHA processes device and interaction information and may use cookies to assess automated activity under Google’s Privacy Policy and Terms of Service.</p><p>For questions about information you have shared, use the protected contact option on this website to reach Irisha Concierge.</p>`:`<p>Every journey is tailored to your dates, group and preferences. An inquiry is not a confirmed reservation or payment.</p><h3>Your quote</h3><p>Your concierge will confirm the itinerary, accommodation, vehicle configuration, inclusions, exclusions, taxes, payment schedule and cancellation terms in writing before you book.</p><h3>Sacred experiences</h3><p>We guarantee our VIP Darshan coordination and assistance. Access, queue arrangements, puja availability and timings remain subject to temple authorities. Boat journeys and Aarti viewing are subject to river conditions and local permissions.</p><h3>Changes and cancellations</h3><p>Hotel, airline, venue and transport policies vary. The policies for your specific arrangements will be included in your quotation and booking confirmation.</p>`}</div>`;
+    }
+    if(type === 'policy'){
+      const privacy=key==='privacy';
+      html=`<p class="eyebrow">IRISHA CONCIERGE</p><h2 id="detail-title">${privacy?'Your privacy.':'Before you travel.'}</h2><div class="legal-copy">${privacy?privacyCopy:bookingCopy}</div>`;
     }
     byId('detail-content').innerHTML = html;
     openDialog(detail, trigger);
@@ -93,6 +100,7 @@
     const message = [
       `Namaste Irisha Concierge, I’m ${values.get('name').trim()}.`,
       `I’m interested in: ${values.get('interest')}.`,
+      `Mobile / WhatsApp: ${values.get('phone')}.`,
       `Travelling with: ${values.get('guests')}.`,
       values.get('date') ? `Preferred date: ${values.get('date')}.` : 'Travel dates: Flexible / to be discussed.',
       values.get('notes').trim() ? `My wishes: ${values.get('notes').trim()}` : '',
@@ -219,8 +227,8 @@
     const link=byId('offer-link');
     link.replaceChildren(document.createTextNode(offer.cta+' →'));
     // Allow only internal section links or HTTPS links in owner-authored banners.
-    const dest = /^(#[a-zA-Z][\w-]*|https:\/\/)/.test(offer.href) ? offer.href : '#sacred-circuits';
-    link.href = dest.startsWith('#') && location.pathname !== '/' ? '/'+dest : dest;
+    const dest = /^(#[a-zA-Z][\w-]*|https:\/\/)/.test(offer.href) ? offer.href : '/sacred-circuits/';
+    link.href = dest.startsWith('#') ? (location.pathname !== '/' ? '/'+dest : dest) : dest;
     if(dest.startsWith('https://')){link.target='_blank';link.rel='noopener noreferrer';}else{link.removeAttribute('target');link.removeAttribute('rel');}
   }
   const updatePause=()=>{pause.textContent=userPaused?'▶':'Ⅱ';pause.setAttribute('aria-label',userPaused?'Play offers':'Pause offers');pause.setAttribute('aria-pressed',String(userPaused));};

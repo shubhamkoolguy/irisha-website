@@ -1,12 +1,12 @@
 # Irisha Concierge
 
-A complete static luxury travel website with a Decap CMS content model and Cloudflare Pages deployment support. Public pages use semantic HTML, custom CSS and dependency-free JavaScript. No client framework, database or analytics tracker is required. Google reCAPTCHA v2 checkbox verification protects access to the WhatsApp destination; Google keys and its current service terms/quotas apply.
+A static concierge travel website with a Decap CMS content model and Cloudflare Pages deployment support. Public pages use semantic HTML, custom CSS and dependency-free JavaScript. Sacred Triangle, Bihar Circuit, Varanasi Pilgrimage Concierge, Force Urbania, and Innova Crysta/Hycross have dedicated indexable pages. International holiday pages remain available but are temporarily noindex pending editorial itinerary and content review. Google reCAPTCHA v2 checkbox verification protects access to the WhatsApp destination.
 
 ## Current delivery
 
 The Sites URL is a private review deployment of the complete static website. The editor is configured for the private GitHub repository `shubhamkoolguy/irisha-website`, branch `main`. This does **not** replace the website at `irisha.co.in` or activate its CMS login. Cloudflare Pages, the production domain, and the GitHub OAuth app still require account setup.
 
-The supplied website includes contextual inquiry dialogs that compose WhatsApp messages and server-verified reCAPTCHA contact access, native keyboard-accessible detail dialogs, mobile navigation, timed offer rotation with a pause control, no-JavaScript readable core content, a custom favicon, metadata, a sitemap, a 404 page and optimized WebP photos.
+The supplied website includes contextual inquiry dialogs that compose WhatsApp messages, server-verified reCAPTCHA contact access, public phone and email links, Google review excerpts, native keyboard-accessible detail dialogs, mobile navigation, timed offer rotation with a pause control, no-JavaScript readable core content, metadata, a sitemap, a 404 page and optimized WebP photos.
 
 ## Run and build
 
@@ -45,8 +45,9 @@ Offer dates use ISO 8601 with an explicit time zone, e.g. `2026-11-01T00:00:00+0
 2. `admin/config.yml` is configured with `repo: shubhamkoolguy/irisha-website` and `branch: main`. Its `base_url` and `site_url` are `https://irisha.co.in`, the configured production domain.
 3. In Cloudflare **Workers & Pages → Create → Pages → Import an existing Git repository**, select the repository. Use **no framework preset**, build command **`npm run build:pages`**, output **`dist`**, Node.js **22**, and production branch **`main`**.
 4. Add `irisha.co.in` through that Pages project's Custom domains flow and apply the DNS records Cloudflare provides. No domain/DNS changes have been made by this delivery.
-5. Create a GitHub OAuth App with homepage `https://irisha.co.in` and callback `https://irisha.co.in/api/callback`. Keep the default non-expiring OAuth-token mode; the bundled Decap integration does not implement refresh-token rotation.
-6. Set these Cloudflare Pages production variables/secrets, then redeploy:
+5. In Cloudflare, redirect `www.irisha.co.in` permanently to `https://irisha.co.in` and confirm both hosts serve the same canonical site before launch. The static build emits apex canonical URLs; domain-level redirect cannot be configured from this repository.
+6. Create a GitHub OAuth App with homepage `https://irisha.co.in` and callback `https://irisha.co.in/api/callback`. Keep the default non-expiring OAuth-token mode; the bundled Decap integration does not implement refresh-token rotation.
+7. Set these Cloudflare Pages production variables/secrets, then redeploy:
 
 | Name | Value |
 | --- | --- |
@@ -55,7 +56,7 @@ Offer dates use ISO 8601 with an explicit time zone, e.g. `2026-11-01T00:00:00+0
 | `GITHUB_CLIENT_ID` | The OAuth application's client ID |
 | `GITHUB_CLIENT_SECRET` | The OAuth application secret, stored as a **secret** |
 
-7. Open `https://irisha.co.in/admin/`, sign in with a GitHub editor account, change one draft offer to inactive or make a small text edit, save, and confirm the automatic Pages rebuild publishes it. End-to-end GitHub login requires your accounts and has not been performed in the private Sites deployment.
+8. Open `https://irisha.co.in/admin/`, sign in with a GitHub editor account, change one draft offer to inactive or make a small text edit, save, and confirm the automatic Pages rebuild publishes it. End-to-end GitHub login requires your accounts and has not been performed in the private Sites deployment.
 
 Pages Functions in `functions/api/` handle GitHub OAuth and contact verification. Public content is served statically. `public/_routes.json` limits invocation to `/api/auth`, `/api/callback`, `/api/captcha-config`, `/api/contact`, `/admin/` and `/admin/index.html`. The admin HTML middleware sets a single editor-specific Content Security Policy, allowing the runtime evaluation needed by Decap configuration validation. Public pages retain their stricter policy without `unsafe-eval`. The Sites deployment uses the same contact verification code inside a dependency-free Worker that embeds public assets. Functions use standard Web APIs, require an exact configured origin, validate an HttpOnly Secure SameSite state cookie and PKCE verifier, check repository write permissions, restrict popup messages to the configured origin, and return no-store responses. Secrets never appear in the public configuration. Do not upload `.env` files to `dist/`.
 
@@ -79,13 +80,13 @@ Set these values in the host's **runtime environment settings**, then republish/
 | `RECAPTCHA_ALLOWED_HOSTNAMES` | Comma-separated exact hostnames listed above |
 | `CONTACT_WHATSAPP` | Confirmed business number, international digits only, stored as a **secret** |
 
-The current business contact was moved from the page/CMS data into `CONTACT_WHATSAPP`. It still needs owner confirmation. Do not put it in public JSON, page copy, offers, image filenames, HTML, JS, schema metadata or a public repository. Previously published copies cannot be recalled by this change.
+The WhatsApp destination number remains in runtime secret `CONTACT_WHATSAPP`. Owner-approved phone and email links are public page content; do not assume public phone is also the WhatsApp destination. Previously published secret copies cannot be recalled by this change.
 
-All WhatsApp buttons open the protected flow. Direct contact buttons request verification immediately; trip-planning forms prepare the message locally and then open verification. Google's challenge is rendered outside native dialogs so its iframe remains accessible. The contact endpoint checks the request origin, request size, honeypot and Google response, rejects wrong hostnames and failures, and releases the WhatsApp destination only on success. Google enforces token expiry and single use. Responses are not cached; contact details and keys are not logged. Travel names, dates and notes stay on the device until the visitor chooses to send them in WhatsApp.
+All WhatsApp buttons open the protected flow. Direct contact buttons request verification immediately; trip-planning forms prepare the message locally and then open verification. Google's challenge is rendered outside native dialogs so its iframe remains accessible. The contact endpoint checks the request origin, request size, honeypot and Google response, rejects wrong hostnames and failures, and releases the WhatsApp destination only on success. Google enforces token expiry and single use. Responses are not cached; WhatsApp destination and CAPTCHA keys are not logged. Travel names, dates and notes stay on the device until the visitor chooses to send them in WhatsApp. Public phone and email links can be used directly.
 
-The Sites Worker permits public pages to be embedded by `https://chatgpt.com` so the in-app Site view can load. CMS pages retain same-origin-only embedding. Cloudflare Pages uses its own same-origin policy in `public/_headers`. Missing reCAPTCHA keys disable contact verification, not the public page. There is currently no inquiry database or Google Sheets integration: a request reaches the business only when the visitor sends the prepared WhatsApp message.
+The Sites Worker permits public pages to be embedded by `https://chatgpt.com` so the in-app Site view can load. CMS pages retain same-origin-only embedding. Cloudflare Pages uses its own same-origin policy in `public/_headers`. Missing reCAPTCHA keys disable contact verification, not the public page. There is currently no website-to-CRM lead submission: a WhatsApp inquiry reaches the business only when the visitor chooses to send the prepared message. CRM integration requires the CRM API and credential configuration.
 
-This reduces automated harvesting from this site. It is **not** a guarantee against scrapers, CAPTCHA-solving services, robocalls or numbers obtained from older pages, social media or directories. Public marketing pages remain readable. Additional site-wide anti-scraping controls would require configuration in the business's Cloudflare account; none have been enabled by this change.
+This reduces automated harvesting from this site. It is **not** a guarantee against scrapers, CAPTCHA-solving services, robocalls or numbers obtained from older pages, social media or directories. Public marketing pages remain readable. Additional site-wide anti-scraping controls would require configuration in the business's Cloudflare account; none have been enabled by this change. The visible checkbox remains until a low-friction provider is configured and tested with production credentials; do not remove server-side verification or replace it with client-only checks.
 
 Google docs: https://developers.google.com/recaptcha/docs/display and https://developers.google.com/recaptcha/docs/verify
 

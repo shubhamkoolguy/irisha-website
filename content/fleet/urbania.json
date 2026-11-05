@@ -1,9 +1,9 @@
 {
   "title":"Force Urbania", "slug":"urbania", "active":true, "featured":true, "order":1,
-  "category":"THE GROUP TRAVEL EXPERIENCE", "seats":"16-seater", "audience":"Together, in exceptional comfort.",
-  "description":"More room for your people. More space to unwind. Our premium Urbania makes the time between destinations a pleasure of its own.",
+  "category":"FOR GROUPS OF UP TO 16", "seats":"16 seats", "audience":"Room for everyone. Space to travel well.",
+  "description":"16-seater Force Urbania service from Varanasi, with pickups and destinations within 300 km, subject to route and vehicle availability.",
   "image":"/assets/urbania-long-wheelbase.webp", "image_alt":"Side profile of the long-wheelbase Force Urbania passenger van", "image_note":"Long-wheelbase model shown for reference. Interiors vary by configuration.",
-  "features":["Push-back captain seats", "Tall, spacious cabin", "Ambient lighting", "Comfort for the whole group"],
-  "starting_price":0, "price_unit":"per day", "price_label":"Tailored to your route",
-  "details":"A spacious 16-seater for family pilgrimages and private groups. Share your route, dates and group size for a complete quote. Captain seating, ambient lighting and luggage capacity are confirmed for the allocated vehicle before booking."
+  "features":["Push-back captain seats", "Spacious cabin", "Ambient lighting", "Comfortable group travel"],
+  "starting_price":35, "price_unit":"per km (taxes extra)", "price_label":"From ₹35/km, taxes extra",
+  "details":"Service operates from Varanasi. Journeys may start in Varanasi and travel to destinations within 300 km; pickups within 300 km of Varanasi are also supported. Airport transfers start at ₹2,999, taxes extra. Tolls, border tax, parking, driver allowance and other trip-specific costs are confirmed in your written quotation before booking. Vehicle configuration and availability are confirmed before booking."
 }

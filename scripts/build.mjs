@@ -3,6 +3,7 @@ import path from 'node:path';
 import {contentSecurityPolicy} from '../server/contact-worker.mjs';
 const root = new URL('../', import.meta.url).pathname;
 process.chdir(root);
+const outputDir=process.env.BUILD_DIR||'dist';
 const read = async p => JSON.parse(await readFile(p, 'utf8'));
 const collection = async dir => (await Promise.all((await readdir(dir)).filter(f=>f.endsWith('.json')).map(f=>read(path.join(dir,f))))).filter(x=>x.active).sort((a,b)=>(a.order||0)-(b.order||0));
 const settings=await read('content/settings.json');
@@ -17,7 +18,7 @@ if(!featured||!vehicle) throw Error('At least one active package and vehicle are
 if('whatsapp' in settings || 'phone_display' in settings) throw Error('Contact details must be stored in runtime secrets, not public content.');
 const e = s => String(s??'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 // Featured package leads the hero carousel so editors keep the same control they already have via the CMS "featured" flag.
-const heroSlides=[featured,...packages.filter(x=>x!==featured),...holidays].map(x=>({...x,type:packages.includes(x)?'package':'holiday'}));
+const heroSlides=[featured,...packages.filter(x=>x!==featured)].map(x=>({...x,type:'package'}));
 const safePath=s=>{if(!/^\/(?!\/)/.test(s||'')) throw Error('Images must use a local absolute path: '+s); return e(s);};
 const itineraryMarkup = p => `<ol class="itinerary">${p.itinerary.map((day,i)=>`<li class="itinerary-stop"><span class="stop-number" aria-hidden="true">${String(i+1).padStart(2,'0')}</span><div><p class="small-eyebrow">Day ${i+1} · ${e(day.place)}</p><h3>${e(day.title)}</h3><p>${e(day.description)}</p>${day.schedule?.length?`<dl class="itinerary-schedule">${day.schedule.map(slot=>`<div><dt>${e(slot.period)}</dt><dd>${e(slot.description)}</dd></div>`).join('')}</dl>`:''}${day.overnight?`<p class="itinerary-overnight"><strong>Overnight</strong> ${e(day.overnight)}</p>`:''}</div></li>`).join('')}</ol>`;
 const money = n => new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0}).format(n);
@@ -61,12 +62,13 @@ for(const holiday of holidays){
 const siteOrigin = new URL(settings.site_url);
 if(siteOrigin.protocol !== 'https:' || siteOrigin.username || siteOrigin.password || siteOrigin.pathname !== '/' || siteOrigin.search || siteOrigin.hash) throw Error('Site URL must be an HTTPS origin.');
 settings.site_url = siteOrigin.origin;
+if(siteOrigin.host!=='irisha.co.in') throw Error('Site URL must use canonical production host https://irisha.co.in.');
 const seoTitle = settings.seo_title || `${settings.brand} — Private Pilgrimage Tours`;
-const areaServed = [...new Set([...packages,...holidays].flatMap(p=>p.destinations||[]))];
+const areaServed = [...new Set(packages.flatMap(p=>p.destinations||[]))];
 const structuredData = {
   '@context': 'https://schema.org',
   '@graph': [
-    {'@type':['Organization','TravelAgency'],'@id':`${settings.site_url}/#organization`,name:settings.brand,url:`${settings.site_url}/`,logo:`${settings.site_url}/assets/irisha-transparent-logo.png`,description:settings.description,areaServed:areaServed.map(name=>({'@type':'City',name}))},
+    {'@type':['Organization','TravelAgency'],'@id':`${settings.site_url}/#organization`,name:settings.brand,url:`${settings.site_url}/`,logo:`${settings.site_url}/assets/irisha-transparent-logo.png`,description:settings.description,telephone:'+919966320256',email:'concierge@irisha.co.in',sameAs:['https://share.google/J1Rixybpe20k2upx4','https://www.instagram.com/irishaconcierge/'],areaServed:areaServed.map(name=>({'@type':'City',name}))},
     {'@type':'WebSite','@id':`${settings.site_url}/#website`,url:`${settings.site_url}/`,name:settings.brand,inLanguage:'en',publisher:{'@id':`${settings.site_url}/#organization`}},
     {'@type':'WebPage','@id':`${settings.site_url}/#webpage`,url:`${settings.site_url}/`,name:seoTitle,description:settings.description,inLanguage:'en',isPartOf:{'@id':`${settings.site_url}/#website`},about:{'@id':`${settings.site_url}/#organization`}}
   ]
@@ -77,17 +79,17 @@ const offer=current[0];
 const fonts=`<script src="/theme.js"></script><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Noto+Sans+Devanagari:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">`;
 const offerHref=raw=>{
-  const href=/^(#[a-zA-Z][\w-]*|https:\/\/)/.test(raw||'')?raw:'#sacred-circuits';
+  const href=/^(#[a-zA-Z][\w-]*|https:\/\/|\/(?!\/))/.test(raw||'')?raw:'/sacred-circuits/';
   return href.startsWith('#')?'/'+href:href;
 };
 const nav=(home=true)=>{
   const to=id=>home?`#${id}`:`/#${id}`;
-  return `<a href="${to('sacred-circuits')}">Sacred Circuits</a><a href="${to('elite-fleet')}">Elite Fleet</a><a href="${to('holidays')}">Services</a><a href="${to('contact')}">Contact</a>`;
+  return `<a href="/sacred-circuits/">Sacred Circuits</a><a href="/elite-fleet/">Elite Fleet</a><a href="${to('holidays')}">Services</a><a href="${to('contact')}">Contact</a>`;
 };
-const pageHead=({title,description,canonical,jsonLd,preload})=>`<!doctype html>
+const pageHead=({title,description,canonical,jsonLd,preload,noindex=false})=>`<!doctype html>
 <html lang="en"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#0b0614">
-<title>${e(title)}</title><meta name="description" content="${e(description)}">
+<title>${e(title)}</title><meta name="description" content="${e(description)}">${noindex?'<meta name="robots" content="noindex,follow">':''}
 <link rel="canonical" href="${e(canonical)}"><meta property="og:type" content="website"><meta property="og:title" content="${e(title)}"><meta property="og:description" content="${e(description)}"><meta property="og:url" content="${e(canonical)}">
 <meta property="og:site_name" content="${e(settings.brand)}">
 ${jsonLd?`<script type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g,'\\u003c')}</script>`:''}
@@ -106,37 +108,34 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WBGT5X8X" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->`;
-const chrome=(home=true)=>`<a class="skip-link" href="#main">Skip to content</a>
-<div class="announcement" id="announcement" ${offer?'':'hidden'}><div class="announcement-inner"><span class="announcement-label" id="offer-label">${e(offer?.label)}</span><span id="offer-text">${e(offer?.text)}</span><a id="offer-link" href="${e(home?(/^(#[a-zA-Z][\w-]*|https:\/\/)/.test(offer?.href||'')?offer.href:'#sacred-circuits'):offerHref(offer?.href))}">${e(offer?.cta)} ${icon('arrow')}</a><button class="icon-button offer-pause" id="offer-pause" aria-label="Pause offers" hidden>Ⅱ</button></div></div>
-<header class="site-header"><div class="nav-wrap"><a class="brand" href="/" aria-label="Irisha Concierge home">${wordmark}</a><nav class="desktop-nav" aria-label="Main navigation">${nav(home)}</nav><button class="button button-small nav-cta" data-contact>${icon('whatsapp')} Inquire on WhatsApp</button><button type="button" class="theme-toggle" data-theme-toggle aria-label="Appearance: System. Switch to light mode"><span aria-hidden="true" class="theme-symbol">◐</span><span class="theme-label">System</span></button><button class="menu-toggle icon-button" aria-controls="mobile-nav" aria-expanded="false" aria-label="Open navigation">${icon('menu')}</button></div><nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" hidden>${nav(home)}<button class="mobile-inquire" data-contact>Inquire on WhatsApp ${icon('whatsapp')}</button></nav></header>`;
-const contactBlock=`<section class="contact-section" id="contact"><div class="contact-glow"></div><div class="container contact-inner"><span class="contact-star" aria-hidden="true">✧</span><p class="eyebrow">YOUR NEXT CHAPTER</p><h2>${e(settings.contact_heading).replace('with a conversation.','<br><em>with a conversation.</em>')}</h2><p>${e(settings.contact_description)}</p><button class="button" data-contact>${icon('whatsapp')} Let’s talk on WhatsApp ${icon('arrow')}</button><span class="contact-note">A personal conversation. A journey made for you.</span><noscript><p class="contact-note">Please enable JavaScript to use secure contact verification.</p></noscript><div id="contact-verification" class="contact-verification" role="region" aria-labelledby="verification-title" hidden>
-<div class="verification-heading"><h3 id="verification-title" tabindex="-1">Before we connect.</h3><button type="button" id="verification-cancel" class="icon-button" aria-label="Cancel verification">${icon('close')}</button></div>
-<p class="verification-description">Confirm you’re human to connect with your concierge.</p>
+const chrome=(home=true)=>`<a class="skip-link" href="#main">Skip to main content</a>
+<div class="announcement" id="announcement" ${offer?'':'hidden'}><div class="announcement-inner"><span class="announcement-label" id="offer-label">${e(offer?.label)}</span><span id="offer-text">${e(offer?.text)}</span><a id="offer-link" href="${e(offerHref(offer?.href))}">${e(offer?.cta)} ${icon('arrow')}</a><button class="icon-button offer-pause" id="offer-pause" aria-label="Pause offers" hidden>Ⅱ</button></div></div>
+<header class="site-header"><div class="nav-wrap"><a class="brand" href="/" aria-label="Irisha Concierge home">${wordmark}</a><nav class="desktop-nav" aria-label="Main navigation">${nav(home)}</nav><button class="button button-small nav-cta" data-contact>${icon('whatsapp')} Plan Your Journey</button><button type="button" class="theme-toggle" data-theme-toggle aria-label="Appearance: System. Switch to light mode"><span aria-hidden="true" class="theme-symbol">◐</span><span class="theme-label">System</span></button><button class="menu-toggle icon-button" aria-controls="mobile-nav" aria-expanded="false" aria-label="Open navigation">${icon('menu')}</button></div><nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" hidden>${nav(home)}<button class="mobile-inquire" data-contact>Plan Your Journey ${icon('whatsapp')}</button></nav></header>`;
+const contactBlock=`<section class="contact-section" id="contact"><div class="contact-glow"></div><div class="container contact-inner"><span class="contact-star" aria-hidden="true">✧</span><p class="eyebrow">YOUR NEXT CHAPTER</p><h2>${e(settings.contact_heading).replace('a journey that feels like yours.','<br><em>a journey that feels like yours.</em>')}</h2><p>${e(settings.contact_description)}</p><a class="contact-phone" href="tel:+919966320256">Call +91 99663 20256</a><a class="contact-phone" href="mailto:concierge@irisha.co.in">Email concierge@irisha.co.in</a><p class="contact-note">Virtual concierge · Available 24x7</p><button class="button" data-contact>${icon('whatsapp')} Start Planning on WhatsApp ${icon('arrow')}</button><span class="contact-note">Your enquiry opens in WhatsApp. You choose whether to send it.</span><noscript><p class="contact-note">Enable JavaScript to use secure WhatsApp verification. You can also call or email us.</p></noscript><div id="contact-verification" class="contact-verification" role="region" aria-labelledby="verification-title" hidden>
+<div class="verification-heading"><h3 id="verification-title" tabindex="-1">Secure contact check</h3><button type="button" id="verification-cancel" class="icon-button" aria-label="Cancel verification">${icon('close')}</button></div>
+<p class="verification-description">A brief check helps protect this contact channel from automated abuse.</p>
 <div class="form-trap" aria-hidden="true"><label>Leave this field empty<input id="contact-company" type="text" tabindex="-1" autocomplete="off"></label></div>
 <div class="captcha-stage"><div id="captcha-widget"></div></div>
 <p id="captcha-status" class="captcha-status" role="status" aria-live="polite">Loading secure verification…</p><button type="button" id="captcha-retry" class="text-link" hidden>Try verification again</button>
 <button class="button" type="button" id="verified-contact" disabled>${icon('whatsapp')} Continue on WhatsApp ${icon('arrow')}</button><p class="captcha-legal">Protected by reCAPTCHA. Google’s <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a> and <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">Terms of Service</a> apply.</p></div></div></section>`;
-const pageClose=`</main><footer class="site-footer container"><div class="footer-top"><a class="brand" href="/" aria-label="Irisha Concierge home">${fullLogo}</a><p lang="hi" class="hindi">${e(settings.tagline)}</p><a href="#main" class="back-top">Back to top ${icon('arrow')}</a></div><div class="footer-bottom"><p>© ${new Date().getFullYear()} ${e(settings.brand)}. All rights reserved.</p><div><button class="footer-link" data-policy="privacy">Privacy</button><button class="footer-link" data-policy="terms">Booking information</button><span>Thoughtfully curated in India.</span></div></div></footer>
+const pageClose=`</main><footer class="site-footer container"><div class="footer-top"><a class="brand" href="/" aria-label="Irisha Concierge home">${fullLogo}</a><p lang="hi" class="hindi">${e(settings.tagline)}</p><a href="#main" class="back-top">Back to top ${icon('arrow')}</a></div><div class="footer-bottom"><p>© ${new Date().getFullYear()} ${e(settings.brand)}. All rights reserved.</p><div><a class="footer-link" href="tel:+919966320256">+91 99663 20256</a><a class="footer-link" href="mailto:concierge@irisha.co.in">Email concierge</a><button class="footer-link" data-policy="privacy">Privacy</button><button class="footer-link" data-policy="terms">Booking information</button><span>Virtual concierge · Available 24x7</span></div></div></footer>
 <button class="floating-whatsapp" data-contact aria-label="Chat with Irisha Concierge on WhatsApp">${icon('whatsapp')}</button>
 <dialog id="detail-dialog" class="detail-dialog" aria-labelledby="detail-title"><button class="dialog-close icon-button" data-close aria-label="Close details">${icon('close')}</button><div id="detail-content"></div></dialog>
-<dialog id="inquiry-dialog" class="inquiry-dialog" aria-labelledby="inquiry-title"><button class="dialog-close icon-button" data-close aria-label="Close inquiry">${icon('close')}</button><p class="eyebrow">A JOURNEY THAT’S YOURS</p><h2 id="inquiry-title">Let’s make it <em>personal.</em></h2><p class="dialog-description">A few details are all we need to begin. Your concierge will take it from here.</p><form id="inquiry-form"><label>I'm interested in<select name="interest" id="interest">${[...packages.map(x=>x.title),...fleet.map(x=>x.title),...services.map(x=>x.title),...holidays.map(x=>x.title)].map(x=>`<option>${e(x)}</option>`).join('')}</select></label><div class="form-row"><label>Your name <span>(required)</span><input name="name" autocomplete="given-name" placeholder="How should we address you?" maxlength="80" required></label><label>Guests<select name="guests"><option value="Not decided">Not decided yet</option><option>1–2 guests</option><option>3–6 guests</option><option>7–10 guests</option><option>11–16 guests</option><option>17+ guests</option></select></label></div><label>Preferred travel date <span>(optional)</span><input type="text" name="date" id="travel-date" inputmode="numeric" placeholder="DD/MM/YYYY" maxlength="10" pattern="\d{2}/\d{2}/\d{4}" autocomplete="off"></label><label>Anything you’d like us to know? <span>(optional)</span><textarea name="notes" rows="3" maxlength="1500" placeholder="Your pickup city, special puja, occasion or a little wish…"></textarea></label><div class="form-trap" aria-hidden="true"><label>Leave this field empty<input name="company_website" type="text" tabindex="-1" autocomplete="off"></label></div><button class="button form-submit" type="submit">Continue securely ${icon('arrow')}</button><p class="form-note">After verification, WhatsApp opens with your trip details. Nothing is sent until you choose to send it. Protected by reCAPTCHA: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Privacy</a> · <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">Terms</a>.</p></form></dialog>
-<script type="application/json" id="site-data">${JSON.stringify({settings,packages,fleet,services,holidays,offers}).replace(/</g,'\u003c')}</script>
+<dialog id="inquiry-dialog" class="inquiry-dialog" aria-labelledby="inquiry-title"><button class="dialog-close icon-button" data-close aria-label="Close inquiry">${icon('close')}</button><p class="eyebrow">A JOURNEY THAT’S YOURS</p><h2 id="inquiry-title">Let’s make it <em>personal.</em></h2><p class="dialog-description">A few details are all we need to begin. Your concierge will take it from here.</p><form id="inquiry-form"><label>Service<select name="interest" id="interest">${[...packages.map(x=>x.title),...fleet.map(x=>x.title),...services.map(x=>x.title),...holidays.map(x=>x.title)].map(x=>`<option>${e(x)}</option>`).join('')}</select></label><div class="form-row"><label>Your name <span>(required)</span><input name="name" autocomplete="name" placeholder="How should we address you?" maxlength="80" required></label><label>Mobile / WhatsApp <span>(required)</span><input name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="25" required></label></div><div class="form-row"><label>Preferred travel date <span>(optional)</span><input type="text" name="date" id="travel-date" inputmode="numeric" placeholder="DD/MM/YYYY" maxlength="10" pattern="\d{2}/\d{2}/\d{4}" autocomplete="off"></label><label>Guests<select name="guests"><option value="Not decided">Not decided yet</option><option>1–2 guests</option><option>3–6 guests</option><option>7–10 guests</option><option>11–16 guests</option><option>17+ guests</option></select></label></div><label>Pickup and route / anything else <span>(optional)</span><textarea name="notes" rows="3" maxlength="1500" placeholder="Pickup city, route, accessibility or ritual needs…"></textarea></label><div class="form-trap" aria-hidden="true"><label>Leave this field empty<input name="company_website" type="text" tabindex="-1" autocomplete="off"></label></div><button class="button form-submit" type="submit">Continue securely ${icon('arrow')}</button><p class="form-note">After verification, WhatsApp opens with your trip details. Nothing is sent until you choose to send it. Protected by reCAPTCHA: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Privacy</a> · <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">Terms</a>.</p></form></dialog>
+<script type="application/json" id="site-data">${JSON.stringify({settings,packages,fleet,services,holidays:[],offers}).replace(/</g,'\u003c')}</script>
 </body></html>`;
 const nightsLine=h=>(h.nights||[]).map(n=>`${e(n.place)}, ${n.nights}N`).join(' · ');
 const countrySlug=name=>String(name||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
-const holidayCountries=[...new Set(holidays.map(h=>h.country).filter(Boolean))].sort((a,b)=>{
-  const rank=name=>name==='Sri Lanka'?0:Math.min(...holidays.filter(h=>h.country===name).map(h=>h.order||99));
-  return rank(a)-rank(b) || a.localeCompare(b);
-});
+const holidayCountries=[];
 const holidayCard=h=>`<article class="holiday-card">
-<a class="holiday-card-media" href="/holidays/${e(h.slug)}/"><img src="${safePath(h.image)}" alt="${e(h.image_alt)}" width="1400" height="934" loading="lazy"><span class="holiday-duration">${e(h.duration)}</span>${h.customizable?`<span class="holiday-flag">Customisable</span>`:''}</a>
+<a class="holiday-card-media" href="/holidays/${e(h.slug)}/" rel="nofollow"><img src="${safePath(h.image)}" alt="${e(h.image_alt)}" width="1400" height="934" loading="lazy"><span class="holiday-duration">${e(h.duration)}</span>${h.customizable?`<span class="holiday-flag">Customisable</span>`:''}</a>
 <div class="holiday-card-body">
 <p class="small-eyebrow">${e(h.eyebrow)}</p>
-<h2><a href="/holidays/${e(h.slug)}/">${e(h.title)}</a></h2>
+<h2><a href="/holidays/${e(h.slug)}/" rel="nofollow">${e(h.title)}</a></h2>
 <p class="holiday-card-copy">${e(h.description)}</p>
 <ul class="holiday-meta"><li>${icon('stay')}${h.hotels||1} ${h.hotels===1?'hotel':'hotels'}</li><li>${icon('sparkle')}${e(h.support||'24×7 concierge')}</li></ul>
 <p class="holiday-nights">${nightsLine(h)}</p>
-<div class="holiday-card-foot"><p class="quote-price">${price(h)}</p><a class="button button-small" href="/holidays/${e(h.slug)}/">View details ${icon('arrow')}</a></div>
+<div class="holiday-card-foot"><p class="quote-price">${price(h)}</p><a class="button button-small" href="/holidays/${e(h.slug)}/" rel="nofollow">View details ${icon('arrow')}</a></div>
 </div></article>`;
 const carouselNav=(id,label)=>`<div class="holiday-carousel-nav"><button type="button" class="icon-button holiday-carousel-btn" data-carousel="${e(id)}" data-dir="-1" aria-label="Previous ${e(label)}">${icon('chevron')}</button><button type="button" class="icon-button holiday-carousel-btn" data-carousel="${e(id)}" data-dir="1" aria-label="Next ${e(label)}">${icon('chevron')}</button></div>`;
 const destinationCarousel=id=>{
@@ -177,22 +176,22 @@ ${chrome(true)}
 <button type="button" class="icon-button hero-pause" id="hero-pause" aria-label="Pause journeys" aria-pressed="false">Ⅱ</button>
 </div>
 </section>
-<div class="promise-strip container"><span>${icon('sparkle')} Journeys made personal</span><span>${icon('temple')} Thoughtful local expertise</span><span>${icon('users')} One dedicated concierge</span></div>
-<section class="section container sacred-section" id="sacred-circuits" aria-labelledby="sacred-title"><div class="section-heading split-heading"><div><p class="eyebrow">THE SACRED, BEAUTIFULLY REIMAGINED</p><h2 id="sacred-title">Private pilgrimage tours<br><em>across three sacred cities.</em></h2></div><p>Be fully present in the moments that matter.<br>We’ll take care of everything around them.</p></div>
-<div class="more-packages">${packages.map(x=>`<button class="secondary-vehicle" data-package="${e(x.slug)}"><span><span class="small-eyebrow">${e(x.eyebrow)}</span><strong>${e(x.title)}</strong><small>${price(x)}</small></span>${icon('arrow')}</button>`).join('')}</div>
+<div class="promise-strip container"><span>${icon('sparkle')} A journey shaped around you</span><span>${icon('temple')} Local coordination, thoughtfully handled</span><span>${icon('users')} One dedicated concierge</span></div>
+<section class="section container sacred-section" id="sacred-circuits" aria-labelledby="sacred-title"><div class="section-heading split-heading"><div><p class="eyebrow">VARANASI · PRAYAGRAJ · AYODHYA</p><h2 id="sacred-title">A private pilgrimage<br><em>planned around you.</em></h2></div><p>Be present for the moments that matter. We’ll coordinate the details around them.</p></div>
+<div class="more-packages">${packages.map(x=>`<a class="secondary-vehicle" href="/sacred-circuits/${x.slug==='nalanda-gaya-bodhgaya'?'bihar-buddhist-pind-daan-circuit/':e(x.slug+'/')}"><span><span class="small-eyebrow">${e(x.eyebrow)}</span><strong>${e(x.title)}</strong><small>${price(x)}</small></span>${icon('arrow')}</a>`).join('')}<a class="text-link" href="/sacred-circuits/">Explore all pilgrimage circuits ${icon('arrow')}</a></div>
 </section>
-<section class="section fleet-section" id="elite-fleet" aria-labelledby="fleet-title"><div class="container"><div class="section-heading centered"><p class="eyebrow">THE ART OF ARRIVING</p><h2 id="fleet-title">Private chauffeur-driven<br><em>transfers &amp; travel.</em></h2><p>Your own space. Your own pace. A finer way to travel.</p></div><div class="fleet-card"><div class="fleet-visual"><div class="fleet-visual-heading"><span class="small-eyebrow">THE ELITE FLEET</span><span class="seats-label">${icon('users')}${e(vehicle.seats)}</span></div><span class="fleet-watermark" aria-hidden="true">${e(vehicle.title.replace('Force ',''))}</span>${vehicle.image?`<img src="${safePath(vehicle.image)}" alt="${e(vehicle.image_alt)}" width="1920" height="734" loading="lazy">`:''}<p class="vehicle-caption">${e(vehicle.image_note)}</p></div><div class="fleet-content"><p class="eyebrow">${e(vehicle.category)}</p><h3>${e(vehicle.title)}</h3><p class="fleet-subtitle">${e(vehicle.audience)}</p><p class="card-description">${e(vehicle.description)}</p><ul class="fleet-features">${vehicle.features.map((x,i)=>`<li>${icon(i===0?'seat':i===1?'users':i===2?'sparkle':'check')}<span>${e(x)}</span></li>`).join('')}</ul><div class="fleet-actions"><button class="text-link" data-vehicle="${e(vehicle.slug)}">Explore this vehicle ${icon('diagonal')}</button><button class="button button-outline" data-inquire="${e(vehicle.title)}">Request a quote ${icon('arrow')}</button></div><p class="fleet-price">${price(vehicle)}</p></div></div><div class="secondary-fleet">${fleet.filter(x=>x!==vehicle).map(x=>`<button class="secondary-vehicle" data-vehicle="${e(x.slug)}"><div class="vehicle-icon">${icon('seat')}</div><span><span class="small-eyebrow">${e(x.category)}</span><strong>${e(x.title)}</strong><small>${e(x.seats)} · ${price(x)}</small></span><span class="circle-arrow">${icon('diagonal')}</span></button>`).join('')}</div></div></section>
-<section class="section container services-section" id="holidays" aria-labelledby="services-title"><div class="section-heading split-heading"><div><p class="eyebrow">ONE CONCIERGE. ENDLESS POSSIBILITIES.</p><h2 id="services-title">Holidays &amp; travel<br><em>concierge services.</em></h2></div><p>From a change of scenery to a celebration.<br>Every detail, beautifully in place.</p></div><div class="bento-grid">${services.map(x=>`<a class="service-card ${x.large?'service-large':''}" href="/services/${e(x.slug)}/"><span class="service-top">${icon(x.icon)}<span class="circle-arrow">${icon('diagonal')}</span></span><span class="service-copy"><span class="small-eyebrow">${e(x.eyebrow)}</span><strong>${e(x.title)}</strong><span class="service-description">${e(x.description)}</span></span>${x.large?`<span class="service-extra">A LITTLE WONDER. A WORLD OF POSSIBILITIES.</span>`:''}</a>`).join('')}</div>${holidayCountries.length?`<div class="home-destinations" aria-labelledby="destinations-title"><div class="holiday-board-intro"><div><h2 id="destinations-title">Holiday destinations</h2><p>Browse countries, then open a circuit built around your dates.</p></div></div>${destinationCarousel('home-destinations')}</div>`:''}</section>
+<section class="section fleet-section" id="elite-fleet" aria-labelledby="fleet-title"><div class="container"><div class="section-heading centered"><p class="eyebrow">THE ART OF ARRIVING</p><h2 id="fleet-title">Private chauffeur-driven<br><em>transfers &amp; travel.</em></h2><p>Your own space. Your own pace. A finer way to travel.</p></div><div class="fleet-card"><div class="fleet-visual"><div class="fleet-visual-heading"><span class="small-eyebrow">THE ELITE FLEET</span><span class="seats-label">${icon('users')}${e(vehicle.seats)}</span></div><span class="fleet-watermark" aria-hidden="true">${e(vehicle.title.replace('Force ',''))}</span>${vehicle.image?`<img src="${safePath(vehicle.image)}" alt="${e(vehicle.image_alt)}" width="1920" height="734" loading="lazy">`:''}<p class="vehicle-caption">${e(vehicle.image_note)}</p></div><div class="fleet-content"><p class="eyebrow">${e(vehicle.category)}</p><h3>${e(vehicle.title)}</h3><p class="fleet-subtitle">${e(vehicle.audience)}</p><p class="card-description">${e(vehicle.description)}</p><ul class="fleet-features">${vehicle.features.map((x,i)=>`<li>${icon(i===0?'seat':i===1?'users':i===2?'sparkle':'check')}<span>${e(x)}</span></li>`).join('')}</ul><div class="fleet-actions"><a class="text-link" href="/elite-fleet/force-urbania-hire-varanasi/">Explore Force Urbania ${icon('diagonal')}</a><button class="button button-outline" data-inquire="${e(vehicle.title)}">Request a quote ${icon('arrow')}</button></div><p class="fleet-price">${price(vehicle)}</p></div></div><div class="secondary-fleet">${fleet.filter(x=>x!==vehicle).map(x=>`<a class="secondary-vehicle" href="/elite-fleet/innova-hycross-crysta-rental-varanasi/"><div class="vehicle-icon">${icon('seat')}</div><span><span class="small-eyebrow">${e(x.category)}</span><strong>${e(x.title)}</strong><small>${e(x.seats)} · ${price(x)}</small></span><span class="circle-arrow">${icon('diagonal')}</span></a>`).join('')}<a class="text-link" href="/elite-fleet/">Explore the full fleet ${icon('arrow')}</a></div></div></section>
+<section class="section container services-section" id="holidays" aria-labelledby="services-title"><div class="section-heading split-heading"><div><p class="eyebrow">ONE CONCIERGE. ENDLESS POSSIBILITIES.</p><h2 id="services-title">Holidays &amp; travel<br><em>concierge services.</em></h2></div><p>From a change of scenery to a celebration.<br>Every detail, beautifully in place.</p></div><div class="bento-grid">${services.filter(x=>x.slug!=='holidays-tours').map(x=>`<a class="service-card ${x.large?'service-large':''}" href="/services/${e(x.slug)}/"><span class="service-top">${icon(x.icon)}<span class="circle-arrow">${icon('diagonal')}</span></span><span class="service-copy"><span class="small-eyebrow">${e(x.eyebrow)}</span><strong>${e(x.title)}</strong><span class="service-description">${e(x.description)}</span></span>${x.large?`<span class="service-extra">A LITTLE WONDER. A WORLD OF POSSIBILITIES.</span>`:''}</a>`).join('')}</div></section>
 ${contactBlock}
 ${pageClose}`;
 const servicePage=s=>{
   const url=`${settings.site_url}/services/${s.slug}/`;
   const title=`${s.title} | ${settings.brand}`;
   const others=services.filter(x=>x!==s);
-  const showHolidays=s.slug==='holidays-tours'&&holidays.length;
+  const showHolidays=false;
   const isVisa=s.slug==='visa-services';
   const jsonLd={'@context':'https://schema.org','@graph':[
-    {'@type':'Organization','@id':`${settings.site_url}/#organization`,name:settings.brand,url:`${settings.site_url}/`},
+    {'@type':['Organization','TravelAgency'],'@id':`${settings.site_url}/#organization`,name:settings.brand,url:`${settings.site_url}/`,telephone:'+919966320256',email:'concierge@irisha.co.in',areaServed:{'@type':'City',name:'Varanasi'},sameAs:['https://share.google/J1Rixybpe20k2upx4','https://www.instagram.com/irishaconcierge/']},
     {'@type':'WebPage','@id':`${url}#webpage`,url,name:title,description:s.details,inLanguage:'en',isPartOf:{'@id':`${settings.site_url}/#website`},about:{'@id':`${settings.site_url}/#organization`}},
     {'@type':'Service',name:s.title,description:s.details,provider:{'@id':`${settings.site_url}/#organization`},url},
     {'@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'Home',item:`${settings.site_url}/`},{'@type':'ListItem',position:2,name:s.title,item:url}]},
@@ -225,14 +224,13 @@ ${pageClose}`;
 const holidayPage=h=>{
   const url=`${settings.site_url}/holidays/${h.slug}/`;
   const title=`${h.title} | ${settings.brand}`;
-  const others=holidays.filter(x=>x!==h).slice(0,3);
+  const others=[];
   const jsonLd={'@context':'https://schema.org','@graph':[
-    {'@type':'Organization','@id':`${settings.site_url}/#organization`,name:settings.brand,url:`${settings.site_url}/`},
+    {'@type':['Organization','TravelAgency'],'@id':`${settings.site_url}/#organization`,name:settings.brand,url:`${settings.site_url}/`,telephone:'+919966320256',email:'concierge@irisha.co.in',areaServed:{'@type':'City',name:'Varanasi'},sameAs:['https://share.google/J1Rixybpe20k2upx4','https://www.instagram.com/irishaconcierge/']},
     {'@type':'WebPage','@id':`${url}#webpage`,url,name:title,description:h.overview||h.description,inLanguage:'en',isPartOf:{'@id':`${settings.site_url}/#website`},about:{'@id':`${settings.site_url}/#organization`}},
-    {'@type':'TouristTrip',name:h.title,description:h.overview||h.description,touristType:h.audience,url,provider:{'@id':`${settings.site_url}/#organization`}},
     {'@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'Home',item:`${settings.site_url}/`},{'@type':'ListItem',position:2,name:h.title,item:url}]}
   ]};
-  return `${pageHead({title,description:h.overview||h.description,canonical:url,jsonLd,preload:h.image})}
+  return `${pageHead({title,description:h.overview||h.description,canonical:url,jsonLd,preload:h.image,noindex:true})}
 ${chrome(false)}
 <main id="main" tabindex="-1">
 <article class="holiday-page">
@@ -254,7 +252,7 @@ ${h.highlights?.length?`<section><h2>Highlights</h2><ul class="package-inclusion
 ${h.why?.length?`<section><h2>Why this trip</h2><ul class="package-inclusion-list">${h.why.map(x=>`<li><span>${e(x)}</span></li>`).join('')}</ul></section>`:''}
 <section id="itinerary"><h2>Itinerary</h2>${h.itinerary_note?`<p class="itinerary-intro">${e(h.itinerary_note)}</p>`:''}${itineraryMarkup(h)}</section>
 </div>
-<aside class="holiday-aside">
+    <aside class="holiday-aside">
 <div class="holiday-quote">
 <p class="small-eyebrow">YOUR HOLIDAY</p>
 <p class="quote-price">${price(h)}</p>
@@ -267,33 +265,102 @@ ${h.exclusions?.length?`<div><h2>Not included</h2><ul class="package-inclusion-l
 </aside>
 </div>
 ${h.notes?`<p class="container package-conditions">${e(h.notes)}</p>`:''}
-${others.length?`<div class="container more-packages service-page-more"><h2>Other holiday packages</h2>${others.map(x=>`<a class="secondary-vehicle" href="/holidays/${e(x.slug)}/"><span><span class="small-eyebrow">${e(x.eyebrow)}</span><strong>${e(x.title)}</strong><small>${e(x.duration)} · ${price(x)}</small></span>${icon('arrow')}</a>`).join('')}</div>`:''}
+${others.length?`<div class="container more-packages service-page-more"><h2>Other holiday packages</h2>${others.map(x=>`<a class="secondary-vehicle" href="/holidays/${e(x.slug)}/" rel="nofollow"><span><span class="small-eyebrow">${e(x.eyebrow)}</span><strong>${e(x.title)}</strong><small>${e(x.duration)} · ${price(x)}</small></span>${icon('arrow')}</a>`).join('')}</div>`:''}
 </article>
 ${contactBlock}
 ${pageClose}`;
 };
-await rm('dist',{recursive:true,force:true});
-await mkdir('dist',{recursive:true});
-await cp('public', 'dist', {recursive:true});
-const headers=await readFile('dist/_headers','utf8');
-if(!headers.includes('Content-Security-Policy:')) throw Error('dist/_headers is missing Content-Security-Policy.');
-await writeFile('dist/_headers',headers.replace(/Content-Security-Policy: .+/,'Content-Security-Policy: '+contentSecurityPolicy()));
-await mkdir('dist/assets',{recursive:true});
-await cp('assets', 'dist/assets', {recursive:true});
-await writeFile('dist/index.html',html);
-await mkdir('dist/services',{recursive:true});
+const faqMarkup=items=>`<section class="faq-section"><h2>Frequently asked questions</h2>${items.map(([q,a])=>`<details class="faq-item"><summary>${e(q)}</summary><p>${e(a)}</p></details>`).join('')}</section>`;
+const primaryFaq=[
+  ['What does the starting price include?','The published starting price is based on two guests sharing and includes 3-star accommodation with breakfast, private transfers, darshan coordination and ritual coordination. Taxes, flights and add-ons cost extra.'],
+  ['Are temple visits or VIP access guaranteed?','No. Darshan coordination follows each temple’s rules, official procedures, timings and availability.'],
+  ['Can flights, rituals or a private boat be arranged?','Flights, selected rituals and private boat arrangements can be requested. Availability, permissions and charges are confirmed in your written quotation.'],
+  ['When is my booking confirmed?','Your inquiry is not a booking. The itinerary, inclusions, price and payment, amendment, cancellation and refund terms are confirmed in writing before booking.']
+];
+const packagePage=p=>{
+  const sacred=p.slug==='sacred-triangle';
+  const url=`${settings.site_url}/sacred-circuits/${p.slug==='sacred-triangle'?'sacred-triangle':p.slug==='nalanda-gaya-bodhgaya'?'bihar-buddhist-pind-daan-circuit':e(p.slug)}/`;
+  const title=`${sacred?'Varanasi, Prayagraj & Ayodhya Sacred Triangle':p.title} | ${settings.brand}`;
+  const description=sacred?'Plan a five-day Varanasi, Prayagraj and Ayodhya pilgrimage with 3-star accommodation, breakfast, private transfers, and darshan and ritual coordination.':p.description;
+  const jsonLd={'@context':'https://schema.org','@graph':[
+    {'@type':['Organization','TravelAgency'],'@id':`${settings.site_url}/#organization`,name:settings.brand,url:`${settings.site_url}/`,telephone:'+919966320256',email:'concierge@irisha.co.in',areaServed:{'@type':'City',name:'Varanasi'},sameAs:['https://share.google/J1Rixybpe20k2upx4','https://www.instagram.com/irishaconcierge/']},
+    {'@type':'WebPage','@id':`${url}#webpage`,url,name:title,description,inLanguage:'en',isPartOf:{'@id':`${settings.site_url}/#website`}},
+    {'@type':'TouristTrip',name:title,description,touristType:'Pilgrimage',url,provider:{'@id':`${settings.site_url}/#organization`}},
+    {'@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'Home',item:`${settings.site_url}/`},{'@type':'ListItem',position:2,name:'Sacred Circuits',item:`${settings.site_url}/sacred-circuits/`},{'@type':'ListItem',position:3,name:title,item:url}]},
+    ...(sacred?[{'@type':'FAQPage',mainEntity:primaryFaq.map(([question,answer])=>({'@type':'Question',name:question,acceptedAnswer:{'@type':'Answer',text:answer}}))}]:[])
+  ]};
+  const sacredDetails=sacred?`<section><h2>What’s included</h2><p><strong>From ₹11,999 per person</strong>, based on two guests sharing.</p><ul class="package-inclusion-list"><li><span>3-star hotel accommodation with breakfast</span></li><li><span>Private transfers</span></li><li><span>Darshan coordination</span></li><li><span>Ritual coordination</span></li></ul><p>Taxes are extra. Flights are not included; flight booking is available on request. Other services and add-ons are extra. Rates vary by season, selected package, traveller count, and availability. Groups of 9 or more can request a tailored group quote.</p></section>
+<section><h2>Available on request</h2><p>Private boat, Rudrabhishek, and Pind Daan coordination are available on request. VIP darshan coordination depends on temple rules, official procedures, and availability.</p></section>
+<section><h2>Plan your arrival</h2><p>We can coordinate arrival or departure plans through Ayodhya, Lucknow, Varanasi, and Patna. Confirm your preferred city when requesting a quote; routes and availability vary.</p></section>
+<section><h2>Your written quotation</h2><p>Your quote confirms itinerary, inclusions, price, payment schedule, amendment, cancellation, and refund terms before you book.</p></section>${faqMarkup(primaryFaq)}`:'';
+  return `${pageHead({title,description,canonical:url,jsonLd,preload:p.image})}
+${chrome(false)}<main id="main" tabindex="-1"><article class="holiday-page commercial-page"><header class="holiday-hero">${p.image?`<img class="holiday-hero-image" src="${safePath(p.image)}" alt="${e(p.image_alt)}" width="1400" height="934">`:''}<div class="holiday-hero-shade"></div><div class="container holiday-hero-copy"><p class="eyebrow">${e(p.eyebrow)}</p><h1 id="hero-title">${sacred?'Varanasi, Prayagraj & Ayodhya Sacred Triangle':e(p.title)}</h1><p>Five days · Four nights · Private pilgrimage planning</p>${sacred?`<div class="holiday-hero-meta"><span>From ₹11,999 per person</span><span>3-star stay with breakfast</span><span>Private transfers</span></div>`:''}<div class="hero-actions"><button class="button" data-inquire="${e(p.title)}">Get Your Tailored Quote ${icon('arrow')}</button></div></div></header><div class="container holiday-layout"><div class="holiday-main"><section><h2>Your journey through sacred cities</h2><p>${e(p.description)}</p><ul class="detail-route">${p.destinations.map(x=>`<li><span>${e(x)}</span></li>`).join('')}</ul></section>${sacredDetails}<section><h2>A considered, day-by-day itinerary</h2>${p.itinerary_note?`<p class="itinerary-intro">${e(p.itinerary_note)}</p>`:''}${itineraryMarkup(p)}</section></div>${sacred?`<aside class="holiday-aside"><div class="holiday-quote"><p class="small-eyebrow">THE SACRED TRIANGLE</p><p class="quote-price">From ₹11,999 per person</p><p>Based on two guests sharing. Taxes extra. Rates vary by season and selected package.</p><button class="button" data-inquire="${e(p.title)}">Get Your Tailored Quote ${icon('arrow')}</button></div></aside>`:''}</div></article>${contactBlock}${pageClose}`;
+};
+const fleetPage=v=>{
+  const urbania=v.slug==='urbania';
+  const url=`${settings.site_url}/elite-fleet/${urbania?'force-urbania-hire-varanasi':'innova-hycross-crysta-rental-varanasi'}/`;
+  const title=`${urbania?'16-Seater Force Urbania Hire in Varanasi':`${v.title} Hire in Varanasi`} | ${settings.brand}`;
+  const description=urbania?'Book a 16-seater Force Urbania from Varanasi, with pickups and destinations within 300 km. From ₹35/km, taxes extra. Request a written quote.':v.description;
+  const jsonLd={'@context':'https://schema.org','@graph':[
+    {'@type':['Organization','TravelAgency'],'@id':`${settings.site_url}/#organization`,name:settings.brand,url:`${settings.site_url}/`,telephone:'+919966320256',email:'concierge@irisha.co.in',areaServed:{'@type':'City',name:'Varanasi'},sameAs:['https://share.google/J1Rixybpe20k2upx4','https://www.instagram.com/irishaconcierge/']},
+    {'@type':'WebPage','@id':`${url}#webpage`,url,name:title,description,inLanguage:'en',isPartOf:{'@id':`${settings.site_url}/#website`}},
+    {'@type':'Service',name:title,description,provider:{'@id':`${settings.site_url}/#organization`},areaServed:{'@type':'City',name:'Varanasi'},url},
+    {'@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'Home',item:`${settings.site_url}/`},{'@type':'ListItem',position:2,name:'Elite Fleet',item:`${settings.site_url}/elite-fleet/`},{'@type':'ListItem',position:3,name:title,item:url}]}
+  ]};
+  return `${pageHead({title,description,canonical:url,jsonLd,preload:v.image||undefined})}${chrome(false)}<main id="main" tabindex="-1"><article class="service-page commercial-page"><div class="container service-page-hero"><p class="eyebrow">${e(v.category)}</p><h1 id="hero-title">${urbania?'16-Seater Force Urbania Hire in Varanasi':e(title)}</h1><p class="service-page-lead">${urbania?'16-seat chauffeur-driven journeys from Varanasi, with pickups and destinations within 300 km.':e(v.description)}</p><div class="hero-actions"><button class="button" data-inquire="${e(v.title)}">Get a Route Quote ${icon('arrow')}</button></div></div>${v.image?`<div class="container fleet-card urbania-feature"><div class="fleet-visual"><img src="${safePath(v.image)}" alt="${e(v.image_alt)}" width="1920" height="734"><p class="vehicle-caption">${e(v.image_note)}</p></div><div class="urbania-feature-copy"><p class="eyebrow">TRAVEL TOGETHER</p><h2>Room for your whole group.</h2><p>16 seats for family pilgrimages, airport transfers, and private group journeys.</p><ul><li>From ₹35/km, taxes extra</li><li>Airport transfers from ₹2,999, taxes extra</li><li>Varanasi-based service within 300 km</li></ul><button class="button" data-inquire="${e(v.title)}">Get a Route Quote ${icon('arrow')}</button></div></div>`:''}<div class="container service-page-columns"><section><h2>Clear starting rates</h2><p><strong>From ₹35/km. Taxes extra.</strong></p><p>Airport transfers start at ₹2,999, plus taxes. We operate from Varanasi, support pickups within 300 km, and serve destinations within 300 km.</p><p>Tolls, border tax, parking, driver allowance, and other trip-specific charges are confirmed in your written quote before booking.</p></section><section><h2>Get a quote for your route</h2><p>Send your pickup point, destination, travel dates, passenger count, and trip duration. We’ll confirm route feasibility, availability, and total charges before you book.</p><p>Image shown is a vehicle model reference, not the specific vehicle allocated to your trip.</p></section></div></article>${contactBlock}${pageClose}`;
+};
+const infoPage=({title,description,url,eyebrow,body,crumb,faqs=[]})=>{
+  const jsonLd={'@context':'https://schema.org','@graph':[
+    {'@type':['Organization','TravelAgency'],'@id':`${settings.site_url}/#organization`,name:settings.brand,url:`${settings.site_url}/`,telephone:'+919966320256',email:'concierge@irisha.co.in',areaServed:{'@type':'City',name:'Varanasi'},sameAs:['https://share.google/J1Rixybpe20k2upx4','https://www.instagram.com/irishaconcierge/']},
+    {'@type':'WebPage','@id':`${url}#webpage`,url,name:title,description,inLanguage:'en',isPartOf:{'@id':`${settings.site_url}/#website`}},
+    {'@type':'BreadcrumbList',itemListElement:[{'@type':'ListItem',position:1,name:'Home',item:`${settings.site_url}/`},{'@type':'ListItem',position:2,name:crumb.name,item:crumb.url},{'@type':'ListItem',position:3,name:title,item:url}]},
+    ...(faqs.length?[{'@type':'FAQPage',mainEntity:faqs.map(([question,answer])=>({'@type':'Question',name:question,acceptedAnswer:{'@type':'Answer',text:answer}}))}]:[])
+  ]};
+  return `${pageHead({title:`${title} | ${settings.brand}`,description,canonical:url,jsonLd})}${chrome(false)}<main id="main" tabindex="-1"><article class="service-page commercial-page"><div class="container service-page-hero"><p class="eyebrow">${e(eyebrow)}</p><h1 id="hero-title">${e(title)}</h1><p class="service-page-lead">${e(description)}</p><div class="hero-actions"><button class="button" data-inquire="${e(title)}">Request details ${icon('arrow')}</button></div></div><div class="container service-page-columns">${body}</div><div class="container service-page-more"><h2>Explore related services</h2><p><a href="/sacred-circuits/">Sacred pilgrimage circuits</a> · <a href="/elite-fleet/">Chauffeur-driven fleet</a></p></div></article>${contactBlock}${pageClose}`;
+};
+const categoryPage=({title,description,url,items,links})=>`${pageHead({title:`${title} | ${settings.brand}`,description,canonical:url,jsonLd:{'@context':'https://schema.org','@type':'CollectionPage',name:title,description,url,mainEntity:items.map(item=>({'@type':'Thing',name:item.name,url:item.url}))}})}${chrome(false)}<main id="main" tabindex="-1"><article class="service-page"><div class="container service-page-hero"><h1 id="hero-title">${e(title)}</h1><p class="service-page-lead">${e(description)}</p></div><div class="container more-packages">${items.map(item=>`<a class="secondary-vehicle" href="${e(item.url)}"><span><strong>${e(item.name)}</strong><small>${e(item.description)}</small></span>${icon('arrow')}</a>`).join('')}${links||''}</div></article>${contactBlock}${pageClose}`;
+const reviewMarkup=`<section class="container reviews-section" aria-labelledby="reviews-title"><div class="section-heading split-heading"><div><p class="eyebrow">GUEST EXPERIENCES</p><h2 id="reviews-title">Kind words from our guests</h2></div></div><div class="review-grid">${[
+  ['Khushi Mishra','“Thank you Irisha Concierge for my special family trip. Driver is so professional and helpful.”'],
+  ['Mrityunjay Mishra','“The journey from Varanasi to Ayodhya to Prayagraj went smoothly without any issue. Both punctuality and service were excellent.”'],
+  ['Janmejay Mishra','“Smooth airport pickups, and skilled drivers navigating heavy city traffic safely.”'],
+  ['Ramanathan Karunanithi','“Very good, well organised, professional team. Kept all the promise and ensured comfortable stay and travel.”'],
+  ['Amit Srivastava','“Being an NRI having a stressless journey itself is a blessing. Thanks Irisha.”'],
+  ['Aditi Chandel','“Having proactive, round-the-clock support when plans go sideways is priceless.”']
+].map(([name,quote])=>`<figure class="review-card"><blockquote>${e(quote)}</blockquote><figcaption>${e(name)}</figcaption></figure>`).join('')}</div></section>`;
+// Insert guest reviews between service discovery and contact on the home page.
+const linkedHome=html.replace('<div class="more-packages">${packages.map', '<div class="more-packages">${packages.map');
+const finalHome=linkedHome.replace(contactBlock,`${reviewMarkup}<p class="container review-source"><a href="https://share.google/J1Rixybpe20k2upx4">Read Google reviews</a></p>${contactBlock}`);
+await rm(outputDir,{recursive:true,force:true});
+await mkdir(outputDir,{recursive:true});
+await cp('public', outputDir, {recursive:true});
+const headers=await readFile(path.join(outputDir,'_headers'),'utf8');
+if(!headers.includes('Content-Security-Policy:')) throw Error(`${outputDir}/_headers is missing Content-Security-Policy.`);
+await writeFile(path.join(outputDir,'_headers'),headers.replace(/Content-Security-Policy: .+/,'Content-Security-Policy: '+contentSecurityPolicy()));
+await mkdir(path.join(outputDir,'assets'),{recursive:true});
+await cp('assets', path.join(outputDir,'assets'), {recursive:true});
+await writeFile(path.join(outputDir,'index.html'),finalHome);
+await mkdir(path.join(outputDir,'services'),{recursive:true});
 for(const service of services){
-  await mkdir(`dist/services/${service.slug}`,{recursive:true});
-  await writeFile(`dist/services/${service.slug}/index.html`,servicePage(service));
+  await mkdir(path.join(outputDir,`services/${service.slug}`),{recursive:true});
+  await writeFile(path.join(outputDir,`services/${service.slug}/index.html`),servicePage(service));
 }
-await mkdir('dist/holidays',{recursive:true});
+for(const [dir,file,content] of [
+  ['sacred-circuits/sacred-triangle','index.html',packagePage(packages.find(p=>p.slug==='sacred-triangle'))],
+  ['sacred-circuits/bihar-buddhist-pind-daan-circuit','index.html',packagePage(packages.find(p=>p.slug==='nalanda-gaya-bodhgaya'))],
+  ['sacred-circuits/varanasi-pilgrimage-concierge','index.html',infoPage({title:'Varanasi Pilgrimage Concierge',description:'Plan a private Varanasi pilgrimage with Kashi Vishwanath visit coordination, Ganga Aarti, private transfers and a considered stay. Temple access and third-party arrangements depend on rules and availability.',url:`${settings.site_url}/sacred-circuits/varanasi-pilgrimage-concierge/`,eyebrow:'KASHI · VARANASI',crumb:{name:'Sacred Circuits',url:`${settings.site_url}/sacred-circuits/`},body:`<section><h2>Plan a pilgrimage in Kashi</h2><p>Irisha Concierge coordinates private travel in Varanasi around your dates, pace and preferences. Share your arrival details, guest count and planned temple visits; we confirm a suitable itinerary and written quote.</p><h2>Kashi Vishwanath and Ganga Aarti</h2><p>Visit coordination follows temple rules, official procedures and available timings. Boat arrangements for Ganga Aarti can be requested and depend on local permissions, river conditions and availability.</p><h2>Stay and onward travel</h2><p>Accommodation and private transfers are proposed for your dates and confirmed in writing. Sarnath visits and onward travel to Prayagraj, Ayodhya or Bodhgaya can be discussed when requesting an itinerary.</p><h2>Accessibility and pace</h2><p>Tell us about mobility, dietary or pacing needs before booking. We will confirm what can be arranged with the relevant providers; specific assistance is not guaranteed until included in your written confirmation.</p>${faqMarkup(primaryFaq)}</section>`})],
+  ['sacred-circuits','index.html',categoryPage({title:'Private Pilgrimage Circuits',description:'Explore private pilgrimage journeys through Varanasi, Prayagraj, Ayodhya, Gaya and Bodhgaya.',url:`${settings.site_url}/sacred-circuits/`,items:[{name:'Varanasi, Prayagraj & Ayodhya Sacred Triangle',description:'Five days / four nights. From ₹11,999 per person.',url:'/sacred-circuits/sacred-triangle/'},{name:'Bihar Buddhist & Pind Daan Circuit',description:'Nalanda, Gaya and Bodhgaya, with personalised quote.',url:'/sacred-circuits/bihar-buddhist-pind-daan-circuit/'},{name:'Varanasi Pilgrimage Concierge',description:'Kashi Vishwanath, Ganga Aarti and private travel coordination.',url:'/sacred-circuits/varanasi-pilgrimage-concierge/'}]})],
+  ['elite-fleet/force-urbania-hire-varanasi','index.html',fleetPage(fleet.find(v=>v.slug==='urbania'))],
+  ['elite-fleet/innova-hycross-crysta-rental-varanasi','index.html',infoPage({title:'Innova Hycross & Crysta Rental in Varanasi',description:'Request chauffeur-driven Toyota Innova Hycross or Crysta travel from Varanasi. Route, vehicle configuration, availability and complete fare confirmed in writing.',url:`${settings.site_url}/elite-fleet/innova-hycross-crysta-rental-varanasi/`,eyebrow:'PRIVATE CHAUFFEUR-DRIVEN SUV',crumb:{name:'Elite Fleet',url:`${settings.site_url}/elite-fleet/`},body:`<section><h2>Toyota Innova Crysta</h2><p>Plan airport transfers, intercity travel or a full day at your own pace. Share passenger and luggage needs; seating, inclusions and complete fare are confirmed before booking.</p><h2>Toyota Innova Hycross</h2><p>A contemporary option for private family and executive journeys. Vehicle configuration, luggage space, availability and all-in quote are confirmed for your dates.</p><h2>Routes and written fares</h2><p>Tell us your pickup point, destination, travel dates and trip duration. Any tolls, parking, driver allowance, taxes and other applicable charges will be itemised in the written quotation. No rate is published until confirmed for your route.</p>${faqMarkup([['Are Crysta and Hycross rates published?','No. Request a written route-specific quote. Vehicle configuration, availability and complete fare are confirmed before booking.'],['Can I request airport or outstation travel?','Yes. Share pickup, destination, dates and trip duration so we can confirm route feasibility and availability.'],['When is the vehicle booking confirmed?','Only after you receive and approve written confirmation of vehicle, inclusions, fare and applicable terms.']])}</section>`})],
+  ['elite-fleet','index.html',categoryPage({title:'Chauffeur-Driven Fleet in Varanasi',description:'Compare private group travel and chauffeur-driven family and executive vehicles available from Varanasi.',url:`${settings.site_url}/elite-fleet/`,items:fleet.map(v=>({name:v.title,description:`${v.seats}. ${v.description}`,url:v.slug==='urbania'?'/elite-fleet/force-urbania-hire-varanasi/':'/elite-fleet/innova-hycross-crysta-rental-varanasi/'}))})]
+]){const target=path.join(outputDir,dir,file);await mkdir(path.dirname(target),{recursive:true});await writeFile(target,content);}
+await mkdir(path.join(outputDir,'holidays'),{recursive:true});
 for(const holiday of holidays){
-  await mkdir(`dist/holidays/${holiday.slug}`,{recursive:true});
-  await writeFile(`dist/holidays/${holiday.slug}/index.html`,holidayPage(holiday));
+  await mkdir(path.join(outputDir,`holidays/${holiday.slug}`),{recursive:true});
+  await writeFile(path.join(outputDir,`holidays/${holiday.slug}/index.html`),holidayPage(holiday));
 }
-await mkdir('dist/admin',{recursive:true});
-for(const f of ['index.html','config.yml','admin.js']) await copyFile('admin/'+f,'dist/admin/'+f);
-await writeFile('dist/robots.txt',`User-agent: *\nAllow: /\nDisallow: /admin/\nSitemap: ${settings.site_url}/sitemap.xml\n`);
+await mkdir(path.join(outputDir,'admin'),{recursive:true});
+for(const f of ['index.html','config.yml','admin.js']) await copyFile('admin/'+f,path.join(outputDir,'admin',f));
+await writeFile(path.join(outputDir,'robots.txt'),`User-agent: *\nAllow: /\nDisallow: /admin/\nSitemap: ${settings.site_url}/sitemap.xml\n`);
 const oneLine=s=>String(s??'').replace(/\s*\n+\s*/g,' ').trim();
 const llmsTxt=`# ${oneLine(settings.brand)}
 
@@ -306,15 +373,15 @@ ${packages.map(p=>`- ${oneLine(p.title)}: ${oneLine(p.description)}`).join('\n')
 ${fleet.map(f=>`- ${oneLine(f.title)} (${oneLine(f.category)}, ${oneLine(f.seats)}): ${oneLine(f.description)}`).join('\n')}
 
 ## Holidays
-${holidays.map(h=>`- [${oneLine(h.title)}](${settings.site_url}/holidays/${h.slug}/): ${oneLine(h.overview||h.description)}`).join('\n')}
+${holidays.map(h=>`- ${oneLine(h.title)}: ${oneLine(h.overview||h.description)} (temporarily noindex pending content review)`).join('\n')}
 
 ## Services
 ${services.map(s=>`- [${oneLine(s.title)}](${settings.site_url}/services/${s.slug}/): ${oneLine(s.details||s.description)}`).join('\n')}
 
 ## Contact
-Enquiries are handled through the WhatsApp concierge button on ${settings.site_url}/ — no public phone number or email is listed on this site.
+Contact Irisha Concierge by phone at +91 99663 20256, email concierge@irisha.co.in, or WhatsApp from ${settings.site_url}/.
 `;
-await writeFile('dist/llms.txt',llmsTxt);
-await writeFile('dist/sitemap.xml',`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${e(settings.site_url)}/</loc></url>${services.map(s=>`<url><loc>${e(settings.site_url)}/services/${e(s.slug)}/</loc></url>`).join('')}${holidays.map(h=>`<url><loc>${e(settings.site_url)}/holidays/${e(h.slug)}/</loc></url>`).join('')}</urlset>`);
-await writeFile('dist/404.html','<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Page not found — Irisha Concierge</title><script src="/theme.js"></script><link rel="stylesheet" href="/styles.css"><!-- Google tag (gtag.js) --><script async src="https://www.googletagmanager.com/gtag/js?id=AW-18450731089"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag(\'js\',new Date());gtag(\'config\',\'AW-18450731089\');</script></head><body><main class="error-page"><p class="eyebrow">IRISHA CONCIERGE · 404</p><h1>A different path<br>awaits.</h1><p>This page could not be found.</p><a class="button" href="/">Return to Irisha</a></main></body></html>');
+await writeFile(path.join(outputDir,'llms.txt'),llmsTxt);
+await writeFile(path.join(outputDir,'sitemap.xml'),`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${e(settings.site_url)}/</loc></url>${services.filter(s=>s.slug!=='holidays-tours').map(s=>`<url><loc>${e(settings.site_url)}/services/${e(s.slug)}/</loc></url>`).join('')}<url><loc>${e(settings.site_url)}/sacred-circuits/</loc></url><url><loc>${e(settings.site_url)}/sacred-circuits/sacred-triangle/</loc></url><url><loc>${e(settings.site_url)}/sacred-circuits/bihar-buddhist-pind-daan-circuit/</loc></url><url><loc>${e(settings.site_url)}/sacred-circuits/varanasi-pilgrimage-concierge/</loc></url><url><loc>${e(settings.site_url)}/elite-fleet/</loc></url><url><loc>${e(settings.site_url)}/elite-fleet/force-urbania-hire-varanasi/</loc></url><url><loc>${e(settings.site_url)}/elite-fleet/innova-hycross-crysta-rental-varanasi/</loc></url></urlset>`);
+await writeFile(path.join(outputDir,'404.html'),'<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Page not found — Irisha Concierge</title><script src="/theme.js"></script><link rel="stylesheet" href="/styles.css"></head><body><main class="error-page"><p class="eyebrow">IRISHA CONCIERGE · 404</p><h1>A different path<br>awaits.</h1><p>This page could not be found.</p><a class="button" href="/">Return to Irisha</a></main></body></html>');
 console.log(`Built Irisha Concierge: ${packages.length} packages, ${fleet.length} vehicles, ${services.length} services, ${holidays.length} holidays, ${offers.length} offers.`);
