@@ -13,7 +13,8 @@ const data=JSON.parse(parseData[1]);
 const robots=await readFile(`${outputDir}/robots.txt`,'utf8');
 for(const agent of ['Googlebot','AdsBot-Google','AdsBot-Google-Mobile','Google-Extended','GPTBot','OAI-SearchBot','ChatGPT-User','PerplexityBot','ClaudeBot'])assert(robots.includes(`User-agent: ${agent}\nAllow: /`),`robots.txt missing Allow for ${agent}`);
 assert(!('whatsapp' in data.settings) && !('phone_display' in data.settings),'Contact data leaked into public JSON');
-assert(html.includes('href="tel:+919966320256"'),'Public telephone link missing');
+assert(!html.includes('href="tel:'),'Telephone links must not be visible');
+assert(html.includes('<div class="mobile-contact-bar"><button data-contact>WhatsApp Instant Quote</button></div>'),'Mobile bar must have one WhatsApp item');
 assert(html.includes('href="mailto:concierge@irisha.co.in"'),'Public email link missing');
 assert(!html.includes('CONTACT_WHATSAPP'),'WhatsApp secret leaked into page source');
 for(const collection of ['packages','fleet','holidays']){

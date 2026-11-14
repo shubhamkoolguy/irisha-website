@@ -66,7 +66,7 @@
     openDialog(inquiry, trigger);
   }
   const action = label => `<button class="button detail-cta" data-inquire="${e(label)}">Personalise my ${data.fleet.some(x=>x.title===label)?'ride':'journey'} <span aria-hidden="true">→</span></button>`;
-  const privacyCopy = `<p>Submitting saves your name, phone, selected service, travel date, traveler count, pickup and notes in Irisha's CRM so we can contact you about your trip. An inquiry is not a booking. We also save allowlisted campaign parameters and the landing page without its query or fragment. Inquiry details and retry keys stay in memory, not browser storage.</p><p>After receipt, you may choose Continue on WhatsApp. Nothing is sent in WhatsApp automatically. Avoid passport numbers, payment details and sensitive documents in your inquiry.</p><h3>Third-party services</h3><p>Cloudflare hosts the website and processes technical request information; Google reCAPTCHA processes device and interaction information and may use cookies to prevent abuse under Google's privacy terms. WhatsApp applies its own terms when used. Google Fonts, Google Tag Manager and Google Ads are present. Appearance preference alone is stored locally.</p><p>For access, correction or deletion requests, email concierge@irisha.co.in.</p>`;
+   const privacyCopy = `<p>Submitting requests a save of your name, phone, selected service, travel date, traveler count, pickup and notes in Irisha's CRM so we can contact you about your trip. An inquiry is not a booking. We also save allowlisted campaign parameters and the landing page without its query or fragment. Inquiry details and retry keys stay in memory, not browser storage.</p><p>After confirmed receipt, WhatsApp opens with your full details and reference. Continue on WhatsApp remains available if opening fails. If saving or verification fails, you can click a direct WhatsApp fallback with your details but no confirmed receipt or reference. Nothing is sent in WhatsApp automatically. Avoid passport numbers, payment details and sensitive documents in your inquiry.</p><h3>Third-party services</h3><p>Cloudflare hosts the website and processes technical request information; Google reCAPTCHA processes device and interaction information and may use cookies to prevent abuse under Google's privacy terms. WhatsApp applies its own terms when used. Google Fonts, Google Tag Manager and Google Ads are present. Appearance preference alone is stored locally.</p><p>For access, correction or deletion requests, email concierge@irisha.co.in.</p>`;
   const bookingCopy = `<p>Every journey is tailored to your dates, group and preferences. An inquiry is not a confirmed reservation or payment.</p><h3>Your quote</h3><p>Your concierge confirms itinerary, accommodation, vehicle configuration, inclusions, exclusions, taxes, payment schedule, amendments, cancellation terms and refund terms in writing before booking. No booking is confirmed until your concierge confirms it in writing.</p><h3>Sacred experiences</h3><p>Darshan coordination is subject to temple rules, official procedures and availability. Ritual coordination and private boat arrangements are available on request and subject to availability, local permissions and provider conditions.</p><h3>Flights and other providers</h3><p>Flights are excluded from the Sacred Triangle package and can be booked on request. Airfare, baggage, schedule changes, cancellations and refunds follow the airline’s rules. Other third-party experiences follow the relevant provider’s conditions. Review your written quotation and booking confirmation for the applicable terms before paying.</p>`;
   const packageItinerary = p => `<ol class="itinerary">${p.itinerary.map((day,i)=>`<li class="itinerary-stop"><span class="stop-number" aria-hidden="true">${String(day.day||i+1).padStart(2,'0')}</span><div><p class="small-eyebrow">${e(day.day_label||`Day ${day.day||i+1}`)} · ${e(day.place)}</p><h3>${e(day.title)}</h3><p>${e(day.description)}</p>${day.schedule?.length?`<dl class="itinerary-schedule">${day.schedule.map(slot=>`<div><dt>${e(slot.period)}</dt><dd>${e(slot.description)}</dd></div>`).join('')}</dl>`:''}${day.overnight?`<p class="itinerary-overnight"><strong>Overnight</strong> ${e(day.overnight)}</p>`:''}</div></li>`).join('')}</ol>`;
   function showDetail(type, key, trigger) {
@@ -107,14 +107,31 @@
     if(value && value.length<=500 && !/[\u0000-\u001f]/.test(value))attribution[key]=value;
   }
   attribution.landing_page_url=location.origin+location.pathname;
-  let pending, fingerprint, saved, busy=false, widget, captchaReady;
-  const edited=()=>{whatsapp.hidden=true;status.textContent='';saved=null;};
+   let pending, fingerprint, saved, serviceLabel, busy=false, widget, captchaReady;
+   const edited=()=>{whatsapp.hidden=true;status.textContent='';};
   form.addEventListener('input',edited);
   form.addEventListener('change',edited);
   byId('verification-cancel').addEventListener('click',()=>{if(busy)return;verification.hidden=true;openDialog(inquiry);});
-  async function save(token){
-    if(busy)return;
-    busy=true;
+   function showWhatsApp(reference){
+     const message=['Namaste Irisha Concierge, I would like to plan a journey.',
+       `Name: ${pending.name}`,`Phone: ${pending.phone}`,`Service: ${serviceLabel}`,
+       `Travelers: ${pending.travelers ?? 'Not decided yet'}`,
+       `Travel date: ${pending.travel_date ? pending.travel_date.split('-').reverse().join('/') : 'Not decided yet'}`,
+       `Pickup: ${pending.pickup || 'Not specified'}`,`Notes: ${pending.notes || 'None'}`,
+       ...(reference ? [`Inquiry reference: ${reference}`] : [])].join('\n');
+     whatsapp.href='https://wa.me/919966320256?text='+encodeURIComponent(message);
+     whatsapp.textContent=reference?'Continue on WhatsApp':'Open WhatsApp directly (receipt unconfirmed)';
+     whatsapp.hidden=false;
+     return whatsapp.href;
+   }
+   function fallback(message){
+     status.textContent=message+' CRM receipt is unconfirmed. Retry saving, or click the direct WhatsApp link to share your details. Nothing is sent automatically.';
+     showWhatsApp();
+   }
+   async function save(token){
+     if(busy||saved)return;
+     busy=true;
+     let url;
     byId('verification-status').textContent='Saving inquiry...';
     try{
       const response=await fetch('/api/inquiries',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...pending,token,company_website:form.elements.company_website.value}),signal:AbortSignal.timeout(15000)});
@@ -123,13 +140,11 @@
       if(![200,201].includes(response.status)||result.status!=='received'||!/^[0-9a-f-]{36}$/i.test(result.inquiry_reference))throw Error('Could not confirm receipt. Please retry.');
       saved=result.inquiry_reference;
       status.textContent='Inquiry received. Reference: '+saved;
-      const label=form.elements.interest.selectedOptions[0].textContent;
-      const message=`Namaste Irisha Concierge, my inquiry reference is ${saved}. I am ${pending.name}, interested in ${label}.`;
-      whatsapp.href='https://wa.me/919966320256?text='+encodeURIComponent(message);
-      whatsapp.hidden=false;
-      window.gtag?.('event','inquiry_received');
-    }catch(error){status.textContent=error.name==='TimeoutError'||error.name==='AbortError'||error instanceof TypeError?'Could not confirm receipt. Please retry.':error.message;}
-    finally{busy=false;verification.hidden=true;window.grecaptcha?.reset(widget);openDialog(inquiry);}
+       url=showWhatsApp(saved);
+       window.gtag?.('event','inquiry_received');
+     }catch(error){if(!saved)fallback(error.name==='TimeoutError'||error.name==='AbortError'||error instanceof TypeError?'Could not confirm receipt. Please retry.':error.message);}
+     finally{busy=false;verification.hidden=true;window.grecaptcha?.reset(widget);openDialog(inquiry);}
+     if(url){try{location.assign(url);}catch{status.textContent='Inquiry received. Reference: '+saved+'. Click Continue on WhatsApp to open your message.';}}
   }
   form.addEventListener('submit',async event => {
     event.preventDefault();
@@ -138,8 +153,10 @@
     if(values.get('company_website'))return;
     const payload={name:values.get('name').trim(),phone:values.get('phone').trim(),service_id:values.get('interest'),travel_date:values.get('date')?values.get('date').split('/').reverse().join('-'):null,travelers:values.get('guests')?Number(values.get('guests')):null,pickup:values.get('pickup').trim(),notes:values.get('notes').trim(),attribution};
     const next=JSON.stringify(payload);
-    if(next!==fingerprint){pending={submission_key:crypto.randomUUID(),...payload};fingerprint=next;saved=null;}
-    if(saved)return;
+     if(next!==fingerprint){pending={submission_key:crypto.randomUUID(),...payload};fingerprint=next;saved=null;}
+     serviceLabel=form.elements.interest.selectedOptions[0].textContent;
+     if(saved){status.textContent='Inquiry received. Reference: '+saved;showWhatsApp(saved);return;}
+     whatsapp.hidden=true;
     inquiry.close();verification.hidden=false;
     byId('verification-status').textContent='Complete human verification to save your inquiry.';
     try{
@@ -154,12 +171,11 @@
           script.src='https://www.google.com/recaptcha/api.js?onload=irishaCaptchaLoaded&render=explicit';script.onerror=()=>{clearTimeout(timer);reject(Error('Verification load failed.'));};
           document.head.append(script);
         });
-        widget=window.grecaptcha.render('captcha-widget',{sitekey:config.siteKey,callback:save,'error-callback':()=>{byId('verification-status').textContent='Verification failed. Retry or return to inquiry.';}});
+         widget=window.grecaptcha.render('captcha-widget',{sitekey:config.siteKey,callback:save,'error-callback':()=>{if(busy||saved)return;verification.hidden=true;fallback('Inquiry verification failed.');openDialog(inquiry);}});
       })();
       await captchaReady;
-    }catch{captchaReady=null;verification.hidden=true;status.textContent='Inquiry verification is unavailable. Please retry later.';openDialog(inquiry);}
-  });
-  document.querySelectorAll('[data-track-tel]').forEach(link=>link.addEventListener('click',()=>window.gtag?.('event','phone_click',{phone_number:'+919966320256'})));
+     }catch{captchaReady=null;verification.hidden=true;fallback('Inquiry verification is unavailable. Please retry later.');openDialog(inquiry);}
+   });
 
   // Resolve offer schedules on the visitor's clock too, so an expired offer
   // disappears without waiting for another static deployment.

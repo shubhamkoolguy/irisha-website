@@ -1,12 +1,12 @@
 # Irisha Concierge
 
-A static concierge travel website with a Decap CMS content model and Cloudflare Pages deployment support. Public pages use semantic HTML, custom CSS and dependency-free JavaScript. Sacred Triangle, Bihar Circuit, Varanasi Pilgrimage Concierge, Force Urbania, and Innova Crysta/Hycross have dedicated indexable pages. International holiday pages remain available but are temporarily noindex pending editorial itinerary and content review. Google reCAPTCHA v2 checkbox verification protects access to the WhatsApp destination.
+A static concierge travel website with a Decap CMS content model and Cloudflare Pages deployment support. Public pages use semantic HTML, custom CSS and dependency-free JavaScript. Sacred Triangle, Bihar Circuit, Varanasi Pilgrimage Concierge, Force Urbania, and Innova Crysta/Hycross have dedicated indexable pages. International holiday pages remain available but are temporarily noindex pending editorial itinerary and content review. Google reCAPTCHA v2 checkbox verification protects CRM inquiry saves, not the public WhatsApp destination.
 
 ## Current delivery
 
 The Sites URL is a private review deployment of the complete static website. The editor is configured for the private GitHub repository `shubhamkoolguy/irisha-website`, branch `main`. This does **not** replace the website at `irisha.co.in` or activate its CMS login. Cloudflare Pages, the production domain, and the GitHub OAuth app still require account setup.
 
-The supplied website includes contextual inquiry dialogs that save to CRM before showing a reference and optional WhatsApp link, server-verified reCAPTCHA, mandatory edge rate limiting, public phone and email links, Google review excerpts, native keyboard-accessible detail dialogs, mobile navigation, timed offer rotation with a pause control, no-JavaScript readable core content, metadata, a sitemap, a 404 page and optimized WebP photos.
+The supplied website includes contextual inquiry dialogs that save to CRM before showing a reference and opening WhatsApp, server-verified reCAPTCHA, mandatory edge rate limiting, public email links, Google review excerpts, native keyboard-accessible detail dialogs, mobile navigation, timed offer rotation with a pause control, no-JavaScript readable core content, metadata, a sitemap, a 404 page and optimized WebP photos. Failed saves offer a click-only direct WhatsApp fallback without a confirmed receipt.
 
 ## Run and build
 
@@ -82,7 +82,7 @@ Set these values in the host's **runtime environment settings**, then republish/
 
 Legacy `/api/contact` verification still uses runtime `CONTACT_WHATSAPP`; inquiry saves reuse that verification configuration. The new post-receipt WhatsApp link uses the existing public `wa.me/919966320256`. Confirm this number with the owner before launch. Previously published copies cannot be recalled.
 
-Planning buttons open the inquiry form. Submission verifies a fresh Google token and saves details through `/api/inquiries` to CRM. The challenge is outside native dialogs. Only after receipt does the form show a reference and explicit Continue on WhatsApp link using the existing public wa.me number; no automatic navigation or send. Failed requests preserve form details and retry key in memory. Public phone and email links remain direct.
+Planning buttons open the inquiry form. Submission verifies a fresh Google token and saves details through `/api/inquiries` to CRM. The challenge is outside native dialogs. Confirmed receipt shows a reference and Continue on WhatsApp link, then automatically opens WhatsApp using the existing public wa.me number. The encoded message includes name, phone, selected service, travelers, date, pickup, notes and confirmed reference. Nothing is sent until the visitor presses Send in WhatsApp. Failed saves or unavailable verification offer an explicitly labeled, click-only direct WhatsApp fallback with full details but no receipt or reference. Receipt remains unconfirmed; CRM protection is never bypassed. Failed requests preserve form details and retry key in memory. Email remains direct; call links are removed.
 
 The Sites Worker permits public pages to be embedded by `https://chatgpt.com`. CMS pages retain same-origin-only embedding. Cloudflare Pages uses its own same-origin policy in `public/_headers`. Missing protection settings disable inquiry submission, not public pages.
 

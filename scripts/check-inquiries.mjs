@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
+import {runInNewContext} from 'node:vm';
 import worker,{submitInquiry,validateInquiry} from '../server/contact-worker.mjs';
 import {onRequest} from '../functions/api/inquiries.js';
 const origin='https://irisha.example';
@@ -55,5 +56,55 @@ for(const file of ['dist/app.js','dist/index.html','dist/server/index.js']){
   const source=await readFile(file,'utf8');assert(!source.includes(env.WEBSITE_INQUIRY_SECRET));assert(!source.includes(env.RECAPTCHA_SECRET_KEY));
 }
 const app=await readFile('public/app.js','utf8');
-assert(!app.includes("'event','conversion'"));assert(!app.includes('window.location.assign(url)'));assert(!app.includes('localStorage'));assert(app.includes("'event','inquiry_received'"));
+assert(!app.includes("'event','conversion'"));assert(!app.includes('localStorage'));assert(app.includes("'event','inquiry_received'"));
+// Execute the actual inquiry flow with browser boundaries mocked, not live CRM requests.
+function browserFlow(fetcher, navigationFails=false){
+  const nodes=new Map(), handlers={}, navigations=[],events=[],requests=[];
+  const node=id=>{if(!nodes.has(id))nodes.set(id,{hidden:true,textContent:'',addEventListener(){},close(){}});return nodes.get(id);};
+  const values={name:'Guest & family',phone:'+91 99663 20256',interest:'sacred-triangle',date:'10/12/2026',guests:'2',pickup:'Airport & hotel',notes:'Line one\nLine two + 50%?',company_website:''};
+  const form=node('inquiry-form');
+  form.elements={company_website:{value:''},interest:{selectedOptions:[{textContent:'Sacred & Private'}]}};
+  form.reportValidity=()=>true;form.addEventListener=(type,fn)=>{handlers[type]=fn;};
+  let captcha;
+  const window={gtag:(...args)=>events.push(args),grecaptcha:{reset(){},render(_id,options){captcha=options;return 1;}}};
+  const context={byId:node,location:{search:'',origin,pathname:'/',assign:url=>{if(navigationFails)throw Error('Navigation blocked');navigations.push(url);}},window,URLSearchParams,crypto,AbortSignal,FormData:class{get(key){return values[key];}},fetch:async(...args)=>{requests.push(args);return fetcher(...args);},inquiry:node('inquiry-dialog'),openDialog(){},setTimeout,clearTimeout,document:{createElement:()=>({}),head:{append:()=>window.irishaCaptchaLoaded()}}};
+  runInNewContext(app.slice(app.indexOf("  const form=byId('inquiry-form');"),app.indexOf('  // Resolve offer schedules')),context);
+  return {nodes,values,handlers,navigations,events,requests,submit:()=>handlers.submit({preventDefault(){}}),save:()=>captcha.callback('verified-token'),captcha:()=>captcha};
+}
+const config=()=>Response.json({configured:true,siteKey:'test'});
+const message=flow=>new URL(flow.nodes.get('inquiry-whatsapp').href).searchParams.get('text');
+const fullDetails=flow=>{
+  for(const value of ['Guest & family','+91 99663 20256','Sacred & Private','Travelers: 2','10/12/2026','Airport & hotel','Line one\nLine two + 50%?'])assert(message(flow).includes(value),value);
+};
+const successFlow=browserFlow(async url=>url.endsWith('captcha-config')?config():Response.json({status:'received',inquiry_reference:body.submission_key},{status:201}));
+await successFlow.submit();await successFlow.save();fullDetails(successFlow);
+assert(message(successFlow).includes('Inquiry reference: '+body.submission_key));
+assert.equal(successFlow.navigations[0],successFlow.nodes.get('inquiry-whatsapp').href);
+assert.equal(successFlow.nodes.get('inquiry-whatsapp').hidden,false);
+await successFlow.save();await successFlow.submit();
+successFlow.handlers.input();await successFlow.submit();
+assert.equal(successFlow.requests.length,2);assert.equal(successFlow.events.length,1);
+for(const failure of [()=>Response.json({error:'Save failed'},{status:502}),()=>{throw new DOMException('Timeout','TimeoutError');},()=>Response.json({status:'received',inquiry_reference:'invalid'})]){
+  let attempt=0;
+  const flow=browserFlow(async url=>url.endsWith('captcha-config')?config():++attempt===1?failure():Response.json({status:'received',inquiry_reference:body.submission_key},{status:200}));
+  await flow.submit();await flow.save();fullDetails(flow);
+  assert(!message(flow).includes('reference'));assert.equal(flow.navigations.length,0);assert.equal(flow.events.length,0);
+  assert.match(flow.nodes.get('inquiry-status').textContent,/receipt is unconfirmed/);
+  assert.match(flow.nodes.get('inquiry-whatsapp').textContent,/directly/);
+  await flow.submit();await flow.save();
+  assert.equal(JSON.parse(flow.requests[1][1].body).submission_key,JSON.parse(flow.requests[2][1].body).submission_key);
+  assert.equal(flow.events.length,1);
+}
+const unavailable=browserFlow(async()=>Response.json({configured:false},{status:503}));
+await unavailable.submit();fullDetails(unavailable);assert.equal(unavailable.navigations.length,0);assert.equal(unavailable.requests.length,1);assert(!message(unavailable).includes('reference'));
+const captchaError=browserFlow(async()=>config());await captchaError.submit();captchaError.captcha()['error-callback']();
+fullDetails(captchaError);assert.equal(captchaError.navigations.length,0);assert.equal(captchaError.events.length,0);
+const blocked=browserFlow(async url=>url.endsWith('captcha-config')?config():Response.json({status:'received',inquiry_reference:body.submission_key}),true);
+for(const key of ['date','guests','pickup','notes'])blocked.values[key]='';
+await blocked.submit();await blocked.save();
+assert.match(blocked.nodes.get('inquiry-status').textContent,/Inquiry received.*Click Continue/);
+assert.equal(blocked.nodes.get('inquiry-whatsapp').hidden,false);
+assert.match(message(blocked),/Travelers: Not decided yet\nTravel date: Not decided yet\nPickup: Not specified\nNotes: None/);
+await blocked.save();assert.equal(blocked.events.length,1);
+console.log('PASS: full encoded WhatsApp details, confirmed auto handoff, click-only failure/config/verification fallback, retry keys and duplicate-save/event guards.');
 console.log('PASS: inquiry validation, origin, limiter fail-closed, body bounds, CAPTCHA, exact CRM payload, retries, errors, secret isolation and both routes.');
