@@ -6,7 +6,7 @@ A static concierge travel website with a Decap CMS content model and Cloudflare 
 
 The Sites URL is a private review deployment of the complete static website. The editor is configured for the private GitHub repository `shubhamkoolguy/irisha-website`, branch `main`. This does **not** replace the website at `irisha.co.in` or activate its CMS login. Cloudflare Pages, the production domain, and the GitHub OAuth app still require account setup.
 
-The supplied website includes contextual inquiry dialogs that compose WhatsApp messages, server-verified reCAPTCHA contact access, public phone and email links, Google review excerpts, native keyboard-accessible detail dialogs, mobile navigation, timed offer rotation with a pause control, no-JavaScript readable core content, metadata, a sitemap, a 404 page and optimized WebP photos.
+The supplied website includes contextual inquiry dialogs that save to CRM before showing a reference and optional WhatsApp link, server-verified reCAPTCHA, mandatory edge rate limiting, public phone and email links, Google review excerpts, native keyboard-accessible detail dialogs, mobile navigation, timed offer rotation with a pause control, no-JavaScript readable core content, metadata, a sitemap, a 404 page and optimized WebP photos.
 
 ## Run and build
 
@@ -64,7 +64,7 @@ If you use the `*.pages.dev` origin initially, align `content/settings.json`, th
 
 ### Google reCAPTCHA activation
 
-The frontend and server verification are implemented. **Contact links stay locked until real Google keys are configured.** There is no test-key, disabled-JavaScript or failed-provider bypass. A missing/invalid configuration returns a generic unavailable message without revealing the phone number.
+Frontend and server verification protect inquiry saves. Missing/invalid configuration disables saving; no test-key, disabled-JavaScript or failed-provider bypass. Owner-approved phone, email and WhatsApp number are public; CAPTCHA is not phone-number secrecy.
 
 Create a **reCAPTCHA v2 “I'm not a robot” Checkbox** integration in [Google's reCAPTCHA console](https://www.google.com/recaptcha/admin/create). This implementation uses the v2 `api.js` and `siteverify` API, so supply a compatible site key and secret, not v3 keys or Enterprise assessment-only credentials. Register the exact serving hostnames, without a scheme or path:
 
@@ -80,11 +80,19 @@ Set these values in the host's **runtime environment settings**, then republish/
 | `RECAPTCHA_ALLOWED_HOSTNAMES` | Comma-separated exact hostnames listed above |
 | `CONTACT_WHATSAPP` | Confirmed business number, international digits only, stored as a **secret** |
 
-The WhatsApp destination number remains in runtime secret `CONTACT_WHATSAPP`. Owner-approved phone and email links are public page content; do not assume public phone is also the WhatsApp destination. Previously published secret copies cannot be recalled by this change.
+Legacy `/api/contact` verification still uses runtime `CONTACT_WHATSAPP`; inquiry saves reuse that verification configuration. The new post-receipt WhatsApp link uses the existing public `wa.me/919966320256`. Confirm this number with the owner before launch. Previously published copies cannot be recalled.
 
-All WhatsApp buttons open the protected flow. Direct contact buttons request verification immediately; trip-planning forms prepare the message locally and then open verification. Google's challenge is rendered outside native dialogs so its iframe remains accessible. The contact endpoint checks the request origin, request size, honeypot and Google response, rejects wrong hostnames and failures, and releases the WhatsApp destination only on success. Google enforces token expiry and single use. Responses are not cached; WhatsApp destination and CAPTCHA keys are not logged. Travel names, dates and notes stay on the device until the visitor chooses to send them in WhatsApp. Public phone and email links can be used directly.
+Planning buttons open the inquiry form. Submission verifies a fresh Google token and saves details through `/api/inquiries` to CRM. The challenge is outside native dialogs. Only after receipt does the form show a reference and explicit Continue on WhatsApp link using the existing public wa.me number; no automatic navigation or send. Failed requests preserve form details and retry key in memory. Public phone and email links remain direct.
 
-The Sites Worker permits public pages to be embedded by `https://chatgpt.com` so the in-app Site view can load. CMS pages retain same-origin-only embedding. Cloudflare Pages uses its own same-origin policy in `public/_headers`. Missing reCAPTCHA keys disable contact verification, not the public page. There is currently no website-to-CRM lead submission: a WhatsApp inquiry reaches the business only when the visitor chooses to send the prepared message. CRM integration requires the CRM API and credential configuration.
+The Sites Worker permits public pages to be embedded by `https://chatgpt.com`. CMS pages retain same-origin-only embedding. Cloudflare Pages uses its own same-origin policy in `public/_headers`. Missing protection settings disable inquiry submission, not public pages.
+
+### CRM inquiry activation
+
+Set runtime secret `WEBSITE_INQUIRY_SECRET` matching CRM. Optional `CRM_INQUIRY_URL` defaults to `https://wanderdesk-crm.pages.dev/api/integrations/website/inquiries`. Configure real CAPTCHA settings above; CAPTCHA remains mandatory. Secrets remain server-only; no build-time credential injection.
+
+Edge protection has two alternatives: native Worker binding `INQUIRY_RATE_LIMITER` with `.limit({key})`, or a Cloudflare zone WAF rate limiting rule for Pages on its custom domain. For Pages, configure and test a rule matching that hostname, method POST and exact path `/api/inquiries`, then set runtime `INQUIRY_EDGE_RATE_LIMITED` to the exact string `'true'`. **This flag confirms operator setup; it is not protection itself.** Do not enable it before testing the external rule. Keep previews and unprotected `pages.dev` hosts disabled: omit the preview flag, restrict CAPTCHA allowed hostnames to protected hosts, and redirect or block alternate production hosts. Neither binding nor explicit confirmation means 503. A present binding always takes priority and cannot be bypassed by the flag on errors or denial. Neither alternative promises globally exact quotas.
+
+See [implemented technical contract and operator steps](docs/website-crm-inquiry-technical-spec.md) for Wrangler binding example, Pages/Worker routing, validation, retry semantics and release checks. `/api/inquiries` is included in Pages invocation routes. `npm run check` includes focused inquiry tests. No live setup or deployment is performed by these tests.
 
 This reduces automated harvesting from this site. It is **not** a guarantee against scrapers, CAPTCHA-solving services, robocalls or numbers obtained from older pages, social media or directories. Public marketing pages remain readable. Additional site-wide anti-scraping controls would require configuration in the business's Cloudflare account; none have been enabled by this change. The visible checkbox remains until a low-friction provider is configured and tested with production credentials; do not remove server-side verification or replace it with client-only checks.
 
@@ -103,7 +111,7 @@ Static content and local-asset checks, anchor validation, JavaScript syntax chec
 ## Editing and maintenance
 
 - Run `npm run build` after changing content or admin sources; run `npm run check` before committing.
-- `public/app.js` owns navigation, native dialogs, offer rotation, WhatsApp message composition and the reCAPTCHA UI. `server/contact-worker.mjs` supplies server verification and Sites asset serving. The secret and phone number are read only from runtime variables.
+- `public/app.js` owns navigation, native dialogs, offer rotation, inquiry retries, post-receipt WhatsApp links and reCAPTCHA UI. `server/contact-worker.mjs` supplies protected CRM proxy, verification and Sites asset serving. CRM and CAPTCHA secrets are runtime-only.
 - `public/styles.css` defines the responsive layouts. Obsidian `#0b0614`, dark violet surfaces and orchid/magenta accents are central CSS variables.
 - Google Fonts serves Plus Jakarta Sans, Cormorant Garamond and Noto Sans Devanagari, each with system fallbacks. Fonts use `display=swap`.
 - Decap CMS is pinned to `3.16.3` and loads only on the admin route, after the real repository is configured. Update deliberately after checking upstream release notes.

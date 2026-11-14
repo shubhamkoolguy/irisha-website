@@ -134,10 +134,10 @@ for(const holiday of data.holidays||[]){
 for(const generated of [html,...await Promise.all([`${outputDir}/sacred-circuits/index.html`,`${outputDir}/elite-fleet/index.html`].map(p=>readFile(p,'utf8')))])assert(!generated.includes('irisha-website.pages.dev'),'Private Pages preview host leaked into public output.');
 const appSource=await readFile('public/app.js','utf8');
 assert(appSource.includes('Darshan coordination is subject to temple rules'),'Booking policy must state darshan availability');
-assert(appSource.includes('Google Tag Manager and Google Ads tags are present'),'Privacy copy must disclose installed tags');
-assert(html.includes('name="phone" type="tel"')&&appSource.includes('Mobile / WhatsApp:'),'Inquiry flow must request phone and include it in prepared message');
+assert(appSource.includes('Google Tag Manager and Google Ads'),'Privacy copy must disclose installed tags');
+assert(html.includes('name="phone" type="tel"')&&appSource.includes("phone:values.get('phone').trim()"),'Inquiry flow must request phone and save it');
 assert.deepEqual(data.holidays,[],'Noindex international holidays should not be serialized into shared homepage content.');
- assert(html.includes('name="gclid"')&&html.includes('optgroup label="Sacred Pilgrimage Circuits"'),'Inquiry attribution and grouping missing');
+ assert(appSource.includes("'gclid','utm_source'")&&html.includes('option value="sacred-triangle"'),'Inquiry attribution and explicit service IDs missing');
  assert((html.match(/<table>/g)||[]).length>=1,'Homepage tariff table missing');
  assert(html.includes('₹7,500'),'Homepage local fleet tariff missing');
  assert((html.match(/<section class="faq-section" id="faq"/g)||[]).length===1,'Homepage FAQ section missing');

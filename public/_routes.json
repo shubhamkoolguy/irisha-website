@@ -5,6 +5,7 @@
     "/api/callback",
     "/api/captcha-config",
     "/api/contact",
+    "/api/inquiries",
     "/admin/",
     "/admin/index.html"
   ],
