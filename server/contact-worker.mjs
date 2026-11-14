@@ -34,7 +34,7 @@ async function readBody(request, max = 12288) {
   return JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes));
 }
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-export const attributionFields = ['gclid','utm_source','utm_medium','utm_campaign','utm_term','utm_content','landing_page_url'];
+export const attributionFields = ['gclid','gbraid','wbraid','utm_source','utm_medium','utm_campaign','utm_term','utm_content','landing_page_url'];
 export function validateInquiry(body) {
   const fields=['submission_key','name','phone','service_id','travel_date','travelers','pickup','notes','attribution','company_website'];
   if(!body || typeof body!=='object' || Array.isArray(body) || Object.keys(body).some(key=>!fields.includes(key)))throw Error('Invalid inquiry.');
@@ -52,7 +52,7 @@ export function validateInquiry(body) {
   if(!body.attribution || typeof body.attribution!=='object' || Array.isArray(body.attribution))throw Error('Invalid attribution.');
   const attribution={};
   for(const [key,value] of Object.entries(body.attribution)){
-    if(!attributionFields.includes(key)||typeof value!=='string'||value.length>500||/[\u0000-\u001f]/.test(value))throw Error('Invalid attribution.');
+    if(!attributionFields.includes(key)||typeof value!=='string'||!value.length||value.length>500||value!==value.trim()||/[\u0000-\u001f\u007f]/.test(value)||(['gclid','gbraid','wbraid'].includes(key)&&!/^[A-Za-z0-9_-]+$/.test(value)))throw Error('Invalid attribution.');
     if(key==='landing_page_url'){
       const url=new URL(value);
       if(!['https:','http:'].includes(url.protocol)||url.username||url.password||url.search||url.hash)throw Error('Invalid landing page.');
@@ -87,7 +87,7 @@ export async function submitInquiry(request,env) {
     if(response.status===409)return reply({error:'Inquiry conflict. Edit your details and submit again.'},409);
     if(response.status!==200 && response.status!==201)return reply({error:'Could not save inquiry. Please retry.'},502);
     const result=await readBody(response,16384);
-    if(result.status!=='received'||!uuid.test(result.inquiry_reference))return reply({error:'Could not confirm receipt. Please retry.'},502);
+    if(result.status!=='received'||typeof result.inquiry_reference!=='string'||!uuid.test(result.inquiry_reference))return reply({error:'Could not confirm receipt. Please retry.'},502);
     return reply({inquiry_reference:result.inquiry_reference,status:'received'},response.status);
   }catch{return reply({error:'Could not confirm receipt. Please retry.'},502);}
 }

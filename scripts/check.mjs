@@ -67,7 +67,7 @@ for(const [,target] of html.matchAll(/href="#([^"]+)"/g))assert(ids.includes(tar
     assert(pageHtml.includes(`<h1 id="hero-title">${holiday.title.replace(/&/g,'&amp;')}</h1>`),'Holiday page missing title: '+holiday.slug);
     assert.equal((pageHtml.match(/<h1\b/g)||[]).length,1,'Holiday page needs one h1: '+holiday.slug);
     const declaredDays=Number(holiday.duration.match(/(\d+)\s+Days/i)?.[1]);
-    const departure=holidayPage.match(/Day (\d+) · [^<]*<\/p><h3>Departure<\/h3>/i)||holidayPage.match(/Day (\d+) · [^<]*<\/p><h3>[^<]*Departure[^<]*<\/h3>/i);
+    const departure=pageHtml.match(/Day (\d+) · [^<]*<\/p><h3>Departure<\/h3>/i)||pageHtml.match(/Day (\d+) · [^<]*<\/p><h3>[^<]*Departure[^<]*<\/h3>/i);
     assert(declaredDays && departure && Number(departure[1])===declaredDays,`Holiday departure day must match duration: ${holiday.slug}`);
   }
   const holidaysPage=await readFile(`${outputDir}/services/holidays-tours/index.html`,'utf8');
@@ -101,7 +101,7 @@ for(const [,target] of html.matchAll(/href="#([^"]+)"/g))assert(ids.includes(tar
   for(const [route,expectedTitle,expectedH1] of [
     ['sacred-circuits/varanasi-prayagraj-ayodhya-tour','Varanasi, Prayagraj & Ayodhya Luxury Tour | Irisha Concierge','The Sacred Triangle: 5D/4N Private Varanasi, Prayagraj & Ayodhya Pilgrimage'],
     ['sacred-circuits/nalanda-gaya-bodhgaya-tour','Nalanda, Gaya & Bodhgaya Pilgrimage Tour | Irisha Concierge','The Bihar Circuit: Private Nalanda, Gaya Pind Daan & Bodhgaya Tour'],
-    ['elite-fleet/force-urbania-hire-varanasi','16-Seater Force Urbania Hire in Varanasi | From ₹35/km','Force Urbania On Rent in Varanasi (12, 13 & 16-Seater Luxury Van)'],
+    ['elite-fleet/force-urbania-hire-varanasi','Force Urbania Hire in Varanasi | Irisha Concierge','Force Urbania Hire in Varanasi'],
     ['elite-fleet/innova-crysta-hycross-hire-varanasi','Innova Hycross & Crysta Rental in Varanasi | Chauffeur Driven','Chauffeur-Driven Toyota Innova Hycross & Innova Crysta Hire in Varanasi']
   ]){
     const page=await readFile(`${outputDir}/${route}/index.html`,'utf8');
@@ -116,7 +116,7 @@ for(const [,target] of html.matchAll(/href="#([^"]+)"/g))assert(ids.includes(tar
   }
   for(const slug of ['sacred-circuits/varanasi-prayagraj-ayodhya-tour','sacred-circuits/nalanda-gaya-bodhgaya-tour','elite-fleet/force-urbania-hire-varanasi','elite-fleet/innova-crysta-hycross-hire-varanasi'])assert(sitemap.includes(`<loc>https://irisha.co.in/${slug}/</loc><priority>1.0</priority>`),`Missing priority-1 sitemap URL: ${slug}`);
   const urbaniaPage=await readFile(`${outputDir}/elite-fleet/force-urbania-hire-varanasi/index.html`,'utf8');
-  for(const phrase of ['16-Seater','₹35/km','₹2,999','within 300 km','taxes extra','Tolls, border tax, parking'])assert(urbaniaPage.includes(phrase),`Urbania page missing approved disclosure: ${phrase}`);
+  for(const phrase of ['16/17-seater','₹35/km','₹2,999','taxes extra','Tolls, border tax, parking','Lucknow','Chitrakoot','positioning'])assert(urbaniaPage.includes(phrase),`Urbania page missing approved disclosure: ${phrase}`);
   assert(urbaniaPage.includes('urbania-feature-copy'),'Urbania feature copy panel is missing');
   assert(!html.includes('maps.app.goo.gl')&&!html.includes('g.page/r/'),'Homepage contains a Google review URL');
 assert(html.includes('Khushi Mishra')&&html.includes('Ramanathan Karunanithi'),'Review names missing from homepage');
@@ -138,7 +138,7 @@ assert(appSource.includes('Darshan coordination is subject to temple rules'),'Bo
 assert(appSource.includes('Google Tag Manager and Google Ads'),'Privacy copy must disclose installed tags');
 assert(html.includes('name="phone" type="tel"')&&appSource.includes("phone:values.get('phone').trim()"),'Inquiry flow must request phone and save it');
 assert.deepEqual(data.holidays,[],'Noindex international holidays should not be serialized into shared homepage content.');
- assert(appSource.includes("'gclid','utm_source'")&&html.includes('option value="sacred-triangle"'),'Inquiry attribution and explicit service IDs missing');
+ assert(appSource.includes("'gclid','gbraid','wbraid','utm_source'")&&html.includes('option value="sacred-triangle"'),'Inquiry attribution and explicit service IDs missing');
  assert((html.match(/<table>/g)||[]).length>=1,'Homepage tariff table missing');
  assert(html.includes('₹7,500'),'Homepage local fleet tariff missing');
  assert((html.match(/<section class="faq-section" id="faq"/g)||[]).length===1,'Homepage FAQ section missing');

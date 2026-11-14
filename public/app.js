@@ -53,20 +53,29 @@
     const valid = !travelDate.value || (travelDate.value.length === 10 && parsed.getFullYear() === yyyy && parsed.getMonth() === mm-1 && parsed.getDate() === dd);
     travelDate.setCustomValidity(!valid ? 'Enter a valid date as DD/MM/YYYY.' : (travelDate.value && parsed < startOfToday ? 'Travel date cannot be in the past.' : ''));
   });
-  function inquire(interest, trigger) {
+  let pickupDefault='';
+  function inquire(interest, trigger, source=trigger) {
     if(detail.open) detail.close();
     const select = byId('interest');
     const normalized=interest==='Innova Crysta Hire in Varanasi' || interest==='Innova Hycross Hire in Varanasi' ? 'Innova Hycross & Crysta Rental in Varanasi' : interest;
-    const chosen=[...select.options].find(option => option.textContent === normalized);
+    const chosen=[...select.options].find(option => option.value === normalized || option.textContent === normalized);
     if(chosen)select.value = chosen.value;
     const path=location.pathname;
     const preferred=path.includes('/sacred-circuits/varanasi-')?'The Sacred Triangle':path.includes('/sacred-circuits/nalanda-')?'Nalanda, Gaya & Bodhgaya':path.includes('/elite-fleet/force-')?'Force Urbania':path.includes('/elite-fleet/innova-')?'Innova Hycross & Crysta Rental in Varanasi':null;
     const preferredOption=[...select.options].find(option=>option.textContent===preferred);
-    if(preferredOption)select.value=preferredOption.value;
+    if(!chosen && preferredOption)select.value=preferredOption.value;
+    const pickup=byId('inquiry-form').elements.pickup;
+    const citySlug=path.match(/^\/elite-fleet\/force-urbania-hire-([a-z]+)\/$/)?.[1];
+    const city=['Varanasi','Lucknow','Ayodhya','Chitrakoot','Gaya','Bodhgaya','Prayagraj'].find(name=>name.toLowerCase()===citySlug);
+    const defaultCity=source?.dataset.pickup || city;
+    if(defaultCity && (!pickup.value.trim() || pickup.value===pickupDefault)){
+      pickup.value=defaultCity;
+      pickupDefault=pickup.value;
+    }
     openDialog(inquiry, trigger);
   }
   const action = label => `<button class="button detail-cta" data-inquire="${e(label)}">Personalise my ${data.fleet.some(x=>x.title===label)?'ride':'journey'} <span aria-hidden="true">→</span></button>`;
-   const privacyCopy = `<p>Submitting requests a save of your name, phone, selected service, travel date, traveler count, pickup and notes in Irisha's CRM so we can contact you about your trip. An inquiry is not a booking. We also save allowlisted campaign parameters and the landing page without its query or fragment. Inquiry details and retry keys stay in memory, not browser storage.</p><p>After confirmed receipt, WhatsApp opens with your full details and reference. If saving fails or is unavailable, WhatsApp opens with your full details without a reference; CRM receipt remains unconfirmed. A manual WhatsApp link remains available if opening fails. Nothing is sent in WhatsApp automatically. Inquiry submission does not use CAPTCHA. Avoid passport numbers, payment details and sensitive documents in your inquiry.</p><h3>Third-party services</h3><p>Cloudflare hosts the website and processes technical request information. WhatsApp applies its own terms when used. Google Fonts, Google Tag Manager and Google Ads are present. Appearance preference alone is stored locally.</p><p>For access, correction or deletion requests, email concierge@irisha.co.in.</p>`;
+   const privacyCopy = `<p>Submitting requests a save of your name, phone, selected service, travel date, traveler count, pickup and notes in Irisha's CRM so we can contact you about your trip. An inquiry is not a booking. We also save allowlisted campaign parameters and the landing page without its query or fragment. Inquiry details and retry keys stay in memory, not browser storage.</p><p>After confirmed receipt, WhatsApp opens with your full details and reference. If saving fails or is unavailable, WhatsApp opens with your full details without a reference; CRM receipt remains unconfirmed. A manual WhatsApp link remains available if opening fails. Nothing is sent in WhatsApp automatically. Inquiry submission does not use CAPTCHA. Avoid passport numbers, payment details and sensitive documents in your inquiry.</p><h3>Third-party services</h3><p>Cloudflare hosts the website and processes technical request information. WhatsApp applies its own terms when used. Google Fonts, Google Tag Manager and Google Ads are present. Appearance preference is stored locally. Allowlisted campaign identifiers and a landing URL without query or fragment are stored in sessionStorage for up to 30 minutes to retain attribution across internal pages. No inquiry details or retry keys are stored there.</p><p>For access, correction or deletion requests, email concierge@irisha.co.in.</p>`;
   const bookingCopy = `<p>Every journey is tailored to your dates, group and preferences. An inquiry is not a confirmed reservation or payment.</p><h3>Your quote</h3><p>Your concierge confirms itinerary, accommodation, vehicle configuration, inclusions, exclusions, taxes, payment schedule, amendments, cancellation terms and refund terms in writing before booking. No booking is confirmed until your concierge confirms it in writing.</p><h3>Sacred experiences</h3><p>Darshan coordination is subject to temple rules, official procedures and availability. Ritual coordination and private boat arrangements are available on request and subject to availability, local permissions and provider conditions.</p><h3>Flights and other providers</h3><p>Flights are excluded from the Sacred Triangle package and can be booked on request. Airfare, baggage, schedule changes, cancellations and refunds follow the airline’s rules. Other third-party experiences follow the relevant provider’s conditions. Review your written quotation and booking confirmation for the applicable terms before paying.</p>`;
   const packageItinerary = p => `<ol class="itinerary">${p.itinerary.map((day,i)=>`<li class="itinerary-stop"><span class="stop-number" aria-hidden="true">${String(day.day||i+1).padStart(2,'0')}</span><div><p class="small-eyebrow">${e(day.day_label||`Day ${day.day||i+1}`)} · ${e(day.place)}</p><h3>${e(day.title)}</h3><p>${e(day.description)}</p>${day.schedule?.length?`<dl class="itinerary-schedule">${day.schedule.map(slot=>`<div><dt>${e(slot.period)}</dt><dd>${e(slot.description)}</dd></div>`).join('')}</dl>`:''}${day.overnight?`<p class="itinerary-overnight"><strong>Overnight</strong> ${e(day.overnight)}</p>`:''}</div></li>`).join('')}</ol>`;
   function showDetail(type, key, trigger) {
@@ -91,19 +100,36 @@
     const button = event.target.closest('[data-contact],[data-inquire],[data-package],[data-vehicle],[data-policy]');
     if(!button)return;
     if(button.hasAttribute('data-contact')){inquire(document.querySelector('h1')?.textContent||'Private journey',button);return;}
-    if(button.hasAttribute('data-inquire'))inquire(button.dataset.inquire, button.closest('dialog') ? returnFocus : button);
+    if(button.hasAttribute('data-inquire'))inquire(button.dataset.inquire, button.closest('dialog') ? returnFocus : button, button);
     else if(button.hasAttribute('data-package'))location.assign(button.dataset.package==='sacred-triangle'?'/sacred-circuits/varanasi-prayagraj-ayodhya-tour/':'/sacred-circuits/nalanda-gaya-bodhgaya-tour/');
     else for(const type of ['vehicle','policy'])if(button.hasAttribute('data-'+type)){showDetail(type,button.dataset[type],button);break;}
   });
   const form=byId('inquiry-form');
   const status=byId('inquiry-status'), whatsapp=byId('inquiry-whatsapp');
-  const attribution={};
+  const campaignKeys=['gclid','gbraid','wbraid','utm_source','utm_medium','utm_campaign','utm_term','utm_content'];
+  const validCampaign=(key,value)=>typeof value==='string' && value.length>0 && value.length<=500 && value===value.trim() && !/[\u0000-\u001f\u007f]/.test(value) && (!['gclid','gbraid','wbraid'].includes(key) || /^[A-Za-z0-9_-]+$/.test(value));
+  const storageKey='irisha.campaign';
+  const now=Date.now(), ttl=30*60*1000;
+  let attribution={}, capturedAt=now;
+  try{
+    const stored=JSON.parse(window.sessionStorage.getItem(storageKey));
+    if(stored){
+      if(typeof stored.attribution?.landing_page_url!=='string')throw Error('Invalid landing page');
+      const landing=new URL(stored.attribution?.landing_page_url);
+      if(!Number.isFinite(stored.capturedAt) || stored.capturedAt>now || now-stored.capturedAt>=ttl || landing.origin!==location.origin || landing.search || landing.hash || landing.username || landing.password || landing.href.length>500 || !stored.attribution || Array.isArray(stored.attribution) || !Object.keys(stored.attribution).some(key=>campaignKeys.includes(key)) || Object.entries(stored.attribution).some(([key,value])=>key!=='landing_page_url' && (!campaignKeys.includes(key) || !validCampaign(key,value))))throw Error('Invalid campaign');
+      attribution=stored.attribution;
+      capturedAt=stored.capturedAt;
+    }
+  }catch{try{window.sessionStorage.removeItem(storageKey);}catch{}}
   const params=new URLSearchParams(location.search);
-  for(const key of ['gclid','utm_source','utm_medium','utm_campaign','utm_term','utm_content']){
+  const fresh={};
+  for(const key of campaignKeys){
     const value=params.get(key);
-    if(value && value.length<=500 && !/[\u0000-\u001f]/.test(value))attribution[key]=value;
+    if(validCampaign(key,value))fresh[key]=value;
   }
-  attribution.landing_page_url=location.origin+location.pathname;
+  if(Object.keys(fresh).length){attribution=fresh;capturedAt=now;}
+  if(!attribution.landing_page_url)attribution.landing_page_url=location.origin+location.pathname;
+  if(Object.keys(attribution).some(key=>campaignKeys.includes(key)))try{window.sessionStorage.setItem(storageKey,JSON.stringify({capturedAt,attribution}));}catch{}
    let pending, fingerprint, saved, serviceLabel, busy=false;
    const edited=()=>{whatsapp.hidden=true;status.textContent='';};
   form.addEventListener('input',edited);
@@ -133,11 +159,11 @@
       const response=await fetch('/api/inquiries',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...pending,company_website:form.elements.company_website.value}),signal:AbortSignal.timeout(15000)});
       const result=await response.json();
       if(!response.ok)throw Error(result.error || 'Could not confirm receipt. Please retry.');
-      if(![200,201].includes(response.status)||result.status!=='received'||!/^[0-9a-f-]{36}$/i.test(result.inquiry_reference))throw Error('Could not confirm receipt. Please retry.');
+      if(![200,201].includes(response.status)||result.status!=='received'||typeof result.inquiry_reference!=='string'||!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(result.inquiry_reference))throw Error('Could not confirm receipt. Please retry.');
       saved=result.inquiry_reference;
       status.textContent='Inquiry received. Reference: '+saved;
        url=showWhatsApp(saved);
-       try{window.gtag?.('event','inquiry_received');}catch{}
+        try{(window.dataLayer=window.dataLayer||[]).push({event:'inquiry_received',inquiry_reference:saved,service_id:pending.service_id,transaction_id:saved});}catch{}
      }catch(error){if(!saved)url=fallback(error.name==='TimeoutError'||error.name==='AbortError'||error instanceof TypeError?'Could not confirm receipt. Please retry.':error.message);}
      finally{busy=false;}
      if(url){try{location.assign(url);}catch{if(saved)status.textContent='Inquiry received. Reference: '+saved+'. Click Continue on WhatsApp to open your message.';}}

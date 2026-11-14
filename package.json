@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs && node scripts/build-worker.mjs",
-    "check": "node scripts/check.mjs && node scripts/check-inquiries.mjs",
+    "check": "node scripts/check.mjs && node scripts/check-inquiries.mjs && node scripts/check-build-seo.mjs",
     "build:pages": "node scripts/build.mjs"
   },
   "engines": {
