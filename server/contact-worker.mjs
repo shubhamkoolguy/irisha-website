@@ -36,7 +36,7 @@ async function readBody(request, max = 12288) {
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 export const attributionFields = ['gclid','utm_source','utm_medium','utm_campaign','utm_term','utm_content','landing_page_url'];
 export function validateInquiry(body) {
-  const fields=['submission_key','name','phone','service_id','travel_date','travelers','pickup','notes','attribution','token','company_website'];
+  const fields=['submission_key','name','phone','service_id','travel_date','travelers','pickup','notes','attribution','company_website'];
   if(!body || typeof body!=='object' || Array.isArray(body) || Object.keys(body).some(key=>!fields.includes(key)))throw Error('Invalid inquiry.');
   const text=(key,max,required=false)=>{
     const value=body[key];
@@ -59,17 +59,18 @@ export function validateInquiry(body) {
     }
     attribution[key]=value.trim();
   }
-  if(body.company_website!=='' || typeof body.token!=='string' || !body.token.trim() || body.token.length>8192)throw Error('Please complete the human verification.');
+  if(body.company_website!=='')throw Error('Invalid inquiry.');
   return {submission_key,name,phone,service_id,travel_date,travelers,pickup:text('pickup',500),notes:text('notes',4000),attribution};
 }
 export async function submitInquiry(request,env) {
+  const unavailable='Inquiry saving is temporarily unavailable. Please try again later.';
   if(request.method!=='POST')return reply({error:'Method not allowed.'},405);
   const origin=new URL(request.url).origin;
   if(request.headers.get('Origin')!==origin || (request.headers.get('Sec-Fetch-Site') && request.headers.get('Sec-Fetch-Site')!=='same-origin'))return reply({error:'Please open the inquiry from this website.'},403);
   if(request.headers.get('Content-Type')?.split(';')[0].trim().toLowerCase()!=='application/json')return reply({error:'Invalid request format.'},415);
   let endpoint;
   try{endpoint=new URL(env.CRM_INQUIRY_URL||'https://wanderdesk-crm.pages.dev/api/integrations/website/inquiries');}catch{return reply({error:unavailable},503);}
-  if(endpoint.protocol!=='https:' || endpoint.username || endpoint.password || !env.WEBSITE_INQUIRY_SECRET)return reply({error:unavailable},503);
+  if(endpoint.protocol!=='https:' || endpoint.username || endpoint.password || typeof env.WEBSITE_INQUIRY_SECRET!=='string' || !env.WEBSITE_INQUIRY_SECRET.trim() || /[\r\n]/.test(env.WEBSITE_INQUIRY_SECRET))return reply({error:unavailable},503);
   // The flag confirms an externally enforced WAF rule; it does not enforce a limit.
   if(env.INQUIRY_RATE_LIMITER != null)try{
     if(typeof env.INQUIRY_RATE_LIMITER.limit!=='function')return reply({error:unavailable},503);
@@ -81,9 +82,6 @@ export async function submitInquiry(request,env) {
   else if(env.INQUIRY_EDGE_RATE_LIMITED!=='true')return reply({error:unavailable},503);
   let body,payload;
   try{body=await readBody(request,16384);payload=validateInquiry(body);}catch(error){return reply({error:error.message==='body-size'?'Request body too large.':'Invalid inquiry. Please check your details.'},error.message==='body-size'?413:400);}
-  // Reuse token verification; its response never grants permission to skip verification on retries.
-  const verification=await verifyContact(new Request(request.url,{method:'POST',headers:{'Content-Type':'application/json',Origin:origin},body:JSON.stringify({token:body.token,company_website:body.company_website})}),env);
-  if(!verification.ok)return verification;
   try{
     const response=await fetch(endpoint.href,{method:'POST',redirect:'error',headers:{'Content-Type':'application/json',Authorization:`Bearer ${env.WEBSITE_INQUIRY_SECRET}`},body:JSON.stringify(payload),signal:AbortSignal.timeout(10000)});
     if(response.status===409)return reply({error:'Inquiry conflict. Edit your details and submit again.'},409);
